@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Primer</title>
+
+	<!-- Meta stuff -->
+	<meta charset="utf-8" />
+	<meta name="keywords" content="Primer, prime, prime numbers, mental math, mental arithmetic" />
+	<meta name="author" content="Alex Andrix" />
+	<meta name="description" content="Find all prime factors" />
+	<link rel="canonical" href="https://alexandrix.com/primer" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, target-densitydpi=device-dpi" />
+
+	<!-- Icons -->
+	<!-- To do -->
+	
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope" rel="stylesheet">
+	
+	<!-- Stylesheets -->
+	<!-- First compile from LESS with LESS npm package by running command **lessc less/main.less css/main.css** -->
+	<link rel="stylesheet" type="text/css" href="./css/main.css" />
+
+</head>
+
+<body>
+
+	<div id="play-area">
+		<div id="number-container">
+			<p id="number-to-guess">...</p>
+		  	<div id="xp-container">
+				<div id="xp-bar"></div>
+		  	</div>
+		</div>
+		<div id="prime-container"></div>
+		<div id="feedback-container">
+			<p id="feedback"></p>
+		</div>
+	</div>
+	  
+	<section id="info">
+		<p id="info-content">Exploration level <span>1</span></p>
+	</section>
+	<div id="step-bar-container">
+		<div id="step-bar"></div>
+	</div>
+	  
+	<nav id="menu" class="closed">
+		<div class="bar bar-1"></div>
+		<div class="bar bar-2"></div>
+		<div class="bar bar-3"></div>
+	</nav>
+	  
+	<div id="screen-overlay">
+		<!-- Where templates nodes go -->
+	</div>
+	  
+	<section id="landing-template" class="template">
+		<div id="landing-content">
+			<p class="tap-to-play">TAP TO START</p>
+		</div>
+	</section>
+	  
+	<section id="menu-template" class="template">
+		<div id="menu-content">
+		  
+			<div id="submenu-mode-selector">
+				<div id="mode-change-buttons" class="menu-buttons flexrow">
+					<p id="mode-change-button-left" class="mode-change-button">&lt;&nbsp;&nbsp;</p>
+					<p id="submenu-mode-name">EXPLORATION</p>
+					<p id="mode-change-button-right" class="mode-change-button">&nbsp;&nbsp;&gt;</p>
+			  	</div>
+		  	</div>
+		  
+			<div id="submenu-exploration" class="submenu">
+				<div class="menu-buttons flexcol flexcenter">
+					<button class="btn jump-to-level"></button>
+					<button class="btn jump-to-level"></button>
+					<button class="btn jump-to-level"></button>
+					<button class="btn jump-to-level"></button>
+				</div>
+				<div id="level-picker" class="flexrow">
+					<p id="minus" class="btn square-btn">-</p>
+					<button id="picked-level" class="btn"></button>
+					<p id="plus" class="btn square-btn">+</p>
+				</div>
+			</div>
+			
+			<div id="submenu-workouts" class="submenu hidden">
+				<div id="submenu-workout-list" class="menu-buttons flexcol flexcenter">
+					<!--<button class="btn"><strong>Ghis</strong> workout <span>(difficulty 65)</span></button>-->
+				</div>
+			</div>
+			
+			<div id="submenu-settings" class="submenu hidden">
+				<div id="settings" class="flexcol flexcenter">
+					<p id="audio-mute-info">Audio is unmuted</p>
+					<button class="btn" id="audio-mute-toggle">Mute audio</btn>
+				</div>
+			</div>
+		  
+		</div>
+	</section>
+	  
+	<section id="game-over-template" class="template">
+		<div id="game-over-content">
+			<h1>Game over</h1>
+			<p>Congratulations, you completed the game!</p>
+			<div class="btn-container">
+				<button id="game-over-restart" class="btn">Restart game</button>
+			</div>
+		</div>
+	</section>
+	  
+	<section id="workout-complete-template" class="template">
+		<div id="workout-complete-content" class="final-screen">
+			<h1>Workout complete</h1>
+			<p>Congratulations, you completed the workout!</p>
+			<div class="btn-container">
+				<button id="workout-complete-restart" class="btn">Workout again</button>
+			</div>
+		</div>
+	</section>
+
+
+<!-- Scripts for libraries -->
+<!-- None! -->
+
+<!-- Our scripts -->
+<script type="text/javascript" src="./js/main.js"></script>
+
+</body>

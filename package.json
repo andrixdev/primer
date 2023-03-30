@@ -1,0 +1,19 @@
+{
+  "name": "primer",
+  "version": "1.0.0",
+  "description": "Mini-game for mental arithmetic training",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrixdev/primer.git"
+  },
+  "author": "Alex Andrix",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrixdev/primer/issues"
+  },
+  "homepage": "https://github.com/andrixdev/primer#readme"
+}
