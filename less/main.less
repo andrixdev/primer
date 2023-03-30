@@ -1,55 +1,38 @@
-// Color variables (appears count calculates by raw css)
-@color0: #010709; // Appears 5 times
-@color1: #021017; // Appears 4 times
-@color2: #1182bb; // Appears 2 times
-@color3: #0ac247; // Appears 2 times
-@color4: #df2920; // Appears 2 times
+// Fonts
+@text-font: 'Annie Use Your Telescope', 'Comic Sans MS', serif;
+@numbers-font: 'Cormorant Garamond', 'Comic Sans MS', serif;
 
-// Width variables (appears count calculates by raw css)
-@width1: 900px; // Appears 4 times
-@width4: 100%; // Appears 7 times
+// Colors
+@win-green: hsl(140, 90%, 40%);
+@lose-red: hsl(3, 75%, 50%);
+@blue-02: hsl(200, 83%, 2%);
+@blue-05: hsl(200, 83%, 5%);
+@blue-08: hsl(200, 83%, 8%);
+@blue-11: hsl(200, 83%, 11%);
+@blue-15: hsl(200, 83%, 15%);
+@blue-20: hsl(200, 83%, 20%);
+@blue-30: hsl(200, 83%, 30%);
+@blue-40: hsl(200, 83%, 40%);
+@blue-50: hsl(200, 83%, 50%);
 
-// Height variables (appears count calculates by raw css)
-@height1: 900px; // Appears 4 times
-@height3: 100%; // Appears 5 times
-@height4: 60px; // Appears 2 times
+@win-color: @win-green;
+@lose-color: @lose-red;
+@background-color: @blue-05;
+@container-color: @blue-02;
+@btn-primary-color: white;
+@btn-secondary-color: @blue-05;
+@text-color: white;
+@progression-bars-color: @blue-40;
+@primes-color: @blue-08;
+@primes-selected-color: @blue-02;
 
-/*
-// Fontses
-$text-font: 'Annie Use Your Telescope', 'Comic Sans MS', serif
-$numbers-font: 'Cormorant Garamond', 'Comic Sans MS', serif
+// Others
+@main-size: 900px;
+@main-font-size: 4rem;
+@outline-thick: solid 2px white;
+@outline-faint: solid 1px rgba(255, 255, 255, 0.3);
+@outline-faintest: solid 0.5px rgba(255, 255, 255, 0.1);
 
-// Colorses
-$win-green: hsla(140, 90%, 40%, 1)
-$lose-red: hsla(3, 75%, 50%, 1)
-$blue-02: hsla(200, 83%, 2%, 1)
-$blue-05: hsla(200, 83%, 5%, 1)
-$blue-08: hsla(200, 83%, 8%, 1)
-$blue-11: hsla(200, 83%, 11%, 1)
-$blue-15: hsla(200, 83%, 15%, 1)
-$blue-20: hsla(200, 83%, 20%, 1)
-$blue-30: hsla(200, 83%, 30%, 1)
-$blue-40: hsla(200, 83%, 40%, 1)
-$blue-50: hsla(200, 83%, 50%, 1)
-
-$win-color: $win-green
-$lose-color: $lose-red
-$background-color: $blue-05
-$container-color: $blue-02
-$btn-primary-color: white
-$btn-secondary-color: $blue-05
-$text-color: white
-$progression-bars-color: $blue-40
-$primes-color: $blue-08
-$primes-selected-color: $blue-02
-
-// Otherses
-$main-size: 900px
-$main-font-size: 4rem
-$outline-thick: solid 2px white
-$outline-faint: solid 1px rgba(255, 255, 255, 0.3)
-$outline-faintest: solid 0.5px rgba(255, 255, 255, 0.1)
-*/
 
 * {
 	-moz-user-select: none;
@@ -60,14 +43,14 @@ $outline-faintest: solid 0.5px rgba(255, 255, 255, 0.1)
 
 html,
 body {
-	height: @height3;
+	height: 100%;
+	width: 100%;
+	min-height: @main-size;
+	min-width: @main-size;
 	margin: 0;
-	min-height: @height1;
-	min-width: @width1;
-	width: @width4;
 }
 body {
-	background: @color1;
+	background: @background-color;
 	position: relative;
 	
 	&.frozen {
@@ -75,29 +58,29 @@ body {
 	}
 }
 h1, h2, p, p::after {
-	color: white;
+	color: @text-color;
 }
 p {
-	font-family: "Annie Use Your Telescope", "Comic Sans MS", serif;
+	font-family: @text-font;
 	margin: 0;
 	text-align: center;
 	user-select: none;
 }
 .btn {
-	background: @color1;
-	font-family: "Annie Use Your Telescope", "Comic Sans MS", serif;
+	background: @btn-secondary-color;
+	font-family: @text-font;
 	font-weight: 500;
-	border: solid 2px white;
+	border: @outline-thick;
 	width: 180px;
 	font-size: 1.2rem;
 	padding: 1rem .3rem;
 	line-height: 1.2rem;
-	color: white;
+	color: @btn-primary-color;
 	cursor: pointer;
 	
 	&:not(.inactive):hover {
-		background: white;
-		color: @color1;
+		background: @btn-primary-color;
+		color: @btn-secondary-color;
 	}
 	&.inactive {
 		cursor: default;
@@ -139,7 +122,7 @@ section.template {
 	top: 0;
 	width: 100vw;
 	height: 100vh;
-	background: @color1;
+	background: @background-color;
 	z-index: 10;
 	display: flex;
 	flex-direction: column;
@@ -224,7 +207,7 @@ section.template {
 	padding-top: 80px;
 	
 	h1 {
-		font-family: "Annie Use Your Telescope", "Comic Sans MS", serif;
+		font-family: @text-font;
 		text-align: center;
 		text-transform: uppercase;
 	}
@@ -237,8 +220,8 @@ section.template {
 }
 
 #play-area {
-	width: @width1;
-	height: @height1;
+	width: @main-size;
+	height: @main-size;
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -253,27 +236,27 @@ section.template {
 	z-index: 1;
 	outline: none;
 	outline-offset: -5px;
-	font-size: 4rem;
-	text-shadow: white 0 0 2px;
-	background: @color0;
+	font-size: @main-font-size;
+	text-shadow: @text-color 0 0 2px;
+	background: @container-color;
 	position: absolute;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	&.win {
-		outline: solid 7px @color3;
+		outline: solid 7px @win-color;
 		outline-offset: -5px;
 		z-index: 2;
 	}
 	&.lose {
-		outline: solid 7px @color4;
+		outline: solid 7px @lose-color;
 		outline-offset: -5px;
 		z-index: 2;
 	}
 	
 	p#number-to-guess {
 		padding-bottom: .27em;
-		font-family: "Cormorant Garamond", "Comic Sans MS", serif;
+		font-family: @numbers-font;
 		&.shuffling {
 			opacity: .2;
 		}
@@ -282,7 +265,7 @@ section.template {
 	#xp-container {
 		position: absolute;
 		right: 5px;
-		height: calc(@height3 - 10px);
+		height: calc(100% - 10px);
 		width: 6%;
 		overflow: hidden;
 		
@@ -290,17 +273,17 @@ section.template {
 			position: absolute;
 			bottom: 0;
 			right: 0;
-			background: @color2;
-			width: @width4;
-			height: 0%;
+			background: @progression-bars-color;
+			width: 100%;
+			height: 0%; /* Set in JS */
 			transition: height 0.5s ease-out;
 		}
 	}
 }
 
 #prime-container {
-	height: @height1;
-	width: @width1;
+	height: @main-size;
+	width: @main-size;
 }
 
 #feedback-container {
@@ -309,20 +292,20 @@ section.template {
 	z-index: 10;
 	left: 0;
 	bottom: 0;
-	background: @color0;
+	background: @container-color;
 	outline: white solid 1px;
 	&.win {
-		outline: @color3 solid 2px;
+		outline: @win-color solid 2px;
 	}
 	&.lose {
-		outline: @color4 solid 2px;
+		outline: @lose-color solid 2px;
 	}
 	
 	p {
 		font-size: 1.8rem;
 		line-height: 1.8rem;
 		padding: .8rem 2rem;
-		color: white;
+		color: @text-color;
 		
 		span {
 			font-size: 1.2rem;
@@ -336,8 +319,8 @@ section.template {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: #031a25;
-	outline: solid 1px rgba(255, 255, 255, 0.3);
+	background: @primes-color;
+	outline: @outline-faint;
 	outline-offset: -3px;
 	cursor: pointer;
 	padding: 0px;
@@ -350,25 +333,25 @@ section.template {
 	
 	&:not([data-select-count="0"]) {
 		z-index: 1;
-		background: @color0;
-		outline: solid 2px white;
+		background: @primes-selected-color;
+		outline: @outline-thick;
 		outline-offset: -4px;
 	}	
 	&:not([data-select-count="0"]):not([data-select-count="1"])::after {
 		content: attr(data-select-count);
-		color: white;
-		font-size: 1.14286rem;
-		font-family: 'Cormorant Garamond', 'Comic Sans MS', serif;
-		padding-bottom: 1.14286rem;
+		color: @text-color;
+		font-size: @main-font-size / 3.5;
+		font-family: @numbers-font;
+		padding-bottom: @main-font-size / 3.5;
 		padding-left: 2px;
 	}
 	
 	p {
 		display: inline;
-		font-family: "Cormorant Garamond", "Comic Sans MS", serif;
-		font-size: 1.6rem;
+		font-family: @numbers-font;
+		font-size: @main-font-size / 2.5;
 		padding-bottom: .3em;
-		color: white;
+		color: @text-color;
 		vertical-align: middle;
 		pointer-events: none;
 	}
@@ -381,9 +364,9 @@ section.template {
 	right: 0;
 	width: 60px;
 	height: 60px;
-	background: @color0;
+	background: @container-color;
 	cursor: pointer;
-	outline: solid 0.5px rgba(255, 255, 255, 0.1);
+	outline: @outline-faintest;
 	
 	.bar {
 		background: white;
@@ -431,11 +414,11 @@ section.template {
 	left: 0;
 	width: calc(100% - 60px);
 	height: 60px;
-	background: @color0;
-	border-bottom: solid 0.5px rgba(255, 255, 255, 0.1);
+	background: @container-color;
+	border-bottom: @outline-faintest;
 	
 	p#info-content {
-		font-family: "Annie Use Your Telescope", "Comic Sans MS", serif;
+		font-family: @text-font;
 		font-size: 1.4rem;
 		padding: 8px 1.5em;
 		text-align: left;
@@ -455,7 +438,7 @@ section.template {
 	overflow: hidden;
 	
 	#step-bar {
-		background: @color2;
+		background: @progression-bars-color;
 		width: 0%; /* Set in JS */
 		height: 100%;
 		transition: width 0.5s ease-out;
