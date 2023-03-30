@@ -5,6 +5,7 @@
 // Colors
 @win-green: hsl(140, 90%, 40%);
 @lose-red: hsl(3, 75%, 50%);
+
 @blue-02: hsl(200, 83%, 2%);
 @blue-05: hsl(200, 83%, 5%);
 @blue-08: hsl(200, 83%, 8%);
@@ -15,6 +16,21 @@
 @blue-40: hsl(200, 83%, 40%);
 @blue-50: hsl(200, 83%, 50%);
 
+@grey-98: hsl(200, 5%, 98%);
+@grey-95: hsl(200, 5%, 95%);
+@grey-90: hsl(200, 5%, 90%);
+@grey-85: hsl(200, 5%, 85%);
+@grey-80: hsl(200, 5%, 80%);
+@grey-70: hsl(200, 5%, 70%);
+@grey-60: hsl(200, 5%, 60%);
+@grey-50: hsl(200, 5%, 50%);
+@grey-40: hsl(200, 5%, 40%);
+@grey-35: hsl(200, 5%, 35%);
+@grey-30: hsl(200, 5%, 30%);
+@grey-20: hsl(200, 5%, 20%);
+@grey-10: hsl(200, 5%, 10%);
+
+/*
 @win-color: @win-green;
 @lose-color: @lose-red;
 @background-color: @blue-05;
@@ -25,13 +41,26 @@
 @progression-bars-color: @blue-40;
 @primes-color: @blue-08;
 @primes-selected-color: @blue-02;
+*/
+
+@win-color: @win-green;
+@lose-color: @lose-red;
+@background-color: @grey-85;
+@container-color: white;
+@btn-primary-color: @grey-30;
+@btn-secondary-color: @grey-95;
+@text-color: @grey-35;
+@progression-bars-color: @grey-10;
+@primes-color: white;
+@primes-selected-color: white;
+
 
 // Others
 @main-size: 900px;
 @main-font-size: 4rem;
-@outline-thick: solid 2px white;
-@outline-faint: solid 1px rgba(255, 255, 255, 0.3);
-@outline-faintest: solid 0.5px rgba(255, 255, 255, 0.1);
+@outline-thick: solid 2px @text-color;
+@outline-faint: solid 1px fade(@text-color, 30%);
+@outline-faintest: solid 0.5px fade(@text-color, 10%);
 
 
 * {
@@ -237,7 +266,7 @@ section.template {
 	outline: none;
 	outline-offset: -5px;
 	font-size: @main-font-size;
-	text-shadow: @text-color 0 0 2px;
+	text-shadow: @text-color 0 0 1px;
 	background: @container-color;
 	position: absolute;
 	display: flex;
@@ -369,7 +398,7 @@ section.template {
 	outline: @outline-faintest;
 	
 	.bar {
-		background: white;
+		background: @text-color;
 		border-radius: 1px;
 		width: 30px;
 		height: 4px;
