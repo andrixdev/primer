@@ -223,6 +223,9 @@ let resetExploration = () => {
 }
 let endExploration = () => {
   UI.fillOverlayUI(dom.templates.gameOver)
+  // Back to exploration debuts (in case button is not clicked and menu is closed)
+  resetExploration()
+  startExploration(1)
 }
 
 // Game - Workout mode
@@ -316,8 +319,8 @@ let resetWorkout = () => {
 }
 let endWorkout = () => {
   UI.fillOverlayUI(dom.templates.workoutComplete)
+  // Back to exploration debuts (in case button is not clicked and menu is closed)
   resetWorkout()
-  // Back to exploration debuts (if not clicking on button and closing menu)
   startExploration(1)
 }
 

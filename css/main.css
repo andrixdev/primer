@@ -7,8 +7,10 @@
 @btn-secondary-color: @blue-05;
 @text-color: white;
 @progression-bars-color: @blue-40;
-@primes-color: @blue-08;
-@primes-selected-color: @blue-02;
+@primes-background-color: @blue-08;
+@primes-text-color: @text-color;
+@primes-selected-background-color: @blue-02;
+@primes-selected-text-color: @text-color;
 */
 * {
   -moz-user-select: none;
@@ -35,7 +37,7 @@ h1,
 h2,
 p,
 p::after {
-  color: hsl(200, 5%, 35%);
+  color: hsl(200, 5%, 20%);
 }
 p {
   font-family: 'Annie Use Your Telescope', 'Comic Sans MS', serif;
@@ -47,7 +49,7 @@ p {
   background: hsl(200, 5%, 95%);
   font-family: 'Annie Use Your Telescope', 'Comic Sans MS', serif;
   font-weight: 500;
-  border: solid 2px hsl(200, 5%, 35%);
+  border: solid 2px hsl(200, 5%, 20%);
   width: 180px;
   font-size: 1.2rem;
   padding: 1rem 0.3rem;
@@ -198,7 +200,7 @@ section.template {
   outline: none;
   outline-offset: -5px;
   font-size: 4rem;
-  text-shadow: hsl(200, 5%, 35%) 0 0 1px;
+  text-shadow: hsl(200, 5%, 20%) 0 0 1px;
   background: white;
   position: absolute;
   display: flex;
@@ -262,7 +264,7 @@ section.template {
   font-size: 1.8rem;
   line-height: 1.8rem;
   padding: 0.8rem 2rem;
-  color: hsl(200, 5%, 35%);
+  color: hsl(200, 5%, 20%);
 }
 #feedback-container p span {
   font-size: 1.2rem;
@@ -273,8 +275,8 @@ section.template {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
-  outline: solid 1px hsla(200, 5%, 35%, 0.3);
+  background: hsl(200, 5%, 15%);
+  outline: solid 1px hsla(200, 5%, 20%, 0.3);
   outline-offset: -3px;
   cursor: pointer;
   padding: 0px;
@@ -282,6 +284,8 @@ section.template {
   /* Set in JS */
   width: auto;
   /* Set in JS */
+  /* Selected once */
+  /* Selected twice or more */
 }
 .prime.hidden {
   display: none;
@@ -289,12 +293,12 @@ section.template {
 .prime:not([data-select-count="0"]) {
   z-index: 1;
   background: white;
-  outline: solid 2px hsl(200, 5%, 35%);
+  outline: solid 2px hsl(200, 5%, 20%);
   outline-offset: -4px;
 }
 .prime:not([data-select-count="0"]):not([data-select-count="1"])::after {
   content: attr(data-select-count);
-  color: hsl(200, 5%, 35%);
+  color: hsl(200, 5%, 10%);
   font-size: 1.14285714rem;
   font-family: 'Cormorant Garamond', 'Comic Sans MS', serif;
   padding-bottom: 1.14285714rem;
@@ -305,9 +309,12 @@ section.template {
   font-family: 'Cormorant Garamond', 'Comic Sans MS', serif;
   font-size: 1.6rem;
   padding-bottom: 0.3em;
-  color: hsl(200, 5%, 35%);
+  color: hsl(200, 5%, 85%);
   vertical-align: middle;
   pointer-events: none;
+}
+.prime:not([data-select-count="0"]) p {
+  color: hsl(200, 5%, 10%);
 }
 #menu {
   position: fixed;
@@ -318,10 +325,10 @@ section.template {
   height: 60px;
   background: white;
   cursor: pointer;
-  outline: solid 0.5px hsla(200, 5%, 35%, 0.1);
+  outline: solid 0.5px hsla(200, 5%, 20%, 0.1);
 }
 #menu .bar {
-  background: hsl(200, 5%, 35%);
+  background: hsl(200, 5%, 20%);
   border-radius: 1px;
   width: 30px;
   height: 4px;
@@ -362,7 +369,7 @@ section.template {
   width: calc(100% - 60px);
   height: 60px;
   background: white;
-  border-bottom: solid 0.5px hsla(200, 5%, 35%, 0.1);
+  border-bottom: solid 0.5px hsla(200, 5%, 20%, 0.1);
 }
 #info p#info-content {
   font-family: 'Annie Use Your Telescope', 'Comic Sans MS', serif;

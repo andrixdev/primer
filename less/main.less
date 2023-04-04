@@ -28,7 +28,9 @@
 @grey-35: hsl(200, 5%, 35%);
 @grey-30: hsl(200, 5%, 30%);
 @grey-20: hsl(200, 5%, 20%);
+@grey-15: hsl(200, 5%, 15%);
 @grey-10: hsl(200, 5%, 10%);
+@grey-05: hsl(200, 5%, 5%);
 
 /*
 @win-color: @win-green;
@@ -39,8 +41,10 @@
 @btn-secondary-color: @blue-05;
 @text-color: white;
 @progression-bars-color: @blue-40;
-@primes-color: @blue-08;
-@primes-selected-color: @blue-02;
+@primes-background-color: @blue-08;
+@primes-text-color: @text-color;
+@primes-selected-background-color: @blue-02;
+@primes-selected-text-color: @text-color;
 */
 
 @win-color: @win-green;
@@ -49,10 +53,12 @@
 @container-color: white;
 @btn-primary-color: @grey-30;
 @btn-secondary-color: @grey-95;
-@text-color: @grey-35;
+@text-color: @grey-20;
 @progression-bars-color: @grey-10;
-@primes-color: white;
-@primes-selected-color: white;
+@primes-background-color: @grey-15;
+@primes-text-color: @grey-85;
+@primes-selected-background-color: white;
+@primes-selected-text-color: @grey-10;
 
 
 // Others
@@ -348,7 +354,7 @@ section.template {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: @primes-color;
+	background: @primes-background-color;
 	outline: @outline-faint;
 	outline-offset: -3px;
 	cursor: pointer;
@@ -359,16 +365,17 @@ section.template {
 	&.hidden {
 		display: none;
 	}
-	
+	/* Selected once */
 	&:not([data-select-count="0"]) {
 		z-index: 1;
-		background: @primes-selected-color;
+		background: @primes-selected-background-color;
 		outline: @outline-thick;
 		outline-offset: -4px;
-	}	
+	}
+	/* Selected twice or more */
 	&:not([data-select-count="0"]):not([data-select-count="1"])::after {
 		content: attr(data-select-count);
-		color: @text-color;
+		color: @primes-selected-text-color;
 		font-size: @main-font-size / 3.5;
 		font-family: @numbers-font;
 		padding-bottom: @main-font-size / 3.5;
@@ -380,9 +387,12 @@ section.template {
 		font-family: @numbers-font;
 		font-size: @main-font-size / 2.5;
 		padding-bottom: .3em;
-		color: @text-color;
+		color: @primes-text-color;
 		vertical-align: middle;
 		pointer-events: none;
+	}
+	&:not([data-select-count="0"]) p {
+		color: @primes-selected-text-color;
 	}
 }
 
