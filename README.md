@@ -1,6 +1,10 @@
 # Primer
 Mini-game for mental arithmetic training. Find all prime factors of the central number!
 
+# The game
+You can play the game here!
+https://alexandrix.com/primer
+
 # Developer setup
 * Install Node (https://nodejs.org/)
 * Install npm (https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)

@@ -78,15 +78,17 @@
 
 html,
 body {
-	height: 100%;
-	width: 100%;
-	min-height: @main-size;
-	min-width: @main-size;
+	height: 100vh;
+	width: 100vw;
 	margin: 0;
+}
+html {
+	overflow: hidden;
 }
 body {
 	background: @background-color;
 	position: relative;
+	overflow: auto;
 	
 	&.frozen {
 		overflow-y: hidden;
@@ -262,7 +264,7 @@ section.template {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	margin: auto;
+	margin: 20px auto 60px;
 }
 
 #number-container {
@@ -323,6 +325,7 @@ section.template {
 
 #feedback-container {
 	width: 100%;
+	height: 60px;
 	position: fixed;
 	z-index: 10;
 	left: 0;
@@ -339,7 +342,7 @@ section.template {
 	p {
 		font-size: 1.8rem;
 		line-height: 1.8rem;
-		padding: .8rem 2rem;
+		padding: .9rem 2rem;
 		color: @text-color;
 		
 		span {

@@ -379,7 +379,7 @@ UI.fillOverlayUI = (newTemplateNode) => {
   dom.overlay.className = '' // Removes potential .hidden class
 }
 UI.scrollToCenter = () => {
-  window.scrollTo(1/2 * (document.body.clientWidth - document.documentElement.clientWidth), 1/2 * (document.body.clientHeight - document.documentElement.clientHeight))
+    document.body.scrollTo(1/2 * (dom.playArea.clientWidth - document.body.clientWidth), 1/2 * (dom.playArea.clientHeight - document.body.clientHeight))
 }
 UI.openMenu = () => {
   UI.fillOverlayUI(dom.templates.menu)
