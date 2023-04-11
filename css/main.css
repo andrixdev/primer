@@ -1,17 +1,68 @@
-/*
-@win-color: @win-green;
-@lose-color: @lose-red;
-@background-color: @blue-05;
-@container-color: @blue-02;
-@btn-primary-color: white;
-@btn-secondary-color: @blue-05;
-@text-color: white;
-@progression-bars-color: @blue-40;
-@primes-background-color: @blue-08;
-@primes-text-color: @text-color;
-@primes-selected-background-color: @blue-02;
-@primes-selected-text-color: @text-color;
-*/
+:root {
+  --text-font: 'Annie Use Your Telescope', 'Comic Sans MS', serif;
+  --numbers-font: 'Cormorant Garamond', 'Comic Sans MS', serif;
+  --win-green: hsl(140, 90%, 40%);
+  --lose-red: hsl(3, 75%, 50%);
+  --blue-02: hsl(200, 83%, 2%);
+  --blue-05: hsl(200, 83%, 5%);
+  --blue-08: hsl(200, 83%, 8%);
+  --blue-11: hsl(200, 83%, 11%);
+  --blue-15: hsl(200, 83%, 15%);
+  --blue-20: hsl(200, 83%, 20%);
+  --blue-30: hsl(200, 83%, 30%);
+  --blue-40: hsl(200, 83%, 40%);
+  --blue-50: hsl(200, 83%, 50%);
+  --grey-98: hsl(200, 5%, 98%);
+  --grey-95: hsl(200, 5%, 95%);
+  --grey-90: hsl(200, 5%, 90%);
+  --grey-85: hsl(200, 5%, 85%);
+  --grey-80: hsl(200, 5%, 80%);
+  --grey-70: hsl(200, 5%, 70%);
+  --grey-60: hsl(200, 5%, 60%);
+  --grey-50: hsl(200, 5%, 50%);
+  --grey-40: hsl(200, 5%, 40%);
+  --grey-35: hsl(200, 5%, 35%);
+  --grey-30: hsl(200, 5%, 30%);
+  --grey-20: hsl(200, 5%, 20%);
+  --grey-15: hsl(200, 5%, 15%);
+  --grey-10: hsl(200, 5%, 10%);
+  --grey-05: hsl(200, 5%, 5%);
+  --win-color: var(--win-green);
+  --lose-color: var(--lose-red);
+  --background-color: var(--grey-85);
+  --container-color: white;
+  --btn-primary-color: var(--grey-30);
+  --btn-secondary-color: var(--grey-95);
+  --text-color: var(--grey-20);
+  --borders-color: var(--text-color);
+  --faint-borders-color: rgba(255, 255, 255, 0.3);
+  --progression-bars-color: var(--grey-10);
+  --primes-background-color: var(--grey-15);
+  --primes-text-color: var(--grey-90);
+  --primes-selected-background-color: white;
+  --primes-selected-text-color: var(--grey-10);
+  --main-size: 900px;
+  --main-font-size: 4rem;
+  --outline-thick: solid 2px var(--borders-color);
+  --outline-faint: solid 1px var(--faint-borders-color);
+  --outline-faintest: solid 0.5px var(--faint-borders-color);
+}
+html.dark-theme {
+  --win-color: var(--win-green);
+  --lose-color: var(--lose-red);
+  --background-color: var(--blue-05);
+  --container-color: var(--blue-02);
+  --btn-primary-color: white;
+  --btn-secondary-color: var(--blue-05);
+  --text-color: white;
+  --borders-color: white;
+  --faint-borders-color: rgba(255, 255, 255, 0.3);
+  --progression-bars-color: var(--blue-40);
+  --primes-background-color: var(--blue-08);
+  --primes-text-color: var(--text-color);
+  --primes-selected-background-color: var(--blue-02);
+  --primes-selected-text-color: var(--text-color);
+}
 * {
   -moz-user-select: none;
   -ms-user-select: none;
@@ -28,7 +79,7 @@ html {
   overflow: hidden;
 }
 body {
-  background: hsl(200, 5%, 85%);
+  background: var(--background-color);
   position: relative;
   overflow: auto;
 }
@@ -39,29 +90,29 @@ h1,
 h2,
 p,
 p::after {
-  color: hsl(200, 5%, 20%);
+  color: var(--text-color);
 }
 p {
-  font-family: 'Annie Use Your Telescope', 'Comic Sans MS', serif;
+  font-family: var(--text-font);
   margin: 0;
   text-align: center;
   user-select: none;
 }
 .btn {
-  background: hsl(200, 5%, 95%);
-  font-family: 'Annie Use Your Telescope', 'Comic Sans MS', serif;
+  background: var(--btn-secondary-color);
+  font-family: var(--text-font);
   font-weight: 500;
-  border: solid 2px hsl(200, 5%, 20%);
+  border: var(--outline-thick);
   width: 180px;
   font-size: 1.2rem;
   padding: 1rem 0.3rem;
   line-height: 1.2rem;
-  color: hsl(200, 5%, 30%);
+  color: var(--btn-primary-color);
   cursor: pointer;
 }
 .btn:not(.inactive):hover {
-  background: hsl(200, 5%, 30%);
-  color: hsl(200, 5%, 95%);
+  background: var(--btn-primary-color);
+  color: var(--btn-secondary-color);
 }
 .btn.inactive {
   cursor: default;
@@ -99,7 +150,7 @@ section.template {
   top: 0;
   width: 100vw;
   height: 100vh;
-  background: hsl(200, 5%, 85%);
+  background: var(--background-color);
   z-index: 10;
   display: flex;
   flex-direction: column;
@@ -171,7 +222,7 @@ section.template {
 }
 #game-over-template h1,
 #workout-complete-template h1 {
-  font-family: 'Annie Use Your Telescope', 'Comic Sans MS', serif;
+  font-family: var(--text-font);
   text-align: center;
   text-transform: uppercase;
 }
@@ -184,8 +235,8 @@ section.template {
   margin: 2em 0;
 }
 #play-area {
-  width: 900px;
-  height: 900px;
+  width: var(--main-size);
+  height: var(--main-size);
   position: absolute;
   top: 0;
   bottom: 0;
@@ -201,27 +252,27 @@ section.template {
   z-index: 1;
   outline: none;
   outline-offset: -5px;
-  font-size: 4rem;
-  text-shadow: hsl(200, 5%, 20%) 0 0 1px;
-  background: white;
+  font-size: var(--main-font-size);
+  text-shadow: var(--text-color) 0 0 1px;
+  background: var(--container-color);
   position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 #number-container.win {
-  outline: solid 7px hsl(140, 90%, 40%);
+  outline: solid 7px var(--win-color);
   outline-offset: -5px;
   z-index: 2;
 }
 #number-container.lose {
-  outline: solid 7px hsl(3, 75%, 50%);
+  outline: solid 7px var(--lose-color);
   outline-offset: -5px;
   z-index: 2;
 }
 #number-container p#number-to-guess {
   padding-bottom: 0.27em;
-  font-family: 'Cormorant Garamond', 'Comic Sans MS', serif;
+  font-family: var(--numbers-font);
 }
 #number-container p#number-to-guess.shuffling {
   opacity: 0.2;
@@ -237,15 +288,15 @@ section.template {
   position: absolute;
   bottom: 0;
   right: 0;
-  background: hsl(200, 5%, 10%);
+  background: var(--progression-bars-color);
   width: 100%;
   height: 0%;
   /* Set in JS */
   transition: height 0.5s ease-out;
 }
 #prime-container {
-  height: 900px;
-  width: 900px;
+  height: var(--main-size);
+  width: var(--main-size);
 }
 #feedback-container {
   width: 100%;
@@ -254,20 +305,20 @@ section.template {
   z-index: 10;
   left: 0;
   bottom: 0;
-  background: white;
-  outline: white solid 1px;
+  background: var(--container-color);
+  border-top: var(--outline-faintest);
 }
 #feedback-container.win {
-  outline: hsl(140, 90%, 40%) solid 2px;
+  outline: var(--win-color) solid 2px;
 }
 #feedback-container.lose {
-  outline: hsl(3, 75%, 50%) solid 2px;
+  outline: var(--lose-color) solid 2px;
 }
 #feedback-container p {
   font-size: 1.8rem;
   line-height: 1.8rem;
   padding: 0.9rem 2rem;
-  color: hsl(200, 5%, 20%);
+  color: var(--text-color);
 }
 #feedback-container p span {
   font-size: 1.2rem;
@@ -278,8 +329,8 @@ section.template {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: hsl(200, 5%, 15%);
-  outline: solid 1px hsla(200, 5%, 20%, 0.3);
+  background: var(--primes-background-color);
+  outline: var(--outline-faintest);
   outline-offset: -3px;
   cursor: pointer;
   padding: 0px;
@@ -295,29 +346,29 @@ section.template {
 }
 .prime:not([data-select-count="0"]) {
   z-index: 1;
-  background: white;
-  outline: solid 2px hsl(200, 5%, 20%);
+  background: var(--primes-selected-background-color);
+  outline: var(--outline-thick);
   outline-offset: -4px;
 }
 .prime:not([data-select-count="0"]):not([data-select-count="1"])::after {
   content: attr(data-select-count);
-  color: hsl(200, 5%, 10%);
-  font-size: 1.14285714rem;
-  font-family: 'Cormorant Garamond', 'Comic Sans MS', serif;
-  padding-bottom: 1.14285714rem;
+  color: var(--primes-selected-text-color);
+  font-size: calc(var(--main-font-size) / 3.5);
+  font-family: var(--numbers-font);
+  padding-bottom: calc(var(--main-font-size) / 3.5);
   padding-left: 2px;
 }
 .prime p {
   display: inline;
-  font-family: 'Cormorant Garamond', 'Comic Sans MS', serif;
-  font-size: 1.6rem;
+  font-family: var(--numbers-font);
+  font-size: calc(var(--main-font-size) / 2.5);
   padding-bottom: 0.3em;
-  color: hsl(200, 5%, 85%);
+  color: var(--primes-text-color);
   vertical-align: middle;
   pointer-events: none;
 }
 .prime:not([data-select-count="0"]) p {
-  color: hsl(200, 5%, 10%);
+  color: var(--primes-selected-text-color);
 }
 #menu {
   position: fixed;
@@ -326,12 +377,12 @@ section.template {
   right: 0;
   width: 60px;
   height: 60px;
-  background: white;
+  background: var(--container-color);
   cursor: pointer;
-  outline: solid 0.5px hsla(200, 5%, 20%, 0.1);
+  outline: var(--outline-faintest);
 }
 #menu .bar {
-  background: hsl(200, 5%, 20%);
+  background: var(--text-color);
   border-radius: 1px;
   width: 30px;
   height: 4px;
@@ -371,11 +422,11 @@ section.template {
   left: 0;
   width: calc(100% - 60px);
   height: 60px;
-  background: white;
-  border-bottom: solid 0.5px hsla(200, 5%, 20%, 0.1);
+  background: var(--container-color);
+  border-bottom: var(--outline-faintest);
 }
 #info p#info-content {
-  font-family: 'Annie Use Your Telescope', 'Comic Sans MS', serif;
+  font-family: var(--text-font);
   font-size: 1.4rem;
   padding: 8px 1.5em;
   text-align: left;
@@ -393,7 +444,7 @@ section.template {
   overflow: hidden;
 }
 #step-bar-container #step-bar {
-  background: hsl(200, 5%, 10%);
+  background: var(--progression-bars-color);
   width: 0%;
   /* Set in JS */
   height: 100%;
