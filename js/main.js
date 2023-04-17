@@ -194,6 +194,11 @@ let addXP = (newXP) => {
   xp = Math.min(xp, maxXP)
   
   UI.updateXpBar()
+  if (newXP > 0) {
+    Aud.play('xp_up')
+  } else {
+    Aud.play('xp_down')
+  }
 }
 let changeLevelTo = (newLevel) => {
   level = newLevel
@@ -209,6 +214,7 @@ let changeLevelTo = (newLevel) => {
 }
 let levelUp = () => {
   if (level < maxLevel) {
+    Aud.play('level_up')
     changeLevelTo(level + 1)
   }
 }
@@ -757,10 +763,34 @@ let Aud = {
   muted: false,
   samples: {
     correct: undefined,
-    incorrect: undefined
+    incorrect: undefined,
+    xp_up: undefined,
+    xp_down: undefined,
+    level_up: undefined,
+    button_hover: undefined,
   }
 }
 Aud.initSamples = () => {
+  let sfxFolder = 'audio/sfx/'
+  let sfx_sources = ['xp_up', 'xp_down', 'level_up', 'button_hover']
+  // list folder 
+  // for each file, load it (make a separate function)
+  for (source of sfx_sources) {
+    // Create an audio node
+    let audioElement = document.createElement('audio')
+    audioElement.id = source
+    audioElement.preload = true
+    audioElement.loop = false
+    let audioSourceElement = document.createElement('source')
+    audioSourceElement.src = sfxFolder + source + '.mp3'
+    audioSourceElement.type = 'audio/mp3'
+    audioElement.appendChild(audioSourceElement)
+
+    document.getElementsByTagName('body')[0].appendChild(audioElement)
+  }
+
+  // TODO: remove duplication
+  // load alex' samples
   for (let i = 1; i <= 2; i++) {
     // Create an audio node
     let audioElement = document.createElement('audio')
@@ -777,15 +807,33 @@ Aud.initSamples = () => {
   
   Aud.samples.correct = document.getElementById('sample-1')
   Aud.samples.incorrect = document.getElementById('sample-2')
+  Aud.samples.xp_up = document.getElementById('xp_up')
+  Aud.samples.xp_down = document.getElementById('xp_down')
+  Aud.samples.level_up = document.getElementById('level_up')
+  Aud.samples.button_hover = document.getElementById('button_hover')
 }
 Aud.play = (type) => {
   if (Aud.muted) return false
   
-  // tape can be 'correct' or 'incorrect'
-  if (type == 'correct') {
-    Aud.samples.correct.play()
-  } else if (type == 'incorrect') {
-    Aud.samples.incorrect.play()
+  switch (type) {
+    case 'correct':
+      Aud.samples.correct.play()
+      break
+    case 'incorrect':
+      Aud.samples.incorrect.play()
+      break
+    case 'xp_up':
+      Aud.samples.xp_up.play()
+      break
+    case 'xp_down':
+      Aud.samples.xp_down.play()
+      break
+    case 'level_up':
+      Aud.samples.level_up.play()
+      break
+    case 'button_hover':
+      Aud.samples.button_hover.play()
+      break
   }
   
   Aud.playing = true
