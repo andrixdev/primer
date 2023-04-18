@@ -41,7 +41,7 @@
   --primes-text-color: var(--grey-90);
   --primes-selected-background-color: white;
   --primes-selected-text-color: var(--grey-10);
-  --main-size: 900px;
+  --main-size: 1100px;
   --main-font-size: 4rem;
   --outline-thick: solid 2px var(--borders-color);
   --outline-faint: solid 1px var(--faint-borders-color);
