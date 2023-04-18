@@ -440,6 +440,7 @@ UI.initListeners = () => {
   document.getElementById('landing-content').addEventListener('click', () => {
     if (UI.freezeUIinteraction) return false
     dom.overlay.className = 'hidden'
+    Aud.play('soundtrack')
     UI.scrollToCenter()
   })
   
@@ -762,6 +763,7 @@ let Aud = {
   playing: false,
   muted: false,
   samples: {
+    soundtrack: undefined,
     correct: undefined,
     incorrect: undefined,
     xp_up: undefined,
@@ -771,10 +773,23 @@ let Aud = {
   }
 }
 Aud.initSamples = () => {
+  // TODO: remove duplication
+  // Load soundtrack
+  let soundtrack_path = 'audio/soundtrack/placeholder_track.mp3'
+  let audioElement = document.createElement('audio')
+  audioElement.id = 'soundtrack'
+  audioElement.preload = true
+  audioElement.loop = true
+  let audioSourceElement = document.createElement('source')
+  audioSourceElement.src = soundtrack_path
+  audioSourceElement.type = 'audio/mp3'
+  audioElement.appendChild(audioSourceElement)
+
+  document.getElementsByTagName('body')[0].appendChild(audioElement)
+
+  // Load sound FX
   let sfxFolder = 'audio/sfx/'
   let sfx_sources = ['xp_up', 'xp_down', 'level_up', 'button_hover']
-  // list folder 
-  // for each file, load it (make a separate function)
   for (source of sfx_sources) {
     // Create an audio node
     let audioElement = document.createElement('audio')
@@ -789,7 +804,6 @@ Aud.initSamples = () => {
     document.getElementsByTagName('body')[0].appendChild(audioElement)
   }
 
-  // TODO: remove duplication
   // load alex' samples
   for (let i = 1; i <= 2; i++) {
     // Create an audio node
@@ -805,6 +819,7 @@ Aud.initSamples = () => {
     document.getElementsByTagName('body')[0].appendChild(audioElement)
   }
   
+  Aud.samples.soundtrack = document.getElementById('soundtrack')
   Aud.samples.correct = document.getElementById('sample-1')
   Aud.samples.incorrect = document.getElementById('sample-2')
   Aud.samples.xp_up = document.getElementById('xp_up')
@@ -816,6 +831,9 @@ Aud.play = (type) => {
   if (Aud.muted) return false
   
   switch (type) {
+    case 'soundtrack':
+      Aud.samples.soundtrack.play()
+      break
     case 'correct':
       Aud.samples.correct.play()
       break
