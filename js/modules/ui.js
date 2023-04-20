@@ -108,7 +108,7 @@ UI.initListeners = () => {
 	document.getElementById('landing-content').addEventListener('click', () => {
 		if (UI.freezeUIinteraction) return false
 		dom.overlay.className = 'hidden'
-		Aud.play('soundtrack')
+		//Aud.play('soundtrack')
 		UI.scrollToCenter()
 	})
 	
