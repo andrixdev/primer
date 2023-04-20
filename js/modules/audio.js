@@ -13,46 +13,19 @@ let Aud = {
 	}
 }
 Aud.initSamples = () => {
-	// TODO: remove duplication
-	// Load soundtrack
-	let soundtrack_path = 'audio/soundtrack/placeholder_track.mp3'
-	let audioElement = document.createElement('audio')
-	audioElement.id = 'soundtrack'
-	audioElement.preload = true
-	audioElement.loop = true
-	let audioSourceElement = document.createElement('source')
-	audioSourceElement.src = soundtrack_path
-	audioSourceElement.type = 'audio/mp3'
-	audioElement.appendChild(audioSourceElement)
-
-	document.getElementsByTagName('body')[0].appendChild(audioElement)
 
 	// Load sound FX
 	let sfxFolder = 'audio/sfx/'
-	let sfx_sources = ['xp_up', 'xp_down', 'level_up', 'button_hover']
+	let soundtrackFolder = 'audio/soundtrack/'
+	let sfx_sources = ['soundtrack', 'correct', 'incorrect', 'xp_up', 'xp_down', 'level_up', 'button_hover']
 	for (source of sfx_sources) {
 		// Create an audio node
 		let audioElement = document.createElement('audio')
 		audioElement.id = source
 		audioElement.preload = true
-		audioElement.loop = false
+		audioElement.loop = source == 'soundtrack' ? true : false
 		let audioSourceElement = document.createElement('source')
-		audioSourceElement.src = sfxFolder + source + '.mp3'
-		audioSourceElement.type = 'audio/mp3'
-		audioElement.appendChild(audioSourceElement)
-
-		document.getElementsByTagName('body')[0].appendChild(audioElement)
-	}
-
-	// load alex' samples
-	for (let i = 1; i <= 2; i++) {
-		// Create an audio node
-		let audioElement = document.createElement('audio')
-		audioElement.id = "sample-" + i
-		audioElement.preload = true
-		audioElement.loop = false
-		let audioSourceElement = document.createElement('source')
-		audioSourceElement.src = 'https://alexandrix.com/misc/primer-audio/s' + i + '.mp3'
+		audioSourceElement.src = (source == 'soundtrack' ? soundtrackFolder : sfxFolder) + source + '.mp3'
 		audioSourceElement.type = 'audio/mp3'
 		audioElement.appendChild(audioSourceElement)
 
@@ -60,8 +33,8 @@ Aud.initSamples = () => {
 	}
 	
 	Aud.samples.soundtrack = document.getElementById('soundtrack')
-	Aud.samples.correct = document.getElementById('sample-1')
-	Aud.samples.incorrect = document.getElementById('sample-2')
+	Aud.samples.correct = document.getElementById('correct')
+	Aud.samples.incorrect = document.getElementById('incorrect')
 	Aud.samples.xp_up = document.getElementById('xp_up')
 	Aud.samples.xp_down = document.getElementById('xp_down')
 	Aud.samples.level_up = document.getElementById('level_up')
