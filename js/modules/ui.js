@@ -1,6 +1,7 @@
 // UI and DOM
 let UI = {}
 let dom = {
+	html: document.getElementsByTagName('html')[0],
 	body: document.getElementsByTagName('body')[0],
 	overlay: document.getElementById('screen-overlay'),
 	templates: {
@@ -39,8 +40,11 @@ let dom = {
 		},
 		settings: {
 			submenu: document.getElementById('submenu-settings'),
-			audioMuteToggle: document.getElementById('audio-mute-toggle'),
-			audioMuteInfo: document.getElementById('audio-mute-info')
+			soundtrackMuteToggle: document.getElementById('soundtrack-mute-toggle'),
+			soundtrackMuteInfo: document.getElementById('soundtrack-mute-info'),
+			soundEffectsMuteToggle: document.getElementById('sound-effects-mute-toggle'),
+			soundEffectsMuteInfo: document.getElementById('sound-effects-mute-info'),
+			themeToggle: document.getElementById('theme-toggle')
 		}
 	}
 }
@@ -242,11 +246,27 @@ UI.initWorkoutsSubmenuListeners = () => {
 	})
 }
 UI.initSettingsSubmenuListeners = () => {
-	dom.submenus.settings.audioMuteToggle.addEventListener('click', () => {
-		Aud.muted = !Aud.muted
-		dom.submenus.settings.audioMuteToggle.innerHTML = (Aud.muted ? "Unmute" : "Mute") + " audio"
-		dom.submenus.settings.audioMuteInfo.innerHTML = "Audio " + (Aud.muted ? "muted" : "unmuted")
+	dom.submenus.settings.soundtrackMuteToggle.addEventListener('click', () => {
+		Aud.soundtrackMuted = !Aud.soundtrackMuted
+		dom.submenus.settings.soundtrackMuteToggle.innerHTML = (Aud.soundtrackMuted ? "Unmute" : "Mute") + " soundtrack"
+		dom.submenus.settings.soundtrackMuteInfo.innerHTML = "Soundtrack " + (Aud.soundtrackMuted ? "muted" : "unmuted")
+		if (Aud.soundtrackMuted) Aud.samples.soundtrack.pause()
+		//else Aud.samples.soundtrack.play()
 	})
+	dom.submenus.settings.soundEffectsMuteToggle.addEventListener('click', () => {
+		Aud.soundeEffectsMuted = !Aud.soundEffectsMuted
+		dom.submenus.settings.soundEffectsMuteToggle.innerHTML = (Aud.soundEffectsMuted ? "Unmute" : "Mute") + " sound effects"
+		dom.submenus.settings.soundEffectsMuteInfo.innerHTML = "Sound effects " + (Aud.soundEffectsMuted ? "muted" : "unmuted")
+	})
+	let themes = ["dark-theme", "bw-theme"]
+	let themeNames = ["dark night", "b & w"]
+	let themeID = 0
+	dom.submenus.settings.themeToggle.addEventListener('click', () => {
+		themeID = (themeID + 1) % 2
+		dom.html.classList = themes[themeID]
+		dom.submenus.settings.themeToggle.innerHTML = "Theme: " + themeNames[themeID]
+	})
+	
 }
 UI.generatePrimesNodes = () => {
 	// This method should be called just once at game start

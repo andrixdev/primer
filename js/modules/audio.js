@@ -1,7 +1,7 @@
 // Audio
 let Aud = {
-	playing: false,
-	muted: false,
+	soundtrackMuted: false,
+	soundEffectsMuted: false,
 	samples: {
 		soundtrack: undefined,
 		correct: undefined,
@@ -41,7 +41,8 @@ Aud.initSamples = () => {
 	Aud.samples.button_hover = document.getElementById('button_hover')
 }
 Aud.play = (type) => {
-	if (Aud.muted) return false
+	if (type == 'soundtrack' && Aud.soundtrackMuted) return false
+	if (type != 'soundtrack' && Aud.soundEffectsMuted) return false
 	
 	switch (type) {
 		case 'soundtrack':
@@ -66,11 +67,6 @@ Aud.play = (type) => {
 			Aud.samples.button_hover.play()
 			break
 	}
-	
-	Aud.playing = true
-	setTimeout(() => {
-		Aud.playing = false
-	}, 1000)
 }
 Aud.start = () => {
 	Aud.initSamples()
