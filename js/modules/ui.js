@@ -254,7 +254,7 @@ UI.initSettingsSubmenuListeners = () => {
 		//else Aud.samples.soundtrack.play()
 	})
 	dom.submenus.settings.soundEffectsMuteToggle.addEventListener('click', () => {
-		Aud.soundeEffectsMuted = !Aud.soundEffectsMuted
+		Aud.soundEffectsMuted = !Aud.soundEffectsMuted
 		dom.submenus.settings.soundEffectsMuteToggle.innerHTML = (Aud.soundEffectsMuted ? "Unmute" : "Mute") + " sound effects"
 		dom.submenus.settings.soundEffectsMuteInfo.innerHTML = "Sound effects " + (Aud.soundEffectsMuted ? "muted" : "unmuted")
 	})
