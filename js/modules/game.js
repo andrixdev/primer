@@ -195,9 +195,9 @@ let addXP = (newXP) => {
 	
 	UI.updateXpBar()
 	if (newXP > 0) {
-		//Aud.play('xp_up')
+		Aud.play('xp_up')
 	} else {
-		//Aud.play('xp_down')
+		Aud.play('xp_down')
 	}
 }
 let changeLevelTo = (newLevel) => {
@@ -214,7 +214,7 @@ let changeLevelTo = (newLevel) => {
 }
 let levelUp = () => {
 	if (level < maxLevel) {
-		//Aud.play('level_up')
+		Aud.play('level_up')
 		changeLevelTo(level + 1)
 	}
 }
