@@ -79,10 +79,13 @@ let handleClickOnPrime = (event) => {
 		let ltf = ntgDecompositionLeftToFind
 		let found = ltf.splice(ltf.indexOf(prime), 1) // Remove and save in found
 		ntgFound.push(found[0])
+
+		// Play sound of found prime
+		handlePrimeCorrect(prime)
 		
 		// If empty, you found all of them!
 		if (ltf.length == 0) {
-			handleCorrect()
+			handleFullCorrect()
 		}
 	} else {
 		handleIncorrect()
@@ -90,7 +93,10 @@ let handleClickOnPrime = (event) => {
 	
 	UI.updateFeedbackText()
 }
-let handleCorrect = () => {
+let handlePrimeCorrect = (prime) => {
+	Aud.playPrime(prime)
+}
+let handleFullCorrect = () => {
 	// Grant XP in exploration mode
 	if (gameMode == "exploration") {
 		let ggXP = 0
