@@ -109,7 +109,7 @@ let handleCorrect = () => {
 	}
 	
 	// Play sound
-	Aud.playFullDecomposition(ntgFound)
+	Aud.play('correct')
 	
 	// Prepare callback (nextAction) for after animation
 	let nextAction, shuffle

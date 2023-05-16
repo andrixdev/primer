@@ -22,6 +22,9 @@ let generate = (number) => {
 		el.removeEventListener('click', handleClickOnPrime)
 		el.addEventListener('click', handleClickOnPrime)
 	})
+
+	// Play full decomposition of ntg
+	Aud.playFullDecomposition(ntgDecomposition)
 }
 let start = (lvl) => {
 	// Boot game at a given level (incl. view)
