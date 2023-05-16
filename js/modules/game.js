@@ -81,11 +81,11 @@ let handleClickOnPrime = (event) => {
 		ntgFound.push(found[0])
 
 		// Play sound of found prime
-		handlePrimeCorrect(prime)
+		Aud.playPrime(prime)
 		
 		// If empty, you found all of them!
 		if (ltf.length == 0) {
-			handleFullCorrect()
+			handleCorrect()
 		}
 	} else {
 		handleIncorrect()
@@ -93,10 +93,7 @@ let handleClickOnPrime = (event) => {
 	
 	UI.updateFeedbackText()
 }
-let handlePrimeCorrect = (prime) => {
-	Aud.playPrime(prime)
-}
-let handleFullCorrect = () => {
+let handleCorrect = () => {
 	// Grant XP in exploration mode
 	if (gameMode == "exploration") {
 		let ggXP = 0
@@ -112,7 +109,7 @@ let handleFullCorrect = () => {
 	}
 	
 	// Play sound
-	Aud.play('correct')
+	Aud.playFullDecomposition(ntgFound)
 	
 	// Prepare callback (nextAction) for after animation
 	let nextAction, shuffle
@@ -201,9 +198,9 @@ let addXP = (newXP) => {
 	
 	UI.updateXpBar()
 	if (newXP > 0) {
-		Aud.play('xp_up')
+		//Aud.play('xpUp')
 	} else {
-		Aud.play('xp_down')
+		//Aud.play('xpDown')
 	}
 }
 let changeLevelTo = (newLevel) => {
@@ -220,7 +217,7 @@ let changeLevelTo = (newLevel) => {
 }
 let levelUp = () => {
 	if (level < maxLevel) {
-		Aud.play('level_up')
+		//Aud.play('levelUp')
 		changeLevelTo(level + 1)
 	}
 }

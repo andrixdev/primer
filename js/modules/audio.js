@@ -98,7 +98,33 @@ Aud.play = (type) => {
 	}
 }
 Aud.playPrime = (prime) => {
+	if (Aud.soundEffectsMuted) return false
+
+	let sampleIndex = undefined
+	if (prime > 61) prime = 61 // Max of prime samples
+	Aud.primes.forEach((p, i) => {
+		if (prime == p) sampleIndex = i
+	})
+
+	Aud.primeSelectionSamples[sampleIndex].play()
 	
+}
+Aud.playFullDecomposition = (factors) => {
+	if (Aud.soundEffectsMuted) return false
+
+	//factors.sort((a, b) => a > b) // Play notes in ascending order of pitch
+	factors.forEach((f, i) => {
+		let delay = i * 165
+		let sampleIndex = undefined
+		if (f > 61) f = 61 // Max of prime samples
+		Aud.primes.forEach((p, i) => {
+			if (f == p) sampleIndex = i
+		})
+		setTimeout(() => {
+			console.log('Playing decomp sample of index ' + sampleIndex + ' with delay ' + delay)
+			Aud.primeDecompositionSamples[sampleIndex].play()
+		}, delay)
+	})
 }
 Aud.start = () => {
 	Aud.initSamples()
