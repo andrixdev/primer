@@ -3,10 +3,10 @@ let Aud = {
 	soundtrackMuted: false,
 	soundEffectsMuted: false,
 	primes: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61],
-	samples: []
+	samples: [],
+	soundtrack: undefined
 }
 Aud.addNewSample = (src, type, id) => {
-	// prime is optional
 	// type is 'decomposition', 'selection' (prime stuff) or 'soundtrack' or 'correct'... (sound effects)
 	let audioElement = document.createElement('audio')
 	audioElement.id = id
@@ -22,11 +22,16 @@ Aud.addNewSample = (src, type, id) => {
 	// Inject DOM node in body
 	document.getElementsByTagName('body')[0].appendChild(audioElement)
 	// Add to reference array
-	Aud.samples.push({
-		id: id,
-		type: type,
-		node: document.getElementById(id)
-	})
+	if (type != 'soundtrack') {
+		Aud.samples.push({
+			id: id,
+			type: type,
+			node: document.getElementById(id)
+		})
+	} else {
+		Aud.soundtrack = document.getElementById('soundtrack')
+	}
+	
 }
 Aud.addNewPrimeSample = (type, id, prime) => {
 	// type is 'selection' of 'decomposition'
@@ -35,14 +40,17 @@ Aud.addNewPrimeSample = (type, id, prime) => {
 	Aud.addNewSample(src, newType, id)
 }
 Aud.initSamples = () => {
-	// Create audio DOM nodes for soundtrack and gameplay sounds
-	let sfxSources = ['soundtrack', 'correct', 'incorrect', 'xp-up', 'xp-down', 'level-up', 'button-hover']
+	// Create audio DOM nodes for sound effects
+	let sfxSources = ['correct', 'incorrect', 'xp-up', 'xp-down', 'level-up', 'button-hover']
 	sfxSources.forEach((source) => {
-		let src = 'audio/' + (source == 'soundtrack' ? 'soundtrack/' : 'sfx/') + source + '.mp3'
+		let src = 'audio/sfx/' + source + '.mp3'
 		let type = source
 		let id = source
 		Aud.addNewSample(src, type, id)
 	})
+
+	// Create audio DOM node for soundtrack
+	Aud.addNewSample('audio/soundtrack/soundtrack.mp3', 'soundtrack', 'soundtrack')
 
 	// Create log2(maxPrime) audio DOM nodes for 2, log3(maxPrime) for 3, log5(maxPrime) for 5
 	// And double it: 'selection' + 'decomposition' types

@@ -112,7 +112,7 @@ UI.initListeners = () => {
 	document.getElementById('landing-content').addEventListener('click', () => {
 		if (UI.freezeUIinteraction) return false
 		dom.overlay.className = 'hidden'
-		Aud.play('soundtrack')
+		Aud.soundtrack.play()
 		UI.scrollToCenter()
 	})
 	
@@ -250,8 +250,8 @@ UI.initSettingsSubmenuListeners = () => {
 		Aud.soundtrackMuted = !Aud.soundtrackMuted
 		dom.submenus.settings.soundtrackMuteToggle.innerHTML = (Aud.soundtrackMuted ? "Unmute" : "Mute") + " soundtrack"
 		dom.submenus.settings.soundtrackMuteInfo.innerHTML = "Soundtrack " + (Aud.soundtrackMuted ? "muted" : "unmuted")
-		if (Aud.soundtrackMuted) Aud.samples.soundtrack.pause()
-		else Aud.samples.soundtrack.play()
+		if (Aud.soundtrackMuted) Aud.soundtrack.pause()
+		else Aud.soundtrack.play()
 	})
 	dom.submenus.settings.soundEffectsMuteToggle.addEventListener('click', () => {
 		Aud.soundEffectsMuted = !Aud.soundEffectsMuted
