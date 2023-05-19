@@ -108,9 +108,6 @@ let handleCorrect = () => {
 		UI.updateStepBar()
 	}
 	
-	// Play sound
-	Aud.play('correct')
-	
 	// Prepare callback (nextAction) for after animation
 	let nextAction, shuffle
 	if (gameMode == "exploration") {
@@ -198,9 +195,9 @@ let addXP = (newXP) => {
 	
 	UI.updateXpBar()
 	if (newXP > 0) {
-		//Aud.play('xpUp')
+		//Aud.play('xp-up')
 	} else {
-		//Aud.play('xpDown')
+		//Aud.play('xp-down')
 	}
 }
 let changeLevelTo = (newLevel) => {
@@ -217,7 +214,7 @@ let changeLevelTo = (newLevel) => {
 }
 let levelUp = () => {
 	if (level < maxLevel) {
-		//Aud.play('levelUp')
+		Aud.play('level-up')
 		changeLevelTo(level + 1)
 	}
 }
