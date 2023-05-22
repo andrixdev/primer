@@ -41,12 +41,23 @@ Aud.addNewPrimeSample = (type, id, prime) => {
 }
 Aud.initSamples = () => {
 	// Create audio DOM nodes for sound effects
-	let sfxSources = ['correct', 'incorrect', 'xp-up', 'xp-down', 'level-up', 'button-hover', 'shuffle']
+	let sfxSources = ['correct', 'incorrect', 'xp-up', 'xp-down', 'level-up', 'button-hover']
 	sfxSources.forEach((source) => {
 		let src = 'audio/sfx/' + source + '.mp3'
 		let type = source
 		let id = source
 		Aud.addNewSample(src, type, id)
+	})
+
+	let sfxMultiSources = ['shuffle']
+	sfxMultiSources.forEach((source) => {
+		// TODO: list all mp3 files from audio/sfx/source/
+		for (let i = 1, len = 3; i <= len; i++) {
+			let src = 'audio/sfx/' + source + '/' + source + '_' + i + '.mp3'
+			let type = source
+			let id = source + '_' + i
+			Aud.addNewSample(src, type, id)
+		};
 	})
 
 	// Create audio DOM node for soundtrack
@@ -80,6 +91,23 @@ Aud.play = (type) => {
 			s = 10000 // Break while loop
 		}
 		s++
+	}
+}
+Aud.playMulti = (type) => {
+	// Play a random sample out of all samples with the same type
+	// Should maybe be part of Audio.play
+	if (type == 'soundtrack' && Aud.soundtrackMuted) return false
+	if (type != 'soundtrack' && Aud.soundEffectsMuted) return false
+	
+	let samples = Aud.samples.filter((el) => {
+		return el.type == type
+	})
+
+	// play a random sample from the list
+	random_sample = samples[Math.floor(Math.random()*samples.length)]
+
+	if (!random_sample.node.currentTime || random_sample.node.currentTime == 0) {
+		random_sample.node.play()
 	}
 }
 Aud.playPrime = (prime) => {
