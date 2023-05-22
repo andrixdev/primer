@@ -41,7 +41,7 @@ Aud.addNewPrimeSample = (type, id, prime) => {
 }
 Aud.initSamples = () => {
 	// Create audio DOM nodes for sound effects
-	let sfxSources = ['correct', 'incorrect', 'xp-up', 'xp-down', 'level-up', 'button-hover']
+	let sfxSources = ['correct', 'incorrect', 'xp-up', 'xp-down', 'level-up', 'button-hover', 'shuffle']
 	sfxSources.forEach((source) => {
 		let src = 'audio/sfx/' + source + '.mp3'
 		let type = source
