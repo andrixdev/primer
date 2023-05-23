@@ -104,10 +104,10 @@ Aud.playMulti = (type) => {
 	})
 
 	// play a random sample from the list
-	random_sample = samples[Math.floor(Math.random()*samples.length)]
+	randomSample = samples[Math.floor(Math.random()*samples.length)]
 
-	if (!random_sample.node.currentTime || random_sample.node.currentTime == 0) {
-		random_sample.node.play()
+	if (!randomSample.node.currentTime || randomSample.node.currentTime == 0) {
+		randomSample.node.play()
 	}
 }
 Aud.playPrime = (prime) => {
