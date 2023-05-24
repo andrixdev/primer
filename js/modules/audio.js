@@ -4,7 +4,7 @@ let Aud = {
 	soundEffectsMuted: false,
 	primes: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61],
 	samples: [],
-	soundtrack: undefined
+	soundtrack: [], // multiple loops of different length running in parallel
 }
 Aud.addNewSample = (src, type, id) => {
 	// type is 'decomposition', 'selection' (prime stuff) or 'soundtrack' or 'correct'... (sound effects)
@@ -29,7 +29,11 @@ Aud.addNewSample = (src, type, id) => {
 			node: document.getElementById(id)
 		})
 	} else {
-		Aud.soundtrack = document.getElementById('soundtrack')
+		Aud.soundtrack.push({
+			id: id,
+			type: type,
+			node: document.getElementById(id)
+		})
 	}
 	
 }
@@ -72,7 +76,8 @@ Aud.initSamples = () => {
 	})
 
 	// Create audio DOM node for soundtrack
-	Aud.addNewSample('audio/soundtrack/soundtrack.mp3', 'soundtrack', 'soundtrack')
+	Aud.addNewSample('audio/soundtrack/soundtrack-low.mp3', 'soundtrack', 'soundtrack-low')
+	Aud.addNewSample('audio/soundtrack/soundtrack-mid.mp3', 'soundtrack', 'soundtrack-mid')
 
 	// Create log2(maxPrime) audio DOM nodes for 2, log3(maxPrime) for 3, log5(maxPrime) for 5
 	// And double it: 'selection' + 'decomposition' types
@@ -103,6 +108,16 @@ Aud.play = (type) => {
 		}
 		s++
 	}
+}
+Aud.playSoundtrack = () => {
+	Aud.soundtrack.forEach((track) => {
+		track.node.play()
+	})
+}
+Aud.pauseSoundtrack = () => {
+	Aud.soundtrack.forEach((track) => {
+		track.node.pause()
+	})
 }
 Aud.playMulti = (type) => {
 	// Play a random sample out of all samples with the same type
