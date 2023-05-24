@@ -41,7 +41,7 @@ Aud.addNewPrimeSample = (type, id, prime) => {
 }
 Aud.initSamples = () => {
 	// Create audio DOM nodes for sound effects
-	let sfxSources = ['correct', 'incorrect', 'xp-up', 'xp-down', 'button-hover']
+	let sfxSources = ['correct', 'incorrect', 'xp-down', 'button-hover']
 	sfxSources.forEach((source) => {
 		let src = 'audio/sfx/' + source + '.mp3'
 		let type = source
@@ -60,7 +60,7 @@ Aud.initSamples = () => {
 		};
 	})
 
-	sfxMultiSources = ['level-up']
+	sfxMultiSources = ['level-up', 'xp-up']
 	sfxMultiSources.forEach((source) => {
 		// TODO: list all mp3 files from audio/sfx/source/
 		for (let i = 1, len = 5; i <= len; i++) {

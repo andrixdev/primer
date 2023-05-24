@@ -195,7 +195,7 @@ let addXP = (newXP) => {
 	
 	UI.updateXpBar()
 	if (newXP > 0) {
-		//Aud.play('xp-up')
+		Aud.playMulti('xp-up')
 	} else {
 		//Aud.play('xp-down')
 	}
