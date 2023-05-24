@@ -214,7 +214,7 @@ let changeLevelTo = (newLevel) => {
 }
 let levelUp = () => {
 	if (level < maxLevel) {
-		Aud.play('level-up')
+		Aud.playMulti('level-up')
 		changeLevelTo(level + 1)
 	}
 }
