@@ -53,9 +53,9 @@ Aud.initSamples = () => {
 	sfxMultiSources.forEach((source) => {
 		// TODO: list all mp3 files from audio/sfx/source/
 		for (let i = 1, len = 3; i <= len; i++) {
-			let src = 'audio/sfx/' + source + '/' + source + '_' + i + '.mp3'
+			let src = 'audio/sfx/' + source + '/' + source + '-' + i + '.mp3'
 			let type = source
-			let id = source + '_' + i
+			let id = source + '-' + i
 			Aud.addNewSample(src, type, id)
 		};
 	})
