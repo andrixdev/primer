@@ -3,6 +3,7 @@ let Aud = {
 	soundtrackMuted: false,
 	soundEffectsMuted: false,
 	primes: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61],
+	xpUp: [1,2,3,4,5],
 	samples: [],
 	soundtrack: undefined
 }
@@ -60,7 +61,7 @@ Aud.initSamples = () => {
 		};
 	})
 
-	sfxMultiSources = ['level-up', 'xp-up']
+	sfxMultiSources = ['level-up']
 	sfxMultiSources.forEach((source) => {
 		// TODO: list all mp3 files from audio/sfx/source/
 		for (let i = 1, len = 5; i <= len; i++) {
@@ -69,6 +70,13 @@ Aud.initSamples = () => {
 			let id = source + '-' + i
 			Aud.addNewSample(src, type, id)
 		};
+	})
+
+	Aud.xpUp.forEach((i) => {
+		let src = 'audio/sfx/xp-up/xp-up-' + i + '.mp3'
+		let type = 'xp-up-' + i
+		let id = i
+		Aud.addNewSample(src, type, id)
 	})
 
 	// Create audio DOM node for soundtrack
@@ -120,6 +128,16 @@ Aud.playMulti = (type) => {
 	if (!randomSample.node.currentTime || randomSample.node.currentTime == 0) {
 		randomSample.node.play()
 	}
+}
+Aud.playXPUp = (xpCompletion) => {
+	// 0 <= xpCompletion <= 1
+	if (Aud.soundtrackMuted) return false
+	if (Aud.soundEffectsMuted) return false
+	
+	// lower sample numbers correspond to less XP
+	// compute the sample index corresponding to the xp value
+	let sampleIndex = Math.min(Math.floor(xpCompletion*Aud.xpUp.length) + 1, Aud.xpUp.length)
+	Aud.play('xp-up-' + sampleIndex)
 }
 Aud.playPrime = (prime) => {
 	if (Aud.soundEffectsMuted) return false

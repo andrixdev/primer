@@ -180,6 +180,9 @@ let getLevelFromNumber = (nb) => {
 }
 let addXP = (newXP) => {
 	let interval = levelXPinterval(level)
+
+	// compute xp completion for sfx
+	let xpCompletion = Math.max(0, xp - interval.start)/ (interval.end-interval.start)
 	
 	// newXP can be negative, minimum should be start of level
 	xp = Math.max(interval.start, xp + newXP)
@@ -195,7 +198,7 @@ let addXP = (newXP) => {
 	
 	UI.updateXpBar()
 	if (newXP > 0) {
-		Aud.playMulti('xp-up')
+		Aud.playXPUp(xpCompletion)
 	} else {
 		//Aud.play('xp-down')
 	}
