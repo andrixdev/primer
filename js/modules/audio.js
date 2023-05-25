@@ -2,7 +2,7 @@
 let Aud = {
 	soundtrackMuted: false,
 	soundEffectsMuted: false,
-	primes: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61],
+	primes: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71],
 	samples: [],
 	soundtrack: [], // multiple loops of different length running in parallel
 }
@@ -83,7 +83,7 @@ Aud.initSamples = () => {
 	// And double it: 'selection' + 'decomposition' types
 	Aud.primes.forEach((p) => {
 		// 2 * logp(maxPrime) samples per prime of each type (to handle multiple clicks and making room for possible next ntg with the same factors)
-		let maxPrime = 61 // Should be the maxPrime of whole game but for now it's enough
+		let maxPrime = 71 // Should be the maxPrime of whole game but for now it's enough
 		let numberOfSamples = Math.floor(Math.log2(maxPrime) / Math.log2(p)) // Max possible number of this prime in decomposition
 		numberOfSamples *= 2 // Double it to really avoid all samples being already played (btw they can't be restarted that's why we're injecting so many samples of the same source)
 		for (let i = 1; i <= numberOfSamples; i++) {
