@@ -23,13 +23,12 @@ https://alexandrix.com/primer
 
 # Improvements and new features backlog
 * Play sound on hover on prime tiles
-* Split .js file into several subfiles
-* Mute soundtrack and sound effects independently
 * Handle super wide displays (Zelv has 2560px x 1328px)
 * On new number generation, prevent the same value from being picked
 * Create a tutorial mode
 * Level-up animation starting only from bottom of new level
+* Bell sounds saturate on phone speakers
 
 # Discussion
-* underscore_case to kebabCase in sfx variables?
-* Music: I kinda like the placeholder one! It gives some energy and calls for action. Maybe for this abstract and repetitive game I'd go for minimalism with only a few notes. I checked http://listen.hatnote.com/#en and started reading briefly on https://en.wikipedia.org/wiki/Music_of_ancient_Greece wondering what music Euclid might have listened! More thinking to come...
+* Generic percussive sample for primes > 71 + progressive crossfade with bell sounds towards higher primes
+* XP up sound
