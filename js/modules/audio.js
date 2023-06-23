@@ -92,7 +92,7 @@ Aud.initSamples = () => {
 		}
 	})
 }
-Aud.play = (type) => {
+Aud.play = (type, playbackRate=1) => {
 	if (type == 'soundtrack' && Aud.soundtrackMuted) return false
 	if (type != 'soundtrack' && Aud.soundEffectsMuted) return false
 	
@@ -103,6 +103,10 @@ Aud.play = (type) => {
 	let s = 0
 	while (s < samples.length) {
 		if (!samples[s].node.currentTime || samples[s].node.currentTime == 0) {
+			if (playbackRate != 1) {
+				samples[s].node.playbackRate = playbackRate
+				samples[s].node.preservesPitch = false
+			}
 			samples[s].node.play()
 			s = 10000 // Break while loop
 		}
@@ -139,10 +143,17 @@ Aud.playMulti = (type) => {
 Aud.playPrime = (prime) => {
 	if (Aud.soundEffectsMuted) return false
 
+	let playbackRate = 1
 	let max = Aud.primes[Aud.primes.length - 1]
-	if (prime > max) prime = max // Max of prime samples
+	if (prime > max) {
+		// repitch max to chromatic scale
+		let n = primes.indexOf(prime) - primes.indexOf(max)
+		playbackRate = 2**(n/12)
 
-	Aud.play('prime-' + prime + '-selection')
+		prime = max // Max of prime samples
+	}
+
+	Aud.play('prime-' + prime + '-selection', playbackRate)
 	
 }
 Aud.playFullDecomposition = (factors) => {
@@ -152,11 +163,18 @@ Aud.playFullDecomposition = (factors) => {
 	factors.forEach((f, i) => {
 		let delay = i * 165
 
+		let playbackRate = 1
 		let max = Aud.primes[Aud.primes.length - 1]
-		if (f > max) f = max // Max of prime samples
+		if (f > max) {
+			// repitch max to chromatic scale
+			let n = primes.indexOf(f) - primes.indexOf(max)
+			playbackRate = 2**(n/12)
+
+			f = max // Max of prime samples
+		}
 		
 		setTimeout(() => {
-			Aud.play('prime-' + f + '-decomposition')
+			Aud.play('prime-' + f + '-decomposition', playbackRate)
 		}, delay)
 	})
 }
