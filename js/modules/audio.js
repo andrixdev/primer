@@ -140,7 +140,7 @@ Aud.playMulti = (type) => {
 		randomSample.node.play()
 	}
 }
-Aud.playPrime = (prime) => {
+Aud.playPrime = (prime, type='selection') => {
 	if (Aud.soundEffectsMuted) return false
 
 	let playbackRate = 1
@@ -154,7 +154,7 @@ Aud.playPrime = (prime) => {
 		prime = max // Max of prime samples
 	}
 
-	Aud.play('prime-' + prime + '-selection', playbackRate)
+	Aud.play('prime-' + prime + '-' + type, playbackRate)
 	
 }
 Aud.playFullDecomposition = (factors) => {
@@ -164,19 +164,8 @@ Aud.playFullDecomposition = (factors) => {
 	factors.forEach((f, i) => {
 		let delay = i * 165
 
-		let playbackRate = 1
-		let max = Aud.primes[Aud.primes.length - 1]
-		if (f > max) {
-			// repitch max to chromatic scale
-			let n = primes.indexOf(f) - primes.indexOf(max)
-			playbackRate = 2**(n/12)
-			if (playbackRate > 4) playbackRate = 4 // max pitch allowed
-
-			f = max // Max of prime samples
-		}
-		
 		setTimeout(() => {
-			Aud.play('prime-' + f + '-decomposition', playbackRate)
+			Aud.playPrime(f, 'decomposition')
 		}, delay)
 	})
 }
