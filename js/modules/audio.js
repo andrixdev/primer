@@ -149,6 +149,7 @@ Aud.playPrime = (prime) => {
 		// repitch max to chromatic scale
 		let n = primes.indexOf(prime) - primes.indexOf(max)
 		playbackRate = 2**(n/12)
+		if (playbackRate > 4) playbackRate = 4 // max pitch allowed
 
 		prime = max // Max of prime samples
 	}
@@ -169,6 +170,7 @@ Aud.playFullDecomposition = (factors) => {
 			// repitch max to chromatic scale
 			let n = primes.indexOf(f) - primes.indexOf(max)
 			playbackRate = 2**(n/12)
+			if (playbackRate > 4) playbackRate = 4 // max pitch allowed
 
 			f = max // Max of prime samples
 		}
