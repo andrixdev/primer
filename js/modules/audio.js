@@ -91,6 +91,9 @@ Aud.initSamples = () => {
 			Aud.addNewPrimeSample('decomposition', 'prime-' + p + '-decomposition-' + i, p)
 		}
 	})
+
+	Aud.addNewPrimeSample('selection', 'prime-max-selection-', 'max')
+	Aud.addNewPrimeSample('decomposition', 'prime-max-decomposition-', 'max')
 }
 Aud.play = (type, playbackRate=1) => {
 	if (type == 'soundtrack' && Aud.soundtrackMuted) return false
@@ -146,12 +149,17 @@ Aud.playPrime = (prime, type='selection') => {
 	let playbackRate = 1
 	let max = Aud.primes[Aud.primes.length - 1]
 	if (prime > max) {
-		// repitch max to chromatic scale
 		let n = primes.indexOf(prime) - primes.indexOf(max)
-		playbackRate = 2**(n/12)
-		if (playbackRate > 4) playbackRate = 4 // max pitch allowed
 
-		prime = max // Max of prime samples
+		if (n <= 24) {
+			// repitch highest prime up to 2 octaves
+			playbackRate = 2**(n/12)
+			prime = max
+		} else {
+			// play 'max.mp3' sample for all higher primes
+			playbackRate = 1
+			prime = 'max'
+		}
 	}
 
 	Aud.play('prime-' + prime + '-' + type, playbackRate)
