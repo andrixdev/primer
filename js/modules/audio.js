@@ -144,6 +144,10 @@ Aud.playMulti = (type) => {
 	}
 }
 Aud.playPrime = (prime, type='selection') => {
+	// valid types are:
+	// 	- 'selection'
+	// 	- 'decomposition'
+	
 	if (Aud.soundEffectsMuted) return false
 
 	let playbackRate = 1
