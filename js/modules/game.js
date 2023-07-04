@@ -44,7 +44,7 @@ let decompose = (n) => {
 		i++
 		if (i > 1000) {
 			stop = true
-			log('No prime found for number ' + n + 'within ' + iMax + ' attempts.')
+			log('No prime found for number ' + n + ' within ' + iMax + ' attempts.')
 		}
 	}
 	

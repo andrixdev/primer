@@ -458,3 +458,8 @@ section.template {
     opacity: 1;
   }
 }
+/* Waiting for sfx branch merge into main */
+#soundtrack-mute-info,
+#soundtrack-mute-toggle {
+  display: none;
+}
