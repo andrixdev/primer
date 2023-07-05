@@ -95,7 +95,7 @@ Aud.initSamples = () => {
 	Aud.addNewPrimeSample('selection', 'prime-max-selection-', 'max')
 	Aud.addNewPrimeSample('decomposition', 'prime-max-decomposition-', 'max')
 }
-Aud.play = (type, playbackRate=1) => {
+Aud.play = (type, playbackRate = 1) => {
 	if (type == 'soundtrack' && Aud.soundtrackMuted) return false
 	if (type != 'soundtrack' && Aud.soundEffectsMuted) return false
 	
@@ -143,7 +143,7 @@ Aud.playMulti = (type) => {
 		randomSample.node.play()
 	}
 }
-Aud.playPrime = (prime, type='selection') => {
+Aud.playPrime = (prime, type = 'selection') => {
 	// valid types are:
 	// 	- 'selection'
 	// 	- 'decomposition'

@@ -111,7 +111,7 @@ let handleCorrect = () => {
 	// Prepare callback (nextAction) for after animation
 	let nextAction, shuffle
 	if (gameMode == "exploration") {
-		if (level < maxLevel) {
+		if (level <= maxLevel) {
 			nextAction = generate // New random number
 			shuffle = 'shuffle'
 		} else {
