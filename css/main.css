@@ -282,16 +282,16 @@ section.template {
   height: 30px;
   width: 30px;
   border-radius: 50%;
-  border: solid 1px white;
+  border: solid 1px var(--text-color);
   margin-right: 10px;
   cursor: pointer;
 }
 #menu-template #submenu-settings #share-button p {
   line-height: 1em;
-  padding-top: 0.4em;
+  padding-top: 0.45em;
 }
 #menu-template #submenu-settings #share-button:hover {
-  background: white;
+  background: var(--text-color);
 }
 #menu-template #submenu-settings #share-button:hover p {
   color: var(--background-color);

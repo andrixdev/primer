@@ -436,12 +436,29 @@ UI.updateFeedbackText = () => {
 	}
 	dom.feedback.innerHTML = feedbackMarkup
 }
-UI.updateXpBar = () => {
+UI.updateXpBar = (isLevelUp = false) => {
 	let interval = levelXPinterval(level)
-	// Increase xp bar height
-	dom.xp.style.height = 100 * level + 100 * (xp - interval.start) / (interval.end - interval.start) + '%'
-	// Make sure bar has proper offset
-	dom.xp.style.bottom = -100 * level + '%'
+
+	if (!isLevelUp) {
+		// Easing
+		dom.xp.style.transition = "height 500ms ease-out"
+		// Increase xp bar height
+		dom.xp.style.height = 100 * level + 100 * (xp - interval.start) / (interval.end - interval.start) + '%'
+		// Make sure bar has proper offset
+		dom.xp.style.bottom = -100 * level + '%'
+	} else {
+		// Easing
+		dom.xp.style.transition = "height 250ms linear"
+		// Take half the time (250ms) to increase to 100%
+		dom.xp.style.height = 100 * level + '%'
+		setTimeout(() => {
+			// Abrupt move to 0%
+			dom.xp.style.bottom = -100 * level + '%'
+			// Take half the time (250ms) to increase to the right height %
+			dom.xp.style.height = 100 * level + 100 * (xp - interval.start) / (interval.end - interval.start) + '%'
+		}, 250)
+	}
+	
 }
 UI.updateStepBar = () => {
 	let size = currentWorkout.sequence.length

@@ -25,7 +25,6 @@ https://alexandrix.com/primer
 * Handle super wide displays (Zelv has 2560px x 1328px)
 * On new number generation, prevent the same value from being picked
 * Create a tutorial mode
-* Level-up animation currently starting only from bottom of new level
 * Bell sounds saturate on phone speakers
 * Fix last level instant win (requires some refactoring)
 * Swipe between menus

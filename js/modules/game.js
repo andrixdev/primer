@@ -185,15 +185,18 @@ let addXP = (newXP) => {
 	xp = Math.max(interval.start, xp + newXP)
 	
 	// Check potential level up
+	let isLevelUp = false
 	if (xp >= interval.end) {
+		isLevelUp = true
 		levelUp()
 		interval = levelXPinterval(level)
 	}
 	
 	// If higher than maximal xp, cap
 	xp = Math.min(xp, maxXP)
+
+	UI.updateXpBar(isLevelUp)
 	
-	UI.updateXpBar()
 	if (newXP > 0) {
 		//Aud.play('xp-up')
 	} else {
@@ -236,49 +239,49 @@ let endExploration = () => {
 
 // Game - Workout mode
 let workouts = [{
-	name: "&#128519; Toddler",
+	name: "😊 Toddler",
 	id: 1,
 	sequence: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
 	completion: [],
 	maxPrimeLevel: 6,
 	difficulty: undefined
 }, {
-	name: "&#10024; Orbit one",
+	name: "💫 Orbit one",
 	id: 2,
 	sequence: [2, 9, 49, 13, 15, 22, 30, 36, 43, 42, 32, 53],
 	completion: [],
 	maxPrimeLevel: 15,
 	difficulty: undefined
 }, {
-	name: "&#127811; Small pie",
+	name: "🍃 Small pie",
 	id: 3,
 	sequence: [3, 14, 15, 92, 65, 35, 89, 79, 32, 38, 46, 26, 43, 38, 32, 79, 50, 28, 84, 19, 71, 69, 39, 93, 75, 10],
 	completion: [],
 	maxPrimeLevel: 39,
 	difficulty: undefined
 }, {
-	name: "&#127810; Big pie",
+	name: "🍂 Big pie",
 	id: 4,
 	sequence: [3, 14, 159, 265, 358, 97, 93, 238, 46, 264, 338, 327, 95, 0288, 41, 97, 169, 39, 93, 75, 105, 82, 097, 49, 44, 59, 230, 78, 164, 062, 86, 208, 99, 86, 280, 348, 253, 42, 117, 067, 98],
 	completion: [],
 	maxPrimeLevel: 71, 
 	difficulty: undefined
 }, {
-	name: "&#128528; Ghis",
+	name: "🤔 Ghis",
 	id: 5,
 	sequence: [411, 311, 211, 111, 11, 13, 113, 213, 313, 413, 417, 317, 217, 117, 17, 19, 219, 319, 419, 421, 411],
 	completion: [],
 	maxPrimeLevel: 111,
 	difficulty: undefined
 }, {
-	name: "&#128551; Akanaka",
+	name: "😧 Akanaka",
 	id: 6,
 	sequence: [8, 11, 101, 111, 121, 212, 232, 323, 353, 373, 414, 484, 515, 525, 636, 696, 747, 757],
 	completion: [],
 	maxPrimeLevel: 159,
 	difficulty: undefined
 }, {
-	name: "&#128565; Dubos",
+	name: "😵 Dubos",
 	id: 7,
 	sequence: [53, 653, 53, 753, 153, 853, 253, 953, 353, 1053, 453, 1153, 553, 1253],
 	completion: [],
