@@ -389,7 +389,7 @@ UI.positionCentralAndPrimeNodes = () => {
 		
 	})
 }
-UI.endAnimation = (winOrLose, isShuffle, callback) => {
+UI.endAnimation = (winOrLose = 'win', isShuffle = 'shuffle', callback) => {
 	// winOrLose is 'win' or 'lose'
 	// isShuffle is 'shuffle' or 'noshuffle'
 	UI.freezeUIinteraction = true

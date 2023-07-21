@@ -7,7 +7,7 @@ https://alexandrix.com/primer
 
 # Developer information
 * The **main** branch is deployed manually at https://alexandrix.com/primer
-* The **main** branch is deployed automatically at https://andrixdev.github.io/primer/
+* The **dev** branch is deployed automatically at https://andrixdev.github.io/primer/
 
 # Developer setup
 * Install Node (https://nodejs.org/)
@@ -23,13 +23,12 @@ https://alexandrix.com/primer
 
 # Improvements and new features backlog
 * Handle super wide displays (Zelv has 2560px x 1328px)
-* On new number generation, prevent the same value from being picked
 * Create a tutorial mode
 * Bell sounds saturate on phone speakers
-* Fix last level instant win (requires some refactoring)
 * Swipe between menus
 * Add favicons
 
 # Discussion
 * Generic percussive sample for primes > 71 + progressive crossfade with bell sounds towards higher primes
 * XP up sound
+* Testing the Share

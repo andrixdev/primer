@@ -216,10 +216,8 @@ let changeLevelTo = (newLevel) => {
 	orbit = getLevelOrbit(level)
 }
 let levelUp = () => {
-	if (level < maxLevel) {
-		Aud.playMulti('level-up')
-		changeLevelTo(level + 1)
-	}
+	Aud.playMulti('level-up')
+	changeLevelTo(level + 1)
 }
 let startExploration = (lvl) => {
 	resetWorkout()
