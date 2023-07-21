@@ -296,6 +296,9 @@ section.template {
 #menu-template #submenu-settings #share-button:hover p {
   color: var(--background-color);
 }
+#menu-template #submenu-settings #qr img {
+  width: 120px;
+}
 #game-over-template,
 #workout-complete-template {
   padding-top: 80px;

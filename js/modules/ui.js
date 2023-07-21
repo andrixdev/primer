@@ -84,13 +84,13 @@ UI.updateSubmenuGameMode = (gameModeName) => {
 	dom.submenus.settings.submenu.className = "submenu hidden"
 	// Display only the chosen one
 	if (gameModeName == "exploration") {
-		dom.submenuModeName.innerHTML = "EXPLORATION"
+		dom.submenuModeName.innerHTML = "EXPLORATION 🚀"
 		dom.submenus.exploration.submenu.className = "submenu"
 	} else if (gameModeName == "workout") {
-		dom.submenuModeName.innerHTML = "WORKOUTS"
+		dom.submenuModeName.innerHTML = "WORKOUTS 💪"
 		dom.submenus.workouts.submenu.className = "submenu"
 	} else if (gameModeName == "settings") {
-		dom.submenuModeName.innerHTML = "SETTINGS"
+		dom.submenuModeName.innerHTML = "SETTINGS 🎮"
 		dom.submenus.settings.submenu.className = "submenu"
 	}
 	UI.submenuGameMode = gameModeName

@@ -27,8 +27,6 @@ https://alexandrix.com/primer
 * Create a tutorial mode
 * Level-up animation currently starting only from bottom of new level
 * Bell sounds saturate on phone speakers
-* Share button
-* Display QR code button
 * Fix last level instant win (requires some refactoring)
 * Swipe between menus
 * Add favicons
