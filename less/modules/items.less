@@ -36,8 +36,9 @@
     user-select: none;
     border-radius: 30px;
     cursor: pointer;
-    outline: solid 1.5px rgba(255, 255, 255, .7);
+    outline: solid 1.5px rgba(255, 255, 255, .4);
     position: relative;
+	background-color: black;
     transition: background-color 200ms;
 
     .switch-inner {
@@ -52,11 +53,9 @@
         transition: left 200ms ease-out;
     }
 
-    &.off {
-        background-color: black;
-    }
     &.on {
-        background-color: var(--main-blue);
+        background-color: var(--blue-30);
+		outline-color: rgba(255, 255, 255, .7);
     }
     &.on .switch-inner {
         left: 45px;

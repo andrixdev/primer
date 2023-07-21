@@ -40,11 +40,12 @@ let dom = {
 		},
 		settings: {
 			submenu: document.getElementById('submenu-settings'),
-			soundtrackMuteToggle: document.getElementById('soundtrack-mute-toggle'),
-			soundtrackMuteInfo: document.getElementById('soundtrack-mute-info'),
-			soundEffectsMuteToggle: document.getElementById('sound-effects-mute-toggle'),
-			soundEffectsMuteInfo: document.getElementById('sound-effects-mute-info'),
-			themeToggle: document.getElementById('theme-toggle')
+			soundtrackToggle: document.getElementById('soundtrack-toggle'),
+			soundtrackInfo: document.getElementById('soundtrack-info'),
+			soundEffectsToggle: document.getElementById('sound-effects-toggle'),
+			soundEffectsInfo: document.getElementById('sound-effects-info'),
+			themeToggle: document.getElementById('theme-toggle'),
+			themeToggleInfo: document.getElementById('theme-toggle-info')
 		}
 	}
 }
@@ -246,25 +247,37 @@ UI.initWorkoutsSubmenuListeners = () => {
 	})
 }
 UI.initSettingsSubmenuListeners = () => {
-	dom.submenus.settings.soundtrackMuteToggle.addEventListener('click', () => {
+	// Soundtrack
+	dom.submenus.settings.soundtrackToggle.addEventListener('click', () => {
+		// Action
 		Aud.soundtrackMuted = !Aud.soundtrackMuted
-		dom.submenus.settings.soundtrackMuteToggle.innerHTML = (Aud.soundtrackMuted ? "Unmute" : "Mute") + " soundtrack"
-		dom.submenus.settings.soundtrackMuteInfo.innerHTML = "Soundtrack " + (Aud.soundtrackMuted ? "muted" : "unmuted")
 		if (Aud.soundtrackMuted) Aud.pauseSoundtrack()
 		else Aud.playSoundtrack()
+
+		// UI
+		dom.submenus.settings.soundtrackToggle.classList = "switch " + (Aud.soundtrackMuted ? "off" : "on")
+		dom.submenus.settings.soundtrackInfo.innerHTML = "Soundtrack is " + (Aud.soundtrackMuted ? "muted 🤫" : "playing 🎵")
 	})
-	dom.submenus.settings.soundEffectsMuteToggle.addEventListener('click', () => {
+
+	// Sound effects
+	dom.submenus.settings.soundEffectsToggle.addEventListener('click', () => {
+		// Action
 		Aud.soundEffectsMuted = !Aud.soundEffectsMuted
-		dom.submenus.settings.soundEffectsMuteToggle.innerHTML = (Aud.soundEffectsMuted ? "Unmute" : "Mute") + " sound effects"
-		dom.submenus.settings.soundEffectsMuteInfo.innerHTML = "Sound effects " + (Aud.soundEffectsMuted ? "muted" : "unmuted")
+
+		// UI
+		dom.submenus.settings.soundEffectsToggle.classList = "switch " + (Aud.soundEffectsMuted ? "off" : "on")
+		dom.submenus.settings.soundEffectsInfo.innerHTML = "Sound effects are " + (Aud.soundEffectsMuted ? "muted 🤫" : "playing 🎶")
 	})
+
+	// Themes
 	let themes = ["dark-theme", "bw-theme"]
-	let themeNames = ["dark night", "b & w"]
+	let themeNames = ["dark night 🌒", "b & w 🖤"]
 	let themeID = 0
 	dom.submenus.settings.themeToggle.addEventListener('click', () => {
 		themeID = (themeID + 1) % 2
 		dom.html.classList = themes[themeID]
-		dom.submenus.settings.themeToggle.innerHTML = "Theme: " + themeNames[themeID]
+		dom.submenus.settings.themeToggle.classList = "switch " + (themeID == 0 ? "on" : "off")
+		dom.submenus.settings.themeToggleInfo.innerHTML = "Theme: " + themeNames[themeID]
 	})
 	
 }

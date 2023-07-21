@@ -12,6 +12,7 @@
   --blue-30: hsl(200, 83%, 30%);
   --blue-40: hsl(200, 83%, 40%);
   --blue-50: hsl(200, 83%, 50%);
+  --purple-30: hsl(270, 83%, 30%);
   --grey-98: hsl(200, 5%, 98%);
   --grey-95: hsl(200, 5%, 95%);
   --grey-90: hsl(200, 5%, 90%);
@@ -47,16 +48,41 @@
   --outline-faint: solid 1px var(--faint-borders-color);
   --outline-faintest: solid 0.5px var(--faint-borders-color);
 }
-.flexrow {
-  display: flex;
-  flex-flow: row;
-}
 .flexcol {
   display: flex;
-  flex-flow: column;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+.flexrow {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+.flexwrap {
+  flex-wrap: wrap;
 }
 .flexcenter {
-  align-items: center;
+  justify-content: center;
+}
+.flexbetween {
+  justify-content: space-between;
+}
+.flexstart {
+  justify-content: flex-start;
+}
+.flexend {
+  justify-content: flex-end;
+}
+.flexchildrenstart {
+  align-items: flex-start;
+}
+.flexchildrenend {
+  align-items: flex-end;
+}
+.center {
+  text-align: center;
 }
 .btn {
   background: var(--btn-secondary-color);
@@ -95,8 +121,9 @@
   user-select: none;
   border-radius: 30px;
   cursor: pointer;
-  outline: solid 1.5px rgba(255, 255, 255, 0.7);
+  outline: solid 1.5px rgba(255, 255, 255, 0.4);
   position: relative;
+  background-color: black;
   transition: background-color 200ms;
 }
 .switch .switch-inner {
@@ -110,11 +137,9 @@
   left: 4px;
   transition: left 200ms ease-out;
 }
-.switch.off {
-  background-color: black;
-}
 .switch.on {
-  background-color: var(--main-blue);
+  background-color: var(--blue-30);
+  outline-color: rgba(255, 255, 255, 0.7);
 }
 .switch.on .switch-inner {
   left: 45px;
@@ -244,9 +269,11 @@ section.template {
 #menu-template #submenu-workouts span {
   opacity: 0.75;
 }
-#menu-template #submenu-settings p#audio-mute-info {
-  opacity: 0.6;
-  margin-bottom: 0.3em;
+#menu-template #submenu-settings .switch {
+  margin-right: 15px;
+}
+#menu-template #submenu-settings .switch#theme-toggle.on {
+  background-color: var(--purple-30);
 }
 #game-over-template,
 #workout-complete-template {
