@@ -45,7 +45,9 @@ let dom = {
 			soundEffectsToggle: document.getElementById('sound-effects-toggle'),
 			soundEffectsInfo: document.getElementById('sound-effects-info'),
 			themeToggle: document.getElementById('theme-toggle'),
-			themeToggleInfo: document.getElementById('theme-toggle-info')
+			themeToggleInfo: document.getElementById('theme-toggle-info'),
+			share: document.getElementById('share'),
+			shareButton: document.getElementById('share-button')
 		}
 	}
 }
@@ -279,6 +281,15 @@ UI.initSettingsSubmenuListeners = () => {
 		dom.submenus.settings.themeToggle.classList = "switch " + (themeID == 0 ? "on" : "off")
 		dom.submenus.settings.themeToggleInfo.innerHTML = "Theme: " + themeNames[themeID]
 	})
+
+	// Share
+	if (!navigator.canShare) {
+		dom.submenus.settings.share.classList.toggle("hidden")
+	} else {
+		dom.submenus.settings.shareButton.addEventListener('click', () => {
+			share()
+	   	})
+	}
 	
 }
 UI.generatePrimesNodes = () => {

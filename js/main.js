@@ -45,6 +45,18 @@ let start = (lvl) => {
 	UI.updateXpBar()
 	UI.updateStepBar()
 }
+let share = () => {
+	// Share Primer
+	navigator.share({
+		title: "Primer",
+		text: "Decompose all the numbers!",
+		url: "https://alexandrix.com/primer"
+	}).then(() => {
+		// Success
+	}).catch((e) => {
+		// Error
+	})
+}
 window.onload = (event) => {
 	// Starting on landing screen (Tap to start)
 	UI.fillOverlayUI(dom.templates.landing)

@@ -2,23 +2,6 @@
 @import "./modules/helpers.less";
 @import "./modules/items.less";
 
-html.dark-theme {
-	--win-color: var(--win-green);
-	--lose-color: var(--lose-red);
-	--background-color: var(--blue-05);
-	--container-color: var(--blue-02);
-	--btn-primary-color: white;
-	--btn-secondary-color: var(--blue-05);
-	--text-color: white;
-	--borders-color: white;
-	--faint-borders-color: rgba(255, 255, 255, 0.3);
-	--progression-bars-color: var(--blue-40);
-	--primes-background-color: var(--blue-08);
-	--primes-text-color: var(--text-color);
-	--primes-selected-background-color: var(--blue-02);
-	--primes-selected-text-color: var(--text-color);
-}
-
 * {
 	-moz-user-select: none;
 	-ms-user-select: none;
@@ -147,6 +130,27 @@ section.template {
 		}
 		.switch#theme-toggle.on {
 			background-color: var(--purple-30);
+		}
+		#share-button {
+			height: 30px;
+			width: 30px;
+			border-radius: 50%;
+			border: solid 1px white;
+			margin-right: 10px;
+			cursor: pointer;
+
+			p {
+				line-height: 1em;
+    			padding-top: 0.4em;
+			}
+
+			&:hover {
+				background: white;
+				p {
+					color: var(--background-color);
+				}
+				
+			}
 		}
 	}
 }

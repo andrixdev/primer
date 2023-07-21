@@ -29,7 +29,6 @@ https://alexandrix.com/primer
 * Bell sounds saturate on phone speakers
 * Share button
 * Display QR code button
-* Switch toggles instead of buttons in menus
 * Fix last level instant win (requires some refactoring)
 * Swipe between menus
 * Add favicons
