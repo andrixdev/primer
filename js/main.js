@@ -1,13 +1,19 @@
 // General
 let generate = (number) => {
 	// If no number is passed generate a new number in dom.ntg and reset primes selection
+	let previous = numberToGuess
 	let maxNumber = primes[Math.min(level, primes.length - 1)]
 	if (number) {
 		numberToGuess = Math.max(2, Math.min(maxNumber, number))
 	} else {
 		// Pick new random number (+ decomposition + DOM update)
 		let propensityToPickHigherNumbers = 1.5 + 1.5 * level / primes.length // max == power 3 (1+2), the higher the level the closest ntgs are picked to highest value
-		numberToGuess = 1 + Math.ceil( (maxNumber - 1) * (1 - Math.pow(Math.random(), propensityToPickHigherNumbers)) )
+		let i = 0 // has to be different from the previous ntg
+		while (numberToGuess == previous && i < 1000) {
+			numberToGuess = 1 + Math.ceil( (maxNumber - 1) * (1 - Math.pow(Math.random(), propensityToPickHigherNumbers)) )
+			i++
+		}
+		
 	}
 	
 	ntgDecomposition = decompose(numberToGuess)
