@@ -31,9 +31,9 @@ https://alexandrix.com/primer
 * Display QR code button
 * Switch toggles instead of buttons in menus
 * Credits
-* Fix missing Soundtrack mute switch
 * Fix last level instant win (requires some refactoring)
 * Swipe between menus
+* Add favicons
 
 # Discussion
 * Generic percussive sample for primes > 71 + progressive crossfade with bell sounds towards higher primes
