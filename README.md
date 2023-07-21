@@ -30,7 +30,6 @@ https://alexandrix.com/primer
 * Share button
 * Display QR code button
 * Switch toggles instead of buttons in menus
-* Credits
 * Fix last level instant win (requires some refactoring)
 * Swipe between menus
 * Add favicons
