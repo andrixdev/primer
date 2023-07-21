@@ -7,7 +7,7 @@ https://alexandrix.com/primer
 
 # Developer information
 * The **main** branch is deployed manually at https://alexandrix.com/primer
-* The **sfx** branch is deployed automatically at https://andrixdev.github.io/primer/
+* The **main** branch is deployed automatically at https://andrixdev.github.io/primer/
 
 # Developer setup
 * Install Node (https://nodejs.org/)
@@ -22,12 +22,18 @@ https://alexandrix.com/primer
 * Now your can see your updated CSS
 
 # Improvements and new features backlog
-* Play sound on hover on prime tiles
 * Handle super wide displays (Zelv has 2560px x 1328px)
 * On new number generation, prevent the same value from being picked
 * Create a tutorial mode
-* Level-up animation starting only from bottom of new level
+* Level-up animation currently starting only from bottom of new level
 * Bell sounds saturate on phone speakers
+* Share button
+* Display QR code button
+* Switch toggles instead of buttons in menus
+* Credits
+* Fix missing Soundtrack mute switch
+* Fix last level instant win (requires some refactoring)
+* Swipe between menus
 
 # Discussion
 * Generic percussive sample for primes > 71 + progressive crossfade with bell sounds towards higher primes
