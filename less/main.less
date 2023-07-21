@@ -56,6 +56,9 @@
 	--outline-faintest: solid 0.5px var(--faint-borders-color);//fade(--text-color, 10%);
 }
 
+@import "./modules/helpers.less";
+@import "./modules/items.less";
+
 html.dark-theme {
 	--win-color: var(--win-green);
 	--lose-color: var(--lose-red);
@@ -106,47 +109,6 @@ p {
 	margin: 0;
 	text-align: center;
 	user-select: none;
-}
-.btn {
-	background: var(--btn-secondary-color);
-	font-family: var(--text-font);
-	font-weight: 500;
-	border: var(--outline-thick);
-	width: 180px;
-	font-size: 1.2rem;
-	padding: 1rem .3rem;
-	line-height: 1.2rem;
-	color: var(--btn-primary-color);
-	cursor: pointer;
-	
-	&:not(.inactive):hover {
-		background: var(--btn-primary-color);
-		color: var(--btn-secondary-color);
-	}
-	&.inactive {
-		cursor: default;
-		opacity: 0.2;
-	}
-}
-.btn-container {
-	display: flex;
-	justify-content: center;
-}
-.square-btn {
-	font-family: Arial, sans-serif;
-	font-size: 2rem;
-	width: 40px;
-}
-.flexrow {
-	display: flex;
-	flex-flow: row;
-}
-.flexcol {
-	display: flex;
-	flex-flow: column;
-}
-.flexcenter {
-	align-items: center;
 }
 
 section.template {

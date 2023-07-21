@@ -47,6 +47,78 @@
   --outline-faint: solid 1px var(--faint-borders-color);
   --outline-faintest: solid 0.5px var(--faint-borders-color);
 }
+.flexrow {
+  display: flex;
+  flex-flow: row;
+}
+.flexcol {
+  display: flex;
+  flex-flow: column;
+}
+.flexcenter {
+  align-items: center;
+}
+.btn {
+  background: var(--btn-secondary-color);
+  font-family: var(--text-font);
+  font-weight: 500;
+  border: var(--outline-thick);
+  width: 180px;
+  font-size: 1.2rem;
+  padding: 1rem 0.3rem;
+  line-height: 1.2rem;
+  color: var(--btn-primary-color);
+  cursor: pointer;
+}
+.btn:not(.inactive):hover {
+  background: var(--btn-primary-color);
+  color: var(--btn-secondary-color);
+}
+.btn.inactive {
+  cursor: default;
+  opacity: 0.2;
+}
+.btn-container {
+  display: flex;
+  justify-content: center;
+}
+.square-btn {
+  font-family: Arial, sans-serif;
+  font-size: 2rem;
+  width: 40px;
+}
+.switch {
+  width: 60px;
+  min-width: 60px;
+  height: 20px;
+  padding: 5px;
+  user-select: none;
+  border-radius: 30px;
+  cursor: pointer;
+  outline: solid 1.5px rgba(255, 255, 255, 0.7);
+  position: relative;
+  transition: background-color 200ms;
+}
+.switch .switch-inner {
+  background: white;
+  border: solid 1px rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  transition: left 200ms ease-out;
+}
+.switch.off {
+  background-color: black;
+}
+.switch.on {
+  background-color: var(--main-blue);
+}
+.switch.on .switch-inner {
+  left: 45px;
+}
 html.dark-theme {
   --win-color: var(--win-green);
   --lose-color: var(--lose-red);
@@ -97,46 +169,6 @@ p {
   margin: 0;
   text-align: center;
   user-select: none;
-}
-.btn {
-  background: var(--btn-secondary-color);
-  font-family: var(--text-font);
-  font-weight: 500;
-  border: var(--outline-thick);
-  width: 180px;
-  font-size: 1.2rem;
-  padding: 1rem 0.3rem;
-  line-height: 1.2rem;
-  color: var(--btn-primary-color);
-  cursor: pointer;
-}
-.btn:not(.inactive):hover {
-  background: var(--btn-primary-color);
-  color: var(--btn-secondary-color);
-}
-.btn.inactive {
-  cursor: default;
-  opacity: 0.2;
-}
-.btn-container {
-  display: flex;
-  justify-content: center;
-}
-.square-btn {
-  font-family: Arial, sans-serif;
-  font-size: 2rem;
-  width: 40px;
-}
-.flexrow {
-  display: flex;
-  flex-flow: row;
-}
-.flexcol {
-  display: flex;
-  flex-flow: column;
-}
-.flexcenter {
-  align-items: center;
 }
 section.template {
   display: none;
