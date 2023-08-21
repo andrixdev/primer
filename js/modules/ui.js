@@ -23,7 +23,8 @@ let dom = {
 	stepBar: document.getElementById('step-bar'),
 	gameOverRestart: document.getElementById('game-over-restart'),
 	workoutCompleteRestart: document.getElementById('workout-complete-restart'),
-	submenuModeSelector: document.getElementById('submenu-mode-selector'),
+	submenuModeChangeLeft: document.getElementById('mode-change-button-left'),
+	submenuModeChangeRight: document.getElementById('mode-change-button-right'),
 	submenuModeName: document.getElementById('submenu-mode-name'),
 	submenus: {
 		exploration: {
@@ -130,7 +131,13 @@ UI.initListeners = () => {
 	})
 	
 	// Submenu toggle mechanics
-	dom.submenuModeSelector.addEventListener('click', () => {
+	dom.submenuModeChangeLeft.addEventListener('click', () => {
+		if (UI.freezeUIinteraction) return false
+		if (UI.submenuGameMode == "exploration") UI.updateSubmenuGameMode("settings")
+		else if (UI.submenuGameMode == "workout") UI.updateSubmenuGameMode("exploration")
+		else if (UI.submenuGameMode == "settings") UI.updateSubmenuGameMode("workout")
+	})
+	dom.submenuModeChangeRight.addEventListener('click', () => {
 		if (UI.freezeUIinteraction) return false
 		if (UI.submenuGameMode == "exploration") UI.updateSubmenuGameMode("workout")
 		else if (UI.submenuGameMode == "workout") UI.updateSubmenuGameMode("settings")
