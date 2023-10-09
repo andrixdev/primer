@@ -91,8 +91,7 @@ section.template {
 	#submenu-mode-selector {
 		margin: 1em;
 		
-		#mode-change-buttons {
-			justify-content: center;
+		.mode-change-button {
 			cursor: pointer;
 		}
 		
@@ -130,9 +129,10 @@ section.template {
 		}
 		.switch#theme-toggle.on {
 			background-color: var(--purple-30);
+			outline-color: var(--purple-30);
 		}
 		span.version {
-			color: rgba(255, 255, 255, .5)
+			opacity: .5;
 		}
 		#share-button {
 			height: 30px;

@@ -140,7 +140,7 @@ html.dark-theme {
   user-select: none;
   border-radius: 30px;
   cursor: pointer;
-  outline: solid 1.5px rgba(255, 255, 255, 0.4);
+  outline: solid 1px rgba(255, 255, 255, 0.4);
   position: relative;
   background-color: black;
   transition: background-color 200ms;
@@ -158,7 +158,7 @@ html.dark-theme {
 }
 .switch.on {
   background-color: var(--blue-30);
-  outline-color: rgba(255, 255, 255, 0.7);
+  outline-color: var(--blue-30);
 }
 .switch.on .switch-inner {
   left: 45px;
@@ -245,8 +245,7 @@ section.template {
 #menu-template #submenu-mode-selector {
   margin: 1em;
 }
-#menu-template #submenu-mode-selector #mode-change-buttons {
-  justify-content: center;
+#menu-template #submenu-mode-selector .mode-change-button {
   cursor: pointer;
 }
 #menu-template #submenu-mode-selector p {
@@ -277,9 +276,10 @@ section.template {
 }
 #menu-template #submenu-settings .switch#theme-toggle.on {
   background-color: var(--purple-30);
+  outline-color: var(--purple-30);
 }
 #menu-template #submenu-settings span.version {
-  color: rgba(255, 255, 255, 0.5);
+  opacity: 0.5;
 }
 #menu-template #submenu-settings #share-button {
   height: 30px;
