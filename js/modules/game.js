@@ -283,9 +283,17 @@ let workouts = [{
 	id: 7,
 	sequence: [53, 653, 53, 753, 153, 853, 253, 953, 353, 1053, 453, 1153, 553, 1253],
 	completion: [],
-	maxPrimeLevel: primes.length - 1,
+	maxPrimeLevel: 215,
+	difficulty: undefined
+}, {
+	name: "🐚 Golden fractal",
+	id: 8,
+	sequence: [2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610],
+	completion: [],
+	maxPrimeLevel: 111, 
 	difficulty: undefined
 }]
+
 let step
 let prepareWorkouts = () => {
 	workouts.forEach((w) => {
