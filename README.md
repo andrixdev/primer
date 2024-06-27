@@ -16,15 +16,21 @@ https://alexandrix.com/primer
 * Clone this repository on your machine
 * Open *index.html*
 
-# Compiling LESS into CSS
+# Compiling LESS into CSS with Visual Studio Code
+* Install the Easy LESS extension (by mrcrowl)
+* All .less files are automatically compiled to CSS on file save
+
+# Compiling LESS into CSS without Visual Studio Code
 * Install the LESS preprocessor (https://lesscss.org/usage/)
-* Run **lessc less/main.less css/main.css**
+* Run **lessc less/main.less css/main.css && lessc less/variables.less css/variables.css**
+* Run **lessc less/modules/helpers.less css/helpers.css && lessc less/modules/items.less css/items.css**
 * Now your can see your updated CSS
 
 # Improvements and new features backlog
 * Handle super wide displays (Zelv has 2560px x 1328px)
 * Create a tutorial mode
 * Bell sounds saturate on phone speakers
+* Sound glitches on FireFox
 * Swipe between menus
 * Add favicons
 

@@ -293,7 +293,6 @@ let workouts = [{
 	maxPrimeLevel: 111, 
 	difficulty: undefined
 }]
-
 let step
 let prepareWorkouts = () => {
 	workouts.forEach((w) => {
