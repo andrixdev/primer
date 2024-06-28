@@ -30,6 +30,7 @@ https://alexandrix.com/primer
 * Handle super wide displays (Zelv has 2560px x 1328px)
 * Create a tutorial mode
 * Bell sounds saturate on phone speakers
+* Try to recreate bug on iPhone where asked number in bottom bar is different from the central number (the number that then works is the one asked in the bottom bar)
 * Sound glitches on FireFox
 * Swipe between menus
 * Add favicons
