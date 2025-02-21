@@ -5,6 +5,8 @@ let Aud = {
 	primes: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71],
 	samples: [],
 	soundtrack: [], // multiple loops of different length running in parallel
+	audioCtx: undefined,
+	newSamples: []
 }
 Aud.addNewSample = (src, type, id) => {
 	// type is 'decomposition', 'selection' (prime stuff) or 'soundtrack' or 'correct'... (sound effects)
@@ -43,7 +45,7 @@ Aud.addNewPrimeSample = (type, id, prime) => {
 	let newType = 'prime-' + prime + '-' + type
 	Aud.addNewSample(src, newType, id)
 }
-Aud.initSamples = () => {
+Aud.initLegacyDOMSamples = () => {
 	// Create audio DOM nodes for sound effects
 	let sfxSources = ['incorrect', 'xp-up', 'xp-down']
 	sfxSources.forEach((source) => {
@@ -95,7 +97,7 @@ Aud.initSamples = () => {
 	Aud.addNewPrimeSample('selection', 'prime-max-selection-', 'max')
 	Aud.addNewPrimeSample('decomposition', 'prime-max-decomposition-', 'max')
 }
-Aud.play = (type, playbackRate = 1) => {
+Aud.legacyDOMplay = (type, playbackRate = 1) => {
 	if (type == 'soundtrack' && Aud.soundtrackMuted) return false
 	if (type != 'soundtrack' && Aud.soundEffectsMuted) return false
 	
@@ -181,6 +183,57 @@ Aud.playFullDecomposition = (factors) => {
 		}, delay)
 	})
 }
+Aud.initSamples = () => {
+	// Init audio context
+	Aud.audioCtx = new AudioContext()
+
+	let sampleCount = 3
+	let loadedCount = 0
+
+	// Pre-fetch all samples (asynchronously)
+	for (let i = 0; i < sampleCount; i++) {
+		fetch('./audio/sfx/decomposition/7.mp3').then(response => {
+			// Check sample load
+			if (response.ok) { 
+				loadedCount++
+			}
+			else {
+				console.log("Failed loading sample with index " + i)
+			}
+
+			// Check if all were loaded
+			if (loadedCount == sampleCount) {
+				console.log("All samples were loaded with success.")
+			}
+
+			return response
+		})
+		.then(response => response.arrayBuffer())
+		.then(arrayBuffer => Aud.audioCtx.decodeAudioData(arrayBuffer))
+		.then(buffer => {
+			Aud.newSamples.push({
+				id: i,
+				type: i,
+				buffer: buffer
+			})
+		})
+		
+	}
+	
+}
+Aud.play = (sample) => {
+	const sourceNode = Aud.audioCtx.createBufferSource()
+	sourceNode.buffer = sample.buffer
+	sourceNode.connect(Aud.audioCtx.destination)
+	sourceNode.start()
+}
 Aud.start = () => {
+	//Aud.initLegacyDOMSamples()
+
 	Aud.initSamples()
+	document.addEventListener('click', () => {
+		let rand = Math.floor(Aud.newSamples.length * Math.random())
+		Aud.play(Aud.newSamples[rand])
+	})
+	
 }

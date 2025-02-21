@@ -30,6 +30,7 @@ https://alexandrix.com/primer
 
 # Improvements and new features backlog (ordered)
 * Move sound samples from DOM to Web Audio API
+* Add sliders for volume control for sound effects and main soundtrack
 * Try to recreate bug where asked number in bottom bar is different from the central number (the number that then works is the one asked in the bottom bar)
 * Swipe between menus
 * Improve overall UX and game design
