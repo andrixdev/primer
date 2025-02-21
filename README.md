@@ -26,16 +26,19 @@ https://alexandrix.com/primer
 * Run **lessc less/modules/helpers.less css/helpers.css && lessc less/modules/items.less css/items.css**
 * Now your can see your updated CSS
 
-# Improvements and new features backlog
-* Handle super wide displays (Zelv has 2560px x 1328px)
-* Create a tutorial mode
-* Bell sounds saturate on phone speakers
-* Try to recreate bug on iPhone where asked number in bottom bar is different from the central number (the number that then works is the one asked in the bottom bar)
-* Sound glitches on FireFox
+# Improvements and new features backlog (ordered)
+* Move sound samples from DOM to Web Audio API
+* Try to recreate bug where asked number in bottom bar is different from the central number (the number that then works is the one asked in the bottom bar)
 * Swipe between menus
-* Add favicons
+* Improve overall UX and game design
+* Create logo & add favicons
+* Handle all display sizes up to 4K
+* Move .mp3 samples to .ogg
+* Bell sounds saturate on phone speakers
 
 # Discussion
-* Generic percussive sample for primes > 71 + progressive crossfade with bell sounds towards higher primes
-* XP up sound
-* Testing the Share
+* Create new sounds according to new overall game design with different instruments or textures
+* XP up sounds that don't interfere
+* Change each prime square size (move from a square radius of 3 to 2, orbit 1 size from 4x4 to 3x4)
+* Upgrade to FMOD to handle audio logic if it becomes more complex
+* Set up a Discord server
