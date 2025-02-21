@@ -14,7 +14,9 @@ https://alexandrix.com/primer
 * Install npm (https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 * Install Git (https://git-scm.com/downloads)
 * Clone this repository on your machine
-* Open *index.html*
+* Run **npm install**
+* Run **npm start**
+* Open your favorite browser on port **8080** (*localhost:8080* or *127.0.0.1:8080*)
 
 # Compiling LESS into CSS with Visual Studio Code
 * Install the Easy LESS extension (by mrcrowl)

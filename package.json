@@ -2,7 +2,7 @@
   "name": "primer",
   "version": "0.1.0",
   "description": "Mini-game for mental arithmetic training",
-  "main": "index.html",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/andrixdev/primer/issues"
   },
-  "homepage": "https://github.com/andrixdev/primer#readme"
+  "homepage": "https://github.com/andrixdev/primer#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
 }
