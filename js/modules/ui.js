@@ -116,7 +116,14 @@ UI.initListeners = () => {
 	document.getElementById('landing-content').addEventListener('click', () => {
 		if (UI.freezeUIinteraction) return false
 		dom.overlay.className = 'hidden'
+
+		// Start loading audio (might need a loader soon)
+		Aud.start()
 		Aud.playSoundtrack()
+
+		// Boot game at level 1
+		startExploration(1)
+
 		UI.scrollToCenter()
 	})
 	

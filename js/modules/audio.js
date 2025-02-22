@@ -6,7 +6,13 @@ let Aud = {
 	samples: [],
 	soundtrack: [], // multiple loops of different length running in parallel
 	audioCtx: undefined,
-	newSamples: []
+	newSamples: [],
+	soundtrackSamples: [],
+	primeDecompositionSamples: [],
+	primeSelectionSamples: [],
+	levelUpSamples: [],
+	shuffleSamples: [],
+	incorrectSample: null
 }
 Aud.addNewSample = (src, type, id) => {
 	// type is 'decomposition', 'selection' (prime stuff) or 'soundtrack' or 'correct'... (sound effects)
@@ -184,56 +190,107 @@ Aud.playFullDecomposition = (factors) => {
 	})
 }
 Aud.initSamples = () => {
-	// Init audio context
-	Aud.audioCtx = new AudioContext()
+	// Fill soundtrack sample array
+	Aud.soundtrackSamples.push({
+		path: "./audio/soundtrack/soundtrack-low.mp3",
+		buffer: null
+	})
+	Aud.soundtrackSamples.push({
+		path: "./audio/soundtrack/soundtrack-mid.mp3",
+		buffer: null
+	})
 
-	let sampleCount = 3
-	let loadedCount = 0
+	// Fill primes sample arrays
+	Aud.primes.forEach((p, index) => {
+		Aud.primeDecompositionSamples.push({
+			path: "./audio/sfx/decomposition/" + p + ".mp3",
+			buffer: null
+		})
+		Aud.primeSelectionSamples.push({
+			path: "./audio/sfx/selection/" + p + ".mp3",
+			buffer: null
+		})
+	})
+	Aud.primeDecompositionSamples.push({
+		path: "./audio/sfx/decomposition/max.mp3",
+		buffer: null
+	})
+	Aud.primeSelectionSamples.push({
+		path: "./audio/sfx/selection/max.mp3",
+		buffer: null
+	})
+
+
+	// Fill other sample containers
+	Aud.levelUpSamples.push({ path: "./audio/sfx/level-up/level-up-10.mp3", buffer: null })
+	Aud.levelUpSamples.push({ path: "./audio/sfx/level-up/level-up-2.mp3", buffer: null })
+	Aud.levelUpSamples.push({ path: "./audio/sfx/level-up/level-up-3.mp3", buffer: null })
+	Aud.levelUpSamples.push({ path: "./audio/sfx/level-up/level-up-4.mp3", buffer: null })
+	Aud.levelUpSamples.push({ path: "./audio/sfx/level-up/level-up-5.mp3", buffer: null })
+	Aud.shuffleSamples.push({ path: "./audio/sfx/shuffle/shuffle-1.mp3", buffer: null })
+	Aud.shuffleSamples.push({ path: "./audio/sfx/shuffle/shuffle-2.mp3", buffer: null })
+	Aud.shuffleSamples.push({ path: "./audio/sfx/shuffle/shuffle-3.mp3", buffer: null })
+	Aud.incorrectSample = { path: "./audio/sfx/incorrect.mp3", buffer: null }
+}
+Aud.loadSamples = async () => {
+	const allSamples = [...Aud.soundtrackSamples, ...Aud.primeDecompositionSamples, ...Aud.primeSelectionSamples, ...Aud.levelUpSamples, ...Aud.shuffleSamples,	Aud.incorrectSample]
 
 	// Pre-fetch all samples (asynchronously)
-	for (let i = 0; i < sampleCount; i++) {
-		fetch('./audio/sfx/decomposition/7.mp3').then(response => {
-			// Check sample load
-			if (response.ok) { 
-				loadedCount++
-			}
-			else {
-				console.log("Failed loading sample with index " + i)
-			}
-
-			// Check if all were loaded
-			if (loadedCount == sampleCount) {
-				console.log("All samples were loaded with success.")
-			}
-
-			return response
-		})
-		.then(response => response.arrayBuffer())
-		.then(arrayBuffer => Aud.audioCtx.decodeAudioData(arrayBuffer))
-		.then(buffer => {
-			Aud.newSamples.push({
-				id: i,
-				type: i,
-				buffer: buffer
+	let promises = []
+	allSamples.forEach((s, i) => {
+		promises.push(async () => {
+			return await fetch(s.path).then(response => {
+				// Check sample load
+				if (response.ok) {
+					console.log(i + " is OK")
+					return Promise.resolve(response)
+				}
+				else {
+					return Promise.reject("Failed loading audio sample at " + s.path)
+				}
+			})
+			.then(response => response.arrayBuffer())
+			.then(arrayBuffer => Aud.audioCtx.decodeAudioData(arrayBuffer))
+			.then(buffer => {
+				s.buffer = buffer
+				return Promise.resolve("Sample number " + i + " was successfully loaded." )
+			})
+			.catch(error => {
+				return Promise.reject(error)
 			})
 		})
-		
-	}
-	
+	})
+
+	return await new Promise((resooolve, rejeeect) => {
+		Promise.all(promises.map(prom => prom()))
+			.then(results => {
+				//console.log("Oh yeaah")
+				//console.log(results)
+				resooolve("All fetch calls were successfully loaded that's cool man")
+			})
+			.catch(err => rejeeect(err))
+	})
 }
 Aud.play = (sample) => {
 	const sourceNode = Aud.audioCtx.createBufferSource()
 	sourceNode.buffer = sample.buffer
 	sourceNode.connect(Aud.audioCtx.destination)
 	sourceNode.start()
+	// In case of performance issues in the future, Add a Disconnect after sample has ended
 }
 Aud.start = () => {
 	//Aud.initLegacyDOMSamples()
 
+	// Init audio context (has to be triggered by used interaction)
+	Aud.audioCtx = new AudioContext()
+
 	Aud.initSamples()
-	document.addEventListener('click', () => {
-		let rand = Math.floor(Aud.newSamples.length * Math.random())
-		Aud.play(Aud.newSamples[rand])
-	})
+	
+	Aud.loadSamples().then(res => {
+		//console.log("BIP " + res)
+		let rand = Math.floor(Aud.primeDecompositionSamples.length * Math.random())
+		Aud.play(Aud.primeDecompositionSamples[rand])
+	}).catch(err => console.error(err))
 	
 }
+
