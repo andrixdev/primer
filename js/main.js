@@ -63,27 +63,22 @@ let share = () => {
 		// Error
 	})
 }
-window.onload = (event) => {
+
+document.addEventListener("DOMContentLoaded", () => {
 	// Starting on landing screen (Tap to start)
 	UI.fillOverlayUI(dom.templates.landing)
 	
 	// Shape UI
 	UI.generatePrimesNodes()
 	UI.positionCentralAndPrimeNodes()
-	
-	// Start audio
-	Aud.start()
-	
+
 	// Prepare workouts
 	prepareWorkouts()
-	
+
 	// Prepare submenus
 	UI.initWorkoutsSubmenu()
 	UI.initExplorationSubmenu()
-	
+
 	// Start interactions
 	UI.initListeners()
-	
-	// Boot game at level 1
-	startExploration(1)
-}
+})
