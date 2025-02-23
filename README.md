@@ -38,6 +38,7 @@ https://alexandrix.com/primer
 * Handle all display sizes up to 4K
 * Move .mp3 samples to .ogg
 * Bell sounds saturate on phone speakers
+* Keep loading screen only while critical sound assets load (soundtrack, effects & first primes) and load the remaining samples while the user is already playing
 
 # Discussion
 * Create new sounds according to new overall game design with different instruments or textures
