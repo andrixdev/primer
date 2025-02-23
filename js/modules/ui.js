@@ -6,10 +6,12 @@ let dom = {
 	overlay: document.getElementById('screen-overlay'),
 	templates: {
 		landing: document.getElementById('landing-template'),
+		loading: document.getElementById('loading-template'),
 		menu: document.getElementById('menu-template'),
 		gameOver: document.getElementById('game-over-template'),
 		workoutComplete: document.getElementById('workout-complete-template')
 	},
+	loadingProgress: document.getElementById('loading'),
 	menu: document.getElementById('menu'),
 	infoContent: document.getElementById('info-content'),
 	playArea: document.getElementById('play-area'),
@@ -59,6 +61,9 @@ UI.fillOverlayUI = (newTemplateNode) => {
 	dom.body.append(dom.overlay.firstElementChild)
 	dom.overlay.appendChild(newTemplateNode)
 	dom.overlay.className = '' // Removes potential .hidden class
+}
+UI.updateLoadingProgress = (value) => {
+	dom.loadingProgress.innerHTML = value
 }
 UI.scrollToCenter = () => {
 	document.body.scrollTo(1/2 * (dom.playArea.clientWidth - document.body.clientWidth), 1/2 * (dom.playArea.clientHeight - document.body.clientHeight))
@@ -115,16 +120,20 @@ UI.initListeners = () => {
 	// Tap to start
 	document.getElementById('landing-content').addEventListener('click', () => {
 		if (UI.freezeUIinteraction) return false
-		dom.overlay.className = 'hidden'
 
-		// Start loading audio (might need a loader soon)
+		// Go to loading screen
+		UI.fillOverlayUI(dom.templates.loading)
+
+		// Start loading audio
 		Aud.start()
-		Aud.playSoundtrack()
+			.then(() => {
+				dom.overlay.className = 'hidden'
 
-		// Boot game at level 1
-		startExploration(1)
+				// Boot game at level 1
+				startExploration(1)
 
-		UI.scrollToCenter()
+				UI.scrollToCenter()
+			})
 	})
 	
 	// Menu toggle mechanics

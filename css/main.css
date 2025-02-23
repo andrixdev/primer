@@ -71,6 +71,17 @@ section.template {
   font-size: 1.5rem;
   animation: shine 1s alternate infinite;
 }
+#loading-template {
+  height: 100%;
+  width: 100%;
+}
+#loading-template #loading-content {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 #menu-template {
   padding: 30px 0 60px;
 }
