@@ -58,3 +58,42 @@
 .switch.on .switch-inner {
   left: 45px;
 }
+.square-logo {
+  --size: 160px;
+  --th: 1px;
+  --shadow-color: hsla(210, 90%, 50%, 0.5);
+  --border-color: hsla(210, 90%, 70%, 0.8);
+  position: relative;
+  height: calc(1 * var(--size));
+  width: calc(1 * var(--size));
+}
+.square-logo .square {
+  border: solid var(--border-color) var(--th);
+  width: var(--size);
+  height: var(--size);
+  position: absolute;
+  box-shadow: var(--shadow-color) 0 0 calc(var(--size) / 10) inset, var(--shadow-color) 0 0 calc(var(--size) / 20);
+  animation: bounce 4s cubic-bezier(0.65, 0.05, 0.36, 1) infinite alternate;
+  transform: rotate(45deg) scale(1);
+  /* Init state of animation */
+}
+.square-logo .square:nth-of-type(2) {
+  animation-delay: 400ms;
+}
+.square-logo .square:nth-of-type(3) {
+  animation-delay: 800ms;
+}
+@keyframes bounce {
+  from {
+    transform: rotate(45deg) scale(1);
+  }
+  45% {
+    transform: rotate(45deg) scale(1.5);
+  }
+  55% {
+    transform: rotate(45deg) scale(1.5);
+  }
+  to {
+    transform: rotate(45deg) scale(1);
+  }
+}
