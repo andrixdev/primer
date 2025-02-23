@@ -216,7 +216,7 @@ let changeLevelTo = (newLevel) => {
 	orbit = getLevelOrbit(level)
 }
 let levelUp = () => {
-	Aud.playMulti('level-up')
+	Aud.playRandomLevelUp()
 	changeLevelTo(level + 1)
 }
 let startExploration = (lvl) => {

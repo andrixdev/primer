@@ -432,7 +432,7 @@ UI.endAnimation = (winOrLose = 'win', isShuffle = 'shuffle', callback) => {
 }
 UI.fakeShuffleAnimation = (durationMS) => {
 	dom.ntg.classList = "shuffling"
-	Aud.playMulti('shuffle')
+	Aud.playRandomShuffle()
 	let startTime = new Date().getTime()
 	let glitchDurationMS = 30
 	// Frantically change displayed ntg before new real pick

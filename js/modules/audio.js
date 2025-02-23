@@ -3,105 +3,13 @@ let Aud = {
 	soundtrackMuted: false,
 	soundEffectsMuted: false,
 	primes: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71],
-	samples: [],
-	soundtrack: [], // multiple loops of different length running in parallel
 	audioCtx: undefined,
-	newSamples: [],
-	soundtrackSamples: [],
+	soundtrackSamples: [], // multiple loops of different length running in parallel
 	primeDecompositionSamples: [],
 	primeSelectionSamples: [],
 	levelUpSamples: [],
 	shuffleSamples: [],
 	incorrectSample: null
-}
-Aud.addNewSample = (src, type, id) => {
-	// type is 'decomposition', 'selection' (prime stuff) or 'soundtrack' or 'correct'... (sound effects)
-	let audioElement = document.createElement('audio')
-	audioElement.id = id
-	audioElement.preload = true
-	audioElement.loop = type == 'soundtrack'
-	let audioSourceElement = document.createElement('source')
-	audioSourceElement.src = src
-	audioSourceElement.type = 'audio/mp3'
-	audioElement.appendChild(audioSourceElement)
-	audioElement.addEventListener('ended', (event) => {
-		event.target.currentTime = 0 // Restart when over
-	})
-	// Inject DOM node in body
-	document.getElementsByTagName('body')[0].appendChild(audioElement)
-	// Add to reference array
-	if (type != 'soundtrack') {
-		Aud.samples.push({
-			id: id,
-			type: type,
-			node: document.getElementById(id)
-		})
-	} else {
-		Aud.soundtrack.push({
-			id: id,
-			type: type,
-			node: document.getElementById(id)
-		})
-	}
-	
-}
-Aud.addNewPrimeSample = (type, id, prime) => {
-	// type is 'selection' of 'decomposition'
-	let src = 'audio/sfx/' + type + '/' + prime + '.mp3'
-	let newType = 'prime-' + prime + '-' + type
-	Aud.addNewSample(src, newType, id)
-}
-Aud.initLegacyDOMSamples = () => {
-	// Create audio DOM nodes for sound effects
-	let sfxSources = ['incorrect', 'xp-up', 'xp-down']
-	sfxSources.forEach((source) => {
-		let src = 'audio/sfx/' + source + '.mp3'
-		let type = source
-		let id = source
-		Aud.addNewSample(src, type, id)
-	})
-
-	let sfxMultiSources = ['shuffle']
-	sfxMultiSources.forEach((source) => {
-		// TODO: list all mp3 files from audio/sfx/source/
-		for (let i = 1, len = 3; i <= len; i++) {
-			let src = 'audio/sfx/' + source + '/' + source + '-' + i + '.mp3'
-			let type = source
-			let id = source + '-' + i
-			Aud.addNewSample(src, type, id)
-		};
-	})
-
-	sfxMultiSources = ['level-up']
-	sfxMultiSources.forEach((source) => {
-		// TODO: list all mp3 files from audio/sfx/source/
-		for (let i = 1, len = 5; i <= len; i++) {
-			let src = 'audio/sfx/' + source + '/' + source + '-' + i + '.mp3'
-			let type = source
-			let id = source + '-' + i
-			Aud.addNewSample(src, type, id)
-		};
-	})
-
-	// Create audio DOM node for soundtrack
-	Aud.addNewSample('audio/soundtrack/soundtrack-low.mp3', 'soundtrack', 'soundtrack-low')
-	Aud.addNewSample('audio/soundtrack/soundtrack-mid.mp3', 'soundtrack', 'soundtrack-mid')
-
-	// Create log2(maxPrime) audio DOM nodes for 2, log3(maxPrime) for 3, log5(maxPrime) for 5
-	// And double it: 'selection' + 'decomposition' types
-	Aud.primes.forEach((p) => {
-		// 2 * logp(maxPrime) samples per prime of each type (to handle multiple clicks and making room for possible next ntg with the same factors)
-		let maxPrime = 71 // Should be the maxPrime of whole game but for now it's enough
-		let numberOfSamples = Math.floor(Math.log2(maxPrime) / Math.log2(p)) // Max possible number of this prime in decomposition
-		numberOfSamples *= 2 // Double it to really avoid all samples being already played (btw they can't be restarted that's why we're injecting so many samples of the same source)
-		for (let i = 1; i <= numberOfSamples; i++) {
-			Aud.addNewPrimeSample('selection', 'prime-' + p + '-selection-' + i, p)
-			Aud.addNewPrimeSample('decomposition', 'prime-' + p + '-decomposition-' + i, p)
-		}
-	})
-
-	Aud.addNewPrimeSample('selection', 'prime-max-selection-', 'max')
-	Aud.addNewPrimeSample('decomposition', 'prime-max-decomposition-', 'max')
 }
 Aud.legacyDOMplay = (type, playbackRate = 1) => {
 	if (type == 'soundtrack' && Aud.soundtrackMuted) return false
@@ -124,34 +32,7 @@ Aud.legacyDOMplay = (type, playbackRate = 1) => {
 		s++
 	}
 }
-Aud.playSoundtrack = () => {
-	Aud.soundtrack.forEach((track) => {
-		track.node.play()
-	})
-}
-Aud.pauseSoundtrack = () => {
-	Aud.soundtrack.forEach((track) => {
-		track.node.pause()
-	})
-}
-Aud.playMulti = (type) => {
-	// Play a random sample out of all samples with the same type
-	// Should maybe be part of Audio.play
-	if (type == 'soundtrack' && Aud.soundtrackMuted) return false
-	if (type != 'soundtrack' && Aud.soundEffectsMuted) return false
-	
-	let samples = Aud.samples.filter((el) => {
-		return el.type == type
-	})
-
-	// play a random sample from the list
-	randomSample = samples[Math.floor(Math.random()*samples.length)]
-
-	if (!randomSample.node.currentTime || randomSample.node.currentTime == 0) {
-		randomSample.node.play()
-	}
-}
-Aud.playPrime = (prime, type = 'selection') => {
+Aud.legacyPlayPrime = (prime, type = 'selection') => {
 	// valid types are:
 	// 	- 'selection'
 	// 	- 'decomposition'
@@ -185,9 +66,37 @@ Aud.playFullDecomposition = (factors) => {
 		let delay = i * 165
 
 		setTimeout(() => {
-			Aud.playPrime(f, 'decomposition')
+			Aud.playPrime(f, "decomposition")
 		}, delay)
 	})
+}
+Aud.playRandomShuffle = () => {
+	const size = Aud.shuffleSamples.length
+	let randIndex = Math.floor(size * Math.random())
+	Aud.play(Aud.shuffleSamples[randIndex])
+}
+Aud.playRandomLevelUp = () => {
+	const size = Aud.levelUpSamples.length
+	let randIndex = Math.floor(size * Math.random())
+	Aud.play(Aud.levelUpSamples[randIndex])
+}
+Aud.playPrime = (prime, type = "selected") => {
+	const size = Aud.primes.length
+	const lastPrime = Aud.primes[size - 1]
+
+	if (prime > lastPrime) {
+		if (type == "selected") Aud.play(Aud.primeSelectionSamples[size])
+		else if (type == "decomposition") Aud.play(Aud.primeDecompositionSamples[size])
+	}
+	else {
+		// Look for prime in array
+		let index = Aud.primes.indexOf(prime)
+
+		// Play corresponding sample
+		if (type == "selected") Aud.play(Aud.primeSelectionSamples[index])
+		else if (type == "decomposition") Aud.play(Aud.primeDecompositionSamples[index])
+	}
+	
 }
 Aud.initSamples = () => {
 	// Fill soundtrack sample array
@@ -219,7 +128,6 @@ Aud.initSamples = () => {
 		path: "./audio/sfx/selection/max.mp3",
 		buffer: null
 	})
-
 
 	// Fill other sample containers
 	Aud.levelUpSamples.push({ path: "./audio/sfx/level-up/level-up-1.mp3", buffer: null })
@@ -289,12 +197,10 @@ Aud.start = async () => {
 		Aud.initSamples()
 		
 		Aud.loadSamples()
-			.then(res => {
+			.then(() => {
 				// Start soundtrack samples
-				console.log('playing soundtracks')
 				Aud.play(Aud.soundtrackSamples[0])
 				Aud.play(Aud.soundtrackSamples[1])
-				
 				reso()
 			}).catch(err => {
 				console.error(err)
