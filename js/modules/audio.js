@@ -222,7 +222,7 @@ Aud.initSamples = () => {
 
 
 	// Fill other sample containers
-	Aud.levelUpSamples.push({ path: "./audio/sfx/level-up/level-up-10.mp3", buffer: null })
+	Aud.levelUpSamples.push({ path: "./audio/sfx/level-up/level-up-1.mp3", buffer: null })
 	Aud.levelUpSamples.push({ path: "./audio/sfx/level-up/level-up-2.mp3", buffer: null })
 	Aud.levelUpSamples.push({ path: "./audio/sfx/level-up/level-up-3.mp3", buffer: null })
 	Aud.levelUpSamples.push({ path: "./audio/sfx/level-up/level-up-4.mp3", buffer: null })
@@ -237,12 +237,13 @@ Aud.loadSamples = async () => {
 
 	// Pre-fetch all samples (asynchronously)
 	let promises = []
+	let loadCount = 0
+	let totalLoadCount = allSamples.length
 	allSamples.forEach((s, i) => {
 		promises.push(async () => {
 			return await fetch(s.path).then(response => {
 				// Check sample load
 				if (response.ok) {
-					console.log(i + " is OK")
 					return Promise.resolve(response)
 				}
 				else {
@@ -253,6 +254,8 @@ Aud.loadSamples = async () => {
 			.then(arrayBuffer => Aud.audioCtx.decodeAudioData(arrayBuffer))
 			.then(buffer => {
 				s.buffer = buffer
+				loadCount++
+				UI.updateLoadingProgress(Math.round(loadCount / totalLoadCount * 100))
 				return Promise.resolve("Sample number " + i + " was successfully loaded." )
 			})
 			.catch(error => {
@@ -278,19 +281,24 @@ Aud.play = (sample) => {
 	sourceNode.start()
 	// In case of performance issues in the future, Add a Disconnect after sample has ended
 }
-Aud.start = () => {
-	//Aud.initLegacyDOMSamples()
+Aud.start = async () => {
+	return await new Promise((reso, reje) => {
+		// Init audio context (has to be triggered by used interaction)
+		Aud.audioCtx = new AudioContext()
 
-	// Init audio context (has to be triggered by used interaction)
-	Aud.audioCtx = new AudioContext()
-
-	Aud.initSamples()
-	
-	Aud.loadSamples().then(res => {
-		//console.log("BIP " + res)
-		let rand = Math.floor(Aud.primeDecompositionSamples.length * Math.random())
-		Aud.play(Aud.primeDecompositionSamples[rand])
-	}).catch(err => console.error(err))
-	
+		Aud.initSamples()
+		
+		Aud.loadSamples()
+			.then(res => {
+				// Start soundtrack samples
+				console.log('playing soundtracks')
+				Aud.play(Aud.soundtrackSamples[0])
+				Aud.play(Aud.soundtrackSamples[1])
+				
+				reso()
+			}).catch(err => {
+				console.error(err)
+				reje()
+			})
+	})
 }
-
