@@ -145,7 +145,7 @@ let handleIncorrect = () => {
 	}
 	
 	// Play sound
-	Aud.play('incorrect')
+	Aud.playIncorrect()
 	
 	// Prepare next action for after animation
 	let nextAction

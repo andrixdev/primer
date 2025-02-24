@@ -98,6 +98,9 @@ Aud.playPrime = (prime, type = "selected") => {
 	}
 	
 }
+Aud.playIncorrect = () => {
+	Aud.play(Aud.incorrectSample)
+}
 Aud.initSamples = () => {
 	// Fill soundtrack sample array
 	Aud.soundtrackSamples.push({
@@ -181,6 +184,9 @@ Aud.loadSamples = async () => {
 			})
 			.catch(err => rejeeect(err))
 	})
+}
+Aud.loop = (sample) => {
+	// Start a loop with sample
 }
 Aud.play = (sample) => {
 	const sourceNode = Aud.audioCtx.createBufferSource()
