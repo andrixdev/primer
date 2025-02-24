@@ -412,38 +412,43 @@ UI.positionCentralAndPrimeNodes = () => {
 		
 	})
 }
-UI.endAnimation = (winOrLose = 'win', isShuffle = 'shuffle', callback) => {
+UI.endAnimation = async (winOrLose = 'win') => {
 	// winOrLose is 'win' or 'lose'
-	// isShuffle is 'shuffle' or 'noshuffle'
-	UI.freezeUIinteraction = true
-	dom.numberContainer.className = winOrLose
-	dom.feedbackContainer.className = winOrLose
-	
-	let extraTimeout = isShuffle == 'shuffle' ? 400 : 0
-	setTimeout(() => {
-		dom.numberContainer.className = ''
-		dom.feedbackContainer.className = ''
-		if (isShuffle == 'shuffle') UI.fakeShuffleAnimation(400)
-	}, 1000)
-	setTimeout(() => {
-		UI.freezeUIinteraction = false
-		callback()
-	}, 1000 + extraTimeout)
+	return await new Promise((res, rej) => {
+		UI.freezeUIinteraction = true
+		dom.numberContainer.className = winOrLose
+		dom.feedbackContainer.className = winOrLose
+
+		setTimeout(() => {
+			UI.freezeUIinteraction = false
+			dom.numberContainer.className = ''
+			dom.feedbackContainer.className = ''
+			res()
+		}, 1000)
+	})
 }
-UI.fakeShuffleAnimation = (durationMS) => {
-	dom.ntg.classList = "shuffling"
-	Aud.playRandomShuffle()
-	let startTime = new Date().getTime()
-	let glitchDurationMS = 30
-	// Frantically change displayed ntg before new real pick
-	let interval = setInterval(() => {
-		let numberOfDigits = level <= 3 ? 1 : (level <= 24 ? 2 : 3)
-		dom.ntg.innerHTML = 1 + Math.floor((Math.pow(10, numberOfDigits) - 1) * Math.random())
-	}, glitchDurationMS)
-	setTimeout(() => {
-		clearInterval(interval)
-	}, durationMS - 2 * glitchDurationMS) // Removing 1 glitch duration to prevent change after actual new ntg has been chosen
-	setTimeout(() => { dom.ntg.classList = "" }, durationMS)
+UI.fakeShuffleAnimation = async () => {
+	
+	return await new Promise((res, rej) => {
+		dom.ntg.classList = "shuffling"
+		Aud.playRandomShuffle()
+		let startTime = new Date().getTime()
+		let durationMS = 400
+		let shuffleGlitchDurationMS = 40
+
+		// Shuffle digits animation
+		let interval = setInterval(() => {
+			let numberOfDigits = level <= 3 ? 1 : (level <= 24 ? 2 : 3)
+			dom.ntg.innerHTML = 1 + Math.floor((Math.pow(10, numberOfDigits) - 1) * Math.random())
+		}, shuffleGlitchDurationMS)
+
+		// Stop shuffle digits animation after a while and go next
+		setTimeout(() => {
+			clearInterval(interval)
+			dom.ntg.classList = ""
+			res()
+		}, durationMS)
+	})
 	
 }
 UI.updateFeedbackText = () => {

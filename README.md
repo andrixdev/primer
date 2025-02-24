@@ -29,7 +29,9 @@ https://alexandrix.com/primer
 * Now your can see your updated CSS
 
 # Improvements and new features backlog (ordered)
-* Move sound samples from DOM to Web Audio API
+* Have soundtrack samples loop
+* Play/pause soundtrack and sound effects in settings
+* Handle samples higher than max of primes (then remove legacy methods)
 * Add sliders for volume control for sound effects and main soundtrack
 * Try to recreate bug where asked number in bottom bar is different from the central number (the number that then works is the one asked in the bottom bar)
 * Swipe between menus
