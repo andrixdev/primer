@@ -108,33 +108,26 @@ let handleCorrect = () => {
 		UI.updateStepBar()
 	}
 	
-	// Prepare callback (nextAction) for after animation
-	let nextAction, shuffle
+	// Next steps for exploration and workout
 	if (gameMode == "exploration") {
 		if (level <= maxLevel) {
-			nextAction = generate // New random number
-			shuffle = 'shuffle'
+			UI.endAnimation('win').then(UI.fakeShuffleAnimation).then(generate) // New random number
 		} else {
-			nextAction = endExploration
-			shuffle = 'noshuffle'
+			UI.endAnimation('win').then(endExploration)
 		}
 	} else if (gameMode == "workout") {
 		if (step < currentWorkout.sequence.length) {
 			// Workout next level
-			nextAction = () => {
+			UI.endAnimation('win').then(UI.fakeShuffleAnimation).then(() => {
 				let newNumber = currentWorkout.sequence[step] // Next number in workout sequence!
 				UI.updateInfoArea()
 				generate(newNumber)
-			}
-			shuffle = 'shuffle'
+			})
 		} else if (step == currentWorkout.sequence.length) {
 			// Workout end
-			nextAction = endWorkout
-			shuffle = 'noshuffle'
+			UI.endAnimation('win').then(endWorkout)
 		}
 	}
-	
-	UI.endAnimation('win', shuffle, nextAction)
 }
 let handleIncorrect = () => {
 	// Grant (negative) XP in exporation mode
@@ -147,17 +140,17 @@ let handleIncorrect = () => {
 	// Play sound
 	Aud.playIncorrect()
 	
-	// Prepare next action for after animation
-	let nextAction
-	if (gameMode == "exploration") nextAction = generate // Random number
-	else if (gameMode == "workout") nextAction = () => { // Repeat same number in sequence
-		// Fill-in with same sequence number
-		let newNumber = currentWorkout.sequence[step]
-		generate(newNumber)
+	// Next steps for exploration and workout
+	if (gameMode == "exploration") {
+		// Too bad, draw new random number
+		UI.endAnimation('lose').then(UI.fakeShuffleAnimation).then(generate)
+	} else if (gameMode == "workout") {
+		UI.endAnimation('lose').then(UI.fakeShuffleAnimation).then(() => {
+			// Repeat same number in sequence
+			let newNumber = currentWorkout.sequence[step]
+			generate(newNumber)
+		})
 	}
-	
-	// Launch animation with callback
-	UI.endAnimation('lose', 'shuffle', nextAction)
 }
 
 // Game - Exploration mode XP and level

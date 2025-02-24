@@ -13,7 +13,6 @@ let generate = (number) => {
 			numberToGuess = 1 + Math.ceil( (maxNumber - 1) * (1 - Math.pow(Math.random(), propensityToPickHigherNumbers)) )
 			i++
 		}
-		
 	}
 	
 	ntgDecomposition = decompose(numberToGuess)
