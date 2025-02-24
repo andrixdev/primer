@@ -33,7 +33,6 @@ https://alexandrix.com/primer
 * Play/pause soundtrack and sound effects in settings
 * Handle samples higher than max of primes (then remove legacy methods)
 * Add sliders for volume control for sound effects and main soundtrack
-* Try to recreate bug where asked number in bottom bar is different from the central number (the number that then works is the one asked in the bottom bar)
 * Swipe between menus
 * Improve overall UX and game design
 * Create logo & add favicons
