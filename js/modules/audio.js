@@ -7,6 +7,8 @@ let Aud = {
 	soundtrackSamples: [], // multiple loops of different length running in parallel
 	primeDecompositionSamples: [],
 	primeSelectionSamples: [],
+	maxPrimeDecompositionSample: null,
+	maxPrimeSelectionSample: null,
 	levelUpSamples: [],
 	shuffleSamples: [],
 	incorrectSample: null
@@ -32,7 +34,7 @@ Aud.legacyDOMplay = (type, playbackRate = 1) => {
 		s++
 	}
 }
-Aud.legacyPlayPrime = (prime, type = 'selection') => {
+Aud.legacyPlayPrime = (prime, type = "selection") => {
 	// valid types are:
 	// 	- 'selection'
 	// 	- 'decomposition'
@@ -81,12 +83,38 @@ Aud.playRandomLevelUp = () => {
 	Aud.play(Aud.levelUpSamples[randIndex])
 }
 Aud.playPrime = (prime, type = "selected") => {
-	const size = Aud.primes.length
-	const lastPrime = Aud.primes[size - 1]
+	// Check that we do have a prime
+	if (primes.indexOf(prime) < 0) {
+		console.error("Input number is not in list of primes")
+		return false
+	}
 
-	if (prime > lastPrime) {
-		if (type == "selected") Aud.play(Aud.primeSelectionSamples[size])
-		else if (type == "decomposition") Aud.play(Aud.primeDecompositionSamples[size])
+	const size = Aud.primes.length
+	const lastAudioPrime = Aud.primes[size - 1]
+
+	if (prime > lastAudioPrime) {
+		// Play last prime audio sample with a faster playback rate up to 2 octaves higher
+		// Above that, play the "max" sample
+		let noteDifference = primes.indexOf(prime) - primes.indexOf(lastAudioPrime)
+		let playbackRate = 1
+		let sample
+		if (noteDifference <= 24) {
+			// Increase playback rate & play last prime sample
+			playbackRate = 2 ** (noteDifference / 12)
+
+			if (type == "selected") sample = Aud.primeSelectionSamples[size - 1]
+			else if (type == "decomposition") sample = Aud.primeDecompositionSamples[size - 1]
+
+			Aud.play(sample, playbackRate)
+		} else {
+			// Keep normal playback rate & play special "max" sample
+			playbackRate = 1
+
+			if (type == "selected") sample = Aud.maxPrimeSelectionSample
+			else if (type == "decomposition") sample = Aud.maxPrimeDecompositionSample
+
+			Aud.play(sample, playbackRate)
+		}
 	}
 	else {
 		// Look for prime in array
@@ -123,14 +151,14 @@ Aud.initSamples = () => {
 			buffer: null
 		})
 	})
-	Aud.primeDecompositionSamples.push({
+	Aud.maxPrimeDecompositionSample = {
 		path: "./audio/sfx/decomposition/max.mp3",
 		buffer: null
-	})
-	Aud.primeSelectionSamples.push({
+	}
+	Aud.maxPrimeSelectionSample = {
 		path: "./audio/sfx/selection/max.mp3",
 		buffer: null
-	})
+	}
 
 	// Fill other sample containers
 	Aud.levelUpSamples.push({ path: "./audio/sfx/level-up/level-up-1.mp3", buffer: null })
@@ -144,7 +172,7 @@ Aud.initSamples = () => {
 	Aud.incorrectSample = { path: "./audio/sfx/incorrect.mp3", buffer: null }
 }
 Aud.loadSamples = async () => {
-	const allSamples = [...Aud.soundtrackSamples, ...Aud.primeDecompositionSamples, ...Aud.primeSelectionSamples, ...Aud.levelUpSamples, ...Aud.shuffleSamples,	Aud.incorrectSample]
+	const allSamples = [...Aud.soundtrackSamples, ...Aud.primeDecompositionSamples, ...Aud.primeSelectionSamples, Aud.maxPrimeDecompositionSample, Aud.maxPrimeSelectionSample, ...Aud.levelUpSamples, ...Aud.shuffleSamples, Aud.incorrectSample]
 
 	// Pre-fetch all samples (asynchronously)
 	let promises = []
@@ -188,9 +216,10 @@ Aud.loadSamples = async () => {
 Aud.loop = (sample) => {
 	// Start a loop with sample
 }
-Aud.play = (sample) => {
+Aud.play = (sample, playbackRate = 1) => {
 	const sourceNode = Aud.audioCtx.createBufferSource()
 	sourceNode.buffer = sample.buffer
+	sourceNode.playbackRate.value = playbackRate
 	sourceNode.connect(Aud.audioCtx.destination)
 	sourceNode.start()
 	// In case of performance issues in the future, Add a Disconnect after sample has ended
