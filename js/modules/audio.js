@@ -82,6 +82,11 @@ Aud.playRandomLevelUp = () => {
 	let randIndex = Math.floor(size * Math.random())
 	Aud.play(Aud.levelUpSamples[randIndex])
 }
+Aud.playSoundtrack = () => {
+	// Start soundtrack samples
+	Aud.play(Aud.soundtrackSamples[0], 1, true)
+	Aud.play(Aud.soundtrackSamples[1], 1, true)
+}
 Aud.playPrime = (prime, type = "selected") => {
 	// Check that we do have a prime
 	if (primes.indexOf(prime) < 0) {
@@ -216,9 +221,10 @@ Aud.loadSamples = async () => {
 Aud.loop = (sample) => {
 	// Start a loop with sample
 }
-Aud.play = (sample, playbackRate = 1) => {
+Aud.play = (sample, playbackRate = 1, loop = false) => {
 	const sourceNode = Aud.audioCtx.createBufferSource()
 	sourceNode.buffer = sample.buffer
+	sourceNode.loop = loop
 	sourceNode.playbackRate.value = playbackRate
 	sourceNode.connect(Aud.audioCtx.destination)
 	sourceNode.start()
@@ -233,9 +239,7 @@ Aud.start = async () => {
 		
 		Aud.loadSamples()
 			.then(() => {
-				// Start soundtrack samples
-				Aud.play(Aud.soundtrackSamples[0])
-				Aud.play(Aud.soundtrackSamples[1])
+				Aud.playSoundtrack()
 				reso()
 			}).catch(err => {
 				console.error(err)
