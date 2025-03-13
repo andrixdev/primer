@@ -276,8 +276,7 @@ UI.initSettingsSubmenuListeners = () => {
 	dom.submenus.settings.soundtrackToggle.addEventListener('click', () => {
 		// Action
 		Aud.soundtrackMuted = !Aud.soundtrackMuted
-		if (Aud.soundtrackMuted) Aud.pauseSoundtrack()
-		else Aud.playSoundtrack()
+		Aud.changeSoundtrackVolume(Aud.soundtrackMuted ? 0 : 1)
 
 		// UI
 		dom.submenus.settings.soundtrackToggle.classList = "switch " + (Aud.soundtrackMuted ? "off" : "on")
@@ -288,6 +287,7 @@ UI.initSettingsSubmenuListeners = () => {
 	dom.submenus.settings.soundEffectsToggle.addEventListener('click', () => {
 		// Action
 		Aud.soundEffectsMuted = !Aud.soundEffectsMuted
+		Aud.changeSfxVolume(Aud.soundEffectsMuted ? 0 : 1)
 
 		// UI
 		dom.submenus.settings.soundEffectsToggle.classList = "switch " + (Aud.soundEffectsMuted ? "off" : "on")
