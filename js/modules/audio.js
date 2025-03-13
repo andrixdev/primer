@@ -4,6 +4,9 @@ let Aud = {
 	soundEffectsMuted: false,
 	primes: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71],
 	audioCtx: undefined,
+	masterGainNode: null,
+	soundtrackGainNode: null,
+	sfxGainNode: null,
 	soundtrackSamples: [], // multiple loops of different length running in parallel
 	primeDecompositionSamples: [],
 	primeSelectionSamples: [],
@@ -34,6 +37,7 @@ Aud.legacyDOMplay = (type, playbackRate = 1) => {
 		s++
 	}
 }
+/*
 Aud.legacyPlayPrime = (prime, type = "selection") => {
 	// valid types are:
 	// 	- 'selection'
@@ -60,6 +64,7 @@ Aud.legacyPlayPrime = (prime, type = "selection") => {
 	Aud.play('prime-' + prime + '-' + type, playbackRate)
 	
 }
+*/
 Aud.playFullDecomposition = (factors) => {
 	if (Aud.soundEffectsMuted) return false
 
@@ -75,17 +80,17 @@ Aud.playFullDecomposition = (factors) => {
 Aud.playRandomShuffle = () => {
 	const size = Aud.shuffleSamples.length
 	let randIndex = Math.floor(size * Math.random())
-	Aud.play(Aud.shuffleSamples[randIndex])
+	Aud.play(Aud.shuffleSamples[randIndex], "sfx")
 }
 Aud.playRandomLevelUp = () => {
 	const size = Aud.levelUpSamples.length
 	let randIndex = Math.floor(size * Math.random())
-	Aud.play(Aud.levelUpSamples[randIndex])
+	Aud.play(Aud.levelUpSamples[randIndex], "sfx")
 }
 Aud.playSoundtrack = () => {
 	// Start soundtrack samples
-	Aud.play(Aud.soundtrackSamples[0], 1, true)
-	Aud.play(Aud.soundtrackSamples[1], 1, true)
+	Aud.play(Aud.soundtrackSamples[0], "soundtrack")
+	Aud.play(Aud.soundtrackSamples[1], "soundtrack")
 }
 Aud.playPrime = (prime, type = "selected") => {
 	// Check that we do have a prime
@@ -110,7 +115,7 @@ Aud.playPrime = (prime, type = "selected") => {
 			if (type == "selected") sample = Aud.primeSelectionSamples[size - 1]
 			else if (type == "decomposition") sample = Aud.primeDecompositionSamples[size - 1]
 
-			Aud.play(sample, playbackRate)
+			Aud.play(sample, "sfx", playbackRate)
 		} else {
 			// Keep normal playback rate & play special "max" sample
 			playbackRate = 1
@@ -118,21 +123,38 @@ Aud.playPrime = (prime, type = "selected") => {
 			if (type == "selected") sample = Aud.maxPrimeSelectionSample
 			else if (type == "decomposition") sample = Aud.maxPrimeDecompositionSample
 
-			Aud.play(sample, playbackRate)
+			Aud.play(sample, "sfx", playbackRate)
 		}
 	}
 	else {
 		// Look for prime in array
 		let index = Aud.primes.indexOf(prime)
-
 		// Play corresponding sample
-		if (type == "selected") Aud.play(Aud.primeSelectionSamples[index])
-		else if (type == "decomposition") Aud.play(Aud.primeDecompositionSamples[index])
+		if (type == "selected") Aud.play(Aud.primeSelectionSamples[index], "sfx")
+		else if (type == "decomposition") Aud.play(Aud.primeDecompositionSamples[index], "sfx")
 	}
 	
 }
 Aud.playIncorrect = () => {
-	Aud.play(Aud.incorrectSample)
+	Aud.play(Aud.incorrectSample, "sfx")
+}
+Aud.changeSoundtrackVolume = (value) => {
+	value = Math.max(0.01, Math.min(1, value))
+	Aud.soundtrackGainNode.gain.setTargetAtTime(value, Aud.audioCtx.currentTime, 0.1 + value * 1.5)
+}
+Aud.changeSfxVolume = (value) => {
+	value = Math.max(0.01, Math.min(1, value))
+	Aud.sfxGainNode.gain.setTargetAtTime(value, Aud.audioCtx.currentTime, 0.1 + value * 1.5)
+}
+Aud.initBuses = () => {
+	Aud.masterGainNode = Aud.audioCtx.createGain()
+	Aud.soundtrackGainNode = Aud.audioCtx.createGain()
+	Aud.sfxGainNode = Aud.audioCtx.createGain()
+
+	Aud.masterGainNode.connect(Aud.audioCtx.destination)
+
+	Aud.soundtrackGainNode.connect(Aud.masterGainNode)
+	Aud.sfxGainNode.connect(Aud.masterGainNode)
 }
 Aud.initSamples = () => {
 	// Fill soundtrack sample array
@@ -221,12 +243,15 @@ Aud.loadSamples = async () => {
 Aud.loop = (sample) => {
 	// Start a loop with sample
 }
-Aud.play = (sample, playbackRate = 1, loop = false) => {
+Aud.play = (sample, type, playbackRate = 1) => {
+	// type is "sfx" or "soundtrack"
+
 	const sourceNode = Aud.audioCtx.createBufferSource()
 	sourceNode.buffer = sample.buffer
-	sourceNode.loop = loop
+	sourceNode.loop = type == "soundtrack"
 	sourceNode.playbackRate.value = playbackRate
-	sourceNode.connect(Aud.audioCtx.destination)
+	let destinationNode = type == "sfx" ? Aud.sfxGainNode : (type == "soundtrack" ? Aud.soundtrackGainNode : Aud.masterGainNode)
+	sourceNode.connect(destinationNode)
 	sourceNode.start()
 	// In case of performance issues in the future, Add a Disconnect after sample has ended
 }
@@ -234,7 +259,7 @@ Aud.start = async () => {
 	return await new Promise((reso, reje) => {
 		// Init audio context (has to be triggered by used interaction)
 		Aud.audioCtx = new AudioContext()
-
+		Aud.initBuses()
 		Aud.initSamples()
 		
 		Aud.loadSamples()

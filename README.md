@@ -30,6 +30,7 @@ https://alexandrix.com/primer
 
 # Improvements and new features backlog (ordered)
 * Have soundtrack samples loop
+* Disable menu on first landing
 * Play/pause soundtrack and sound effects in settings
 * Handle samples higher than max of primes (then remove legacy methods)
 * Add sliders for volume control for sound effects and main soundtrack
@@ -37,6 +38,7 @@ https://alexandrix.com/primer
 * Improve overall UX and game design
 * Create logo & add favicons
 * Handle all display sizes up to 4K
+* Turn off some specific sound effects in menu
 * Move .mp3 samples to .ogg
 * Bell sounds saturate on phone speakers
 * Keep loading screen only while critical sound assets load (soundtrack, effects & first primes) and load the remaining samples while the user is already playing
