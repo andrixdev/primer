@@ -134,10 +134,20 @@ section.template {
 #menu-template #submenu-settings .range-row {
   width: 450px;
 }
-#menu-template #submenu-settings label {
+#menu-template #submenu-settings .range-row label {
   margin-left: 20px;
   width: 250px;
   text-align: left;
+}
+@media (max-width: 500px) {
+  #menu-template #submenu-settings .range-row {
+    flex-flow: column;
+  }
+  #menu-template #submenu-settings .range-row label {
+    margin-left: 0;
+    margin-top: 10px;
+    text-align: center;
+  }
 }
 #menu-template #submenu-settings .switch {
   margin-right: 15px;

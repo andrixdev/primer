@@ -150,11 +150,23 @@ section.template {
 	#submenu-settings {
 		.range-row {
 			width: 450px;
-		}
-		label {
-			margin-left: 20px;
-			width: 250px;
-			text-align: left;
+
+			label {
+				margin-left: 20px;
+				width: 250px;
+				text-align: left;
+			}
+			
+			@media (max-width: 500px) {
+				flex-flow: column;
+
+				label {
+					margin-left: 0;
+					margin-top: 10px;
+					text-align: center;
+				}
+
+			}
 		}
 		.switch {
 			margin-right: 15px;
