@@ -24,10 +24,12 @@ body.frozen {
 h1,
 h2,
 p,
-p::after {
+p::after,
+label {
   color: var(--text-color);
 }
-p {
+p,
+label {
   font-family: var(--text-font);
   margin: 0;
   text-align: center;
@@ -128,6 +130,14 @@ section.template {
 }
 #menu-template #submenu-workouts span {
   opacity: 0.75;
+}
+#menu-template #submenu-settings .range-row {
+  width: 450px;
+}
+#menu-template #submenu-settings label {
+  margin-left: 20px;
+  width: 250px;
+  text-align: left;
 }
 #menu-template #submenu-settings .switch {
   margin-right: 15px;

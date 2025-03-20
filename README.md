@@ -32,6 +32,7 @@ https://alexandrix.com/primer
 * Have soundtrack samples loop
 * Disable menu on first landing
 * Play/pause soundtrack and sound effects in settings
+* Save volume preferences in localStorage
 * Handle samples higher than max of primes (then remove legacy methods)
 * Add sliders for volume control for sound effects and main soundtrack
 * Swipe between menus

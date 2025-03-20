@@ -74,9 +74,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	// Prepare workouts
 	prepareWorkouts()
 
-	// Prepare submenus
+	// Prepare submenus 
 	UI.initWorkoutsSubmenu()
 	UI.initExplorationSubmenu()
+	//UI.initSettingsSubmenu() <-- (settings submenu only has volume to prepare and waits for audio async init)
 
 	// Start interactions
 	UI.initListeners()

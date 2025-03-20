@@ -25,10 +25,10 @@ body {
 		overflow-y: hidden;
 	}
 }
-h1, h2, p, p::after {
+h1, h2, p, p::after, label {
 	color: var(--text-color);
 }
-p {
+p, label {
 	font-family: var(--text-font);
 	margin: 0;
 	text-align: center;
@@ -148,6 +148,14 @@ section.template {
 		}
 	}
 	#submenu-settings {
+		.range-row {
+			width: 450px;
+		}
+		label {
+			margin-left: 20px;
+			width: 250px;
+			text-align: left;
+		}
 		.switch {
 			margin-right: 15px;
 		}
