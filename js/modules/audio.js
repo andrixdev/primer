@@ -14,60 +14,12 @@ let Aud = {
 	maxPrimeSelectionSample: null,
 	levelUpSamples: [],
 	shuffleSamples: [],
-	incorrectSample: null
+	incorrectSample: null,
+	sountrackVolume: 1,
+	sfxVolume: 1
 }
-Aud.legacyDOMplay = (type, playbackRate = 1) => {
-	if (type == 'soundtrack' && Aud.soundtrackMuted) return false
-	if (type != 'soundtrack' && Aud.soundEffectsMuted) return false
-	
-	let samples = Aud.samples.filter((el) => {
-		return el.type == type
-	})
 
-	let s = 0
-	while (s < samples.length) {
-		if (!samples[s].node.currentTime || samples[s].node.currentTime == 0) {
-			if (playbackRate != 1) {
-				samples[s].node.playbackRate = playbackRate
-				samples[s].node.preservesPitch = false
-			}
-			samples[s].node.play()
-			s = 10000 // Break while loop
-		}
-		s++
-	}
-}
-/*
-Aud.legacyPlayPrime = (prime, type = "selection") => {
-	// valid types are:
-	// 	- 'selection'
-	// 	- 'decomposition'
-	
-	if (Aud.soundEffectsMuted) return false
-
-	let playbackRate = 1
-	let max = Aud.primes[Aud.primes.length - 1]
-	if (prime > max) {
-		let n = primes.indexOf(prime) - primes.indexOf(max)
-
-		if (n <= 24) {
-			// repitch highest prime up to 2 octaves
-			playbackRate = 2**(n/12)
-			prime = max
-		} else {
-			// play 'max.mp3' sample for all higher primes
-			playbackRate = 1
-			prime = 'max'
-		}
-	}
-
-	Aud.play('prime-' + prime + '-' + type, playbackRate)
-	
-}
-*/
 Aud.playFullDecomposition = (factors) => {
-	if (Aud.soundEffectsMuted) return false
-
 	factors.sort((a, b) => a > b) // Play notes in ascending order of pitch
 	factors.forEach((f, i) => {
 		let delay = i * 165
@@ -138,12 +90,14 @@ Aud.playPrime = (prime, type = "selected") => {
 Aud.playIncorrect = () => {
 	Aud.play(Aud.incorrectSample, "sfx")
 }
-Aud.changeSoundtrackVolume = (value) => {
-	value = Math.max(0.01, Math.min(1, value))
+Aud.updateSoundtrackVolume = (value) => {
+	value = Math.max(0, Math.min(1, value))
+	Aud.soundtrackVolume = value
 	Aud.soundtrackGainNode.gain.setTargetAtTime(value, Aud.audioCtx.currentTime, 0.1 + value * 1.5)
 }
-Aud.changeSfxVolume = (value) => {
-	value = Math.max(0.01, Math.min(1, value))
+Aud.updateSfxVolume = (value) => {
+	value = Math.max(0, Math.min(1, value))
+	Aud.sfxVolume = value
 	Aud.sfxGainNode.gain.setTargetAtTime(value, Aud.audioCtx.currentTime, 0.1 + value * 1.5)
 }
 Aud.initBuses = () => {
@@ -240,6 +194,12 @@ Aud.loadSamples = async () => {
 			.catch(err => rejeeect(err))
 	})
 }
+Aud.initVolumes = () => {
+	// Later grab prefered setting from localStorage
+	Aud.updateSoundtrackVolume(0.6)
+	Aud.updateSfxVolume(0.1)
+	UI.initSettingSubmenuVolumes()
+}
 Aud.loop = (sample) => {
 	// Start a loop with sample
 }
@@ -264,6 +224,7 @@ Aud.start = async () => {
 		
 		Aud.loadSamples()
 			.then(() => {
+				Aud.initVolumes()
 				Aud.playSoundtrack()
 				reso()
 			}).catch(err => {

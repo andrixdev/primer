@@ -107,16 +107,16 @@
 			<div id="submenu-settings" class="submenu hidden">
 				<div id="settings" class="flexcol flexcenter">
 
-					<div class="flexrow">
-						<div class="switch on" id="soundtrack-toggle"><div class="switch-inner"></div></div>
-						<p id="soundtrack-info">Soundtrack is playing 🎵</p>
+					<div class="range-row flexrow">
+						<input type="range" id="soundtrack-slider" name="st-slider" min="0" max="100" value="100" step="10" />
+  						<label for="st-slider">Sountrack volume <span id="soundtrack-emojis">🎵</span></label>
 					</div>
 					
 					<p><br/></p>
 
-					<div class="flexrow">
-						<div class="switch on" id="sound-effects-toggle"><div class="switch-inner"></div></div>
-						<p id="sound-effects-info">Sound effects are playing 🎶</p>
+					<div class="range-row flexrow">
+						<input type="range" id="sfx-slider" name="sfx-slider" min="0" max="100" value="100" step="10" />
+  						<label for="sfx-slider">Sound effects volume <span id="sfx-emojis">🎶</span></label>
 					</div>
 
 					<p><br/></p>

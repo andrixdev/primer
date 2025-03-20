@@ -43,10 +43,10 @@ let dom = {
 		},
 		settings: {
 			submenu: document.getElementById('submenu-settings'),
-			soundtrackToggle: document.getElementById('soundtrack-toggle'),
-			soundtrackInfo: document.getElementById('soundtrack-info'),
-			soundEffectsToggle: document.getElementById('sound-effects-toggle'),
-			soundEffectsInfo: document.getElementById('sound-effects-info'),
+			soundtrackSlider: document.getElementById('soundtrack-slider'),
+			soundtrackEmojis: document.getElementById('soundtrack-emojis'),
+			sfxSlider: document.getElementById('sfx-slider'),
+			sfxEmojis: document.getElementById('sfx-emojis'),
 			themeToggle: document.getElementById('theme-toggle'),
 			themeToggleInfo: document.getElementById('theme-toggle-info'),
 			share: document.getElementById('share'),
@@ -115,6 +115,14 @@ UI.initExplorationSubmenu = () => {
 		let lvl = explorationMenuLevels[index]
 		el.innerHTML = index == 0 ? "Restart game" : "Jump to level " + lvl
 	})
+}
+UI.updateSoundtrackVolume = () => {
+	let vol = Aud.soundtrackVolume
+	dom.submenus.settings.soundtrackEmojis.innerHTML = vol <= 0 ? "🤫" : (vol <= 0.3 ? "🎵" : (vol <= 0.6 ? "🎵🎵" : "🎵🎵🎵"))
+}
+UI.updateSfxVolume = () => {
+	let vol = Aud.sfxVolume
+	dom.submenus.settings.sfxEmojis.innerHTML = vol <= 0 ? "🤫" : (vol <= 0.3 ? "🎶" : (vol <= 0.6 ? "🎶🎶" : "🎶🎶🎶"))
 }
 UI.initListeners = () => {
 	// Tap to start
@@ -272,26 +280,21 @@ UI.initWorkoutsSubmenuListeners = () => {
 	})
 }
 UI.initSettingsSubmenuListeners = () => {
-	// Soundtrack
-	dom.submenus.settings.soundtrackToggle.addEventListener('click', () => {
-		// Action
-		Aud.soundtrackMuted = !Aud.soundtrackMuted
-		Aud.changeSoundtrackVolume(Aud.soundtrackMuted ? 0 : 1)
 
-		// UI
-		dom.submenus.settings.soundtrackToggle.classList = "switch " + (Aud.soundtrackMuted ? "off" : "on")
-		dom.submenus.settings.soundtrackInfo.innerHTML = "Soundtrack is " + (Aud.soundtrackMuted ? "muted 🤫" : "playing 🎵")
+	// Soundtrack slider
+	dom.submenus.settings.soundtrackSlider.addEventListener("input", (ev) => {
+		let volume = ev.target.value / 100
+		volume = Math.pow(volume, 1.5)
+		Aud.updateSoundtrackVolume(volume)
+		UI.updateSoundtrackVolume()
 	})
 
-	// Sound effects
-	dom.submenus.settings.soundEffectsToggle.addEventListener('click', () => {
-		// Action
-		Aud.soundEffectsMuted = !Aud.soundEffectsMuted
-		Aud.changeSfxVolume(Aud.soundEffectsMuted ? 0 : 1)
-
-		// UI
-		dom.submenus.settings.soundEffectsToggle.classList = "switch " + (Aud.soundEffectsMuted ? "off" : "on")
-		dom.submenus.settings.soundEffectsInfo.innerHTML = "Sound effects are " + (Aud.soundEffectsMuted ? "muted 🤫" : "playing 🎶")
+	// Sound effects slider
+	dom.submenus.settings.sfxSlider.addEventListener("input", (ev) => {
+		let volume = ev.target.value / 100
+		volume = Math.pow(volume, 1.5)
+		Aud.updateSfxVolume(volume)
+		UI.updateSfxVolume()
 	})
 
 	// Themes
@@ -314,6 +317,14 @@ UI.initSettingsSubmenuListeners = () => {
 	   	})
 	}
 	
+}
+UI.initSettingSubmenuVolumes = () => {
+	// Async: needs volumes in Aud to be already set
+	dom.submenus.settings.soundtrackSlider.value = Math.max(0, Math.min(100, Math.round(100 * Aud.soundtrackVolume)))
+	dom.submenus.settings.sfxSlider.value = Math.max(0, Math.min(100, Math.round(100 * Aud.sfxVolume)))
+
+	UI.updateSoundtrackVolume()
+	UI.updateSfxVolume()
 }
 UI.generatePrimesNodes = () => {
 	// This method should be called just once at game start
