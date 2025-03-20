@@ -29,10 +29,6 @@ https://alexandrix.com/primer
 * Now your can see your updated CSS
 
 # Improvements and new features backlog (ordered)
-* Disable menu on first landing
-* Save volume preferences in localStorage
-* Handle samples higher than max of primes (then remove legacy methods)
-* Add sliders for volume control for sound effects and main soundtrack
 * Swipe between menus
 * Improve overall UX and game design
 * Create logo & add favicons

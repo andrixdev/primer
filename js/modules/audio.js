@@ -15,8 +15,8 @@ let Aud = {
 	levelUpSamples: [],
 	shuffleSamples: [],
 	incorrectSample: null,
-	sountrackVolume: 1,
-	sfxVolume: 1
+	sountrackVolume: 0,
+	sfxVolume: 0
 }
 
 Aud.playFullDecomposition = (factors) => {

@@ -138,6 +138,7 @@ UI.initListeners = () => {
 		Aud.start()
 			.then(() => {
 				dom.overlay.className = 'hidden'
+				dom.menu.classList.toggle("hidden", false)
 
 				// Boot game at level 1
 				startExploration(1)
