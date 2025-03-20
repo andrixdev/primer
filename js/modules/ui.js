@@ -119,10 +119,12 @@ UI.initExplorationSubmenu = () => {
 UI.updateSoundtrackVolume = () => {
 	let vol = Aud.soundtrackVolume
 	dom.submenus.settings.soundtrackEmojis.innerHTML = vol <= 0 ? "🤫" : (vol <= 0.3 ? "🎵" : (vol <= 0.6 ? "🎵🎵" : "🎵🎵🎵"))
+	localStorage.setItem("soundtrackVolume", vol)
 }
 UI.updateSfxVolume = () => {
 	let vol = Aud.sfxVolume
 	dom.submenus.settings.sfxEmojis.innerHTML = vol <= 0 ? "🤫" : (vol <= 0.3 ? "🎶" : (vol <= 0.6 ? "🎶🎶" : "🎶🎶🎶"))
+	localStorage.setItem("sfxVolume", vol)
 }
 UI.initListeners = () => {
 	// Tap to start

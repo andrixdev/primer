@@ -29,9 +29,7 @@ https://alexandrix.com/primer
 * Now your can see your updated CSS
 
 # Improvements and new features backlog (ordered)
-* Have soundtrack samples loop
 * Disable menu on first landing
-* Play/pause soundtrack and sound effects in settings
 * Save volume preferences in localStorage
 * Handle samples higher than max of primes (then remove legacy methods)
 * Add sliders for volume control for sound effects and main soundtrack
