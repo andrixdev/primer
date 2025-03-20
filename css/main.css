@@ -345,6 +345,9 @@ section.template {
   cursor: pointer;
   outline: var(--outline-faintest);
 }
+#menu.hidden {
+  display: none;
+}
 #menu .bar {
   background: var(--text-color);
   border-radius: 1px;
