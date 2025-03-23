@@ -19,6 +19,7 @@ let Aud = {
 	sfxVolume: 0
 }
 
+// Play methods
 Aud.playFullDecomposition = (factors) => {
 	factors.sort((a, b) => a > b) // Play notes in ascending order of pitch
 	factors.forEach((f, i) => {
@@ -90,6 +91,20 @@ Aud.playPrime = (prime, type = "selected") => {
 Aud.playIncorrect = () => {
 	Aud.play(Aud.incorrectSample, "sfx")
 }
+Aud.play = (sample, type, playbackRate = 1) => {
+	// type is "sfx" or "soundtrack"
+
+	const sourceNode = Aud.audioCtx.createBufferSource()
+	sourceNode.buffer = sample.buffer
+	sourceNode.loop = type == "soundtrack"
+	sourceNode.playbackRate.value = playbackRate
+	let destinationNode = type == "sfx" ? Aud.sfxGainNode : (type == "soundtrack" ? Aud.soundtrackGainNode : Aud.masterGainNode)
+	sourceNode.connect(destinationNode)
+	sourceNode.start()
+	// In case of performance issues in the future, Add a Disconnect after sample has ended
+}
+
+// Volume management
 Aud.updateSoundtrackVolume = (value) => {
 	value = Math.max(0, Math.min(1, value))
 	Aud.soundtrackVolume = value
@@ -100,6 +115,8 @@ Aud.updateSfxVolume = (value) => {
 	Aud.sfxVolume = value
 	Aud.sfxGainNode.gain.setTargetAtTime(value, Aud.audioCtx.currentTime, 0.1 + value * 1.5)
 }
+
+// Initialization
 Aud.initBuses = () => {
 	Aud.masterGainNode = Aud.audioCtx.createGain()
 	Aud.soundtrackGainNode = Aud.audioCtx.createGain()
@@ -201,21 +218,6 @@ Aud.initVolumes = () => {
 	Aud.updateSoundtrackVolume(soundtrackVolume)
 	Aud.updateSfxVolume(sfxVolume)
 	UI.initSettingSubmenuVolumes()
-}
-Aud.loop = (sample) => {
-	// Start a loop with sample
-}
-Aud.play = (sample, type, playbackRate = 1) => {
-	// type is "sfx" or "soundtrack"
-
-	const sourceNode = Aud.audioCtx.createBufferSource()
-	sourceNode.buffer = sample.buffer
-	sourceNode.loop = type == "soundtrack"
-	sourceNode.playbackRate.value = playbackRate
-	let destinationNode = type == "sfx" ? Aud.sfxGainNode : (type == "soundtrack" ? Aud.soundtrackGainNode : Aud.masterGainNode)
-	sourceNode.connect(destinationNode)
-	sourceNode.start()
-	// In case of performance issues in the future, Add a Disconnect after sample has ended
 }
 Aud.start = async () => {
 	return await new Promise((reso, reje) => {
