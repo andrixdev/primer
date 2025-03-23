@@ -41,6 +41,7 @@
 	<section id="info">
 		<p id="info-content">Exploration level <span>1</span></p>
 	</section>
+
 	<div id="step-bar-container">
 		<div id="step-bar"></div>
 	</div>
@@ -57,6 +58,7 @@
 	  
 	<section id="landing-template" class="template">
 		<div id="landing-content">
+			<h1>Primer</h1>
 			<p class="tap-to-play">TAP TO START</p>
 		</div>
 	</section>
@@ -108,7 +110,7 @@
 
 					<div class="range-row flexrow">
 						<input type="range" id="soundtrack-slider" name="st-slider" min="0" max="100" value="100" step="10" />
-  						<label for="st-slider">Sountrack volume <span id="soundtrack-emojis">🎵</span></label>
+  						<label for="st-slider">Soundtrack volume <span id="soundtrack-emojis">🎵</span></label>
 					</div>
 					
 					<p><br/></p>
@@ -151,7 +153,7 @@
 	  
 	<section id="game-over-template" class="template">
 		<div id="game-over-content">
-			<h1>Game over</h1>
+			<h2>Game over</h2>
 			<p>Congratulations, you completed the game!</p>
 			<div class="btn-container">
 				<button id="game-over-restart" class="btn">Restart game</button>
@@ -161,7 +163,7 @@
 	  
 	<section id="workout-complete-template" class="template">
 		<div id="workout-complete-content" class="final-screen">
-			<h1>Workout complete</h1>
+			<h2>Workout complete</h2>
 			<p>Congratulations, you completed the workout!</p>
 			<div class="btn-container">
 				<button id="workout-complete-restart" class="btn">Workout again</button>
@@ -170,10 +172,8 @@
 	</section>
 
 
-<!-- Scripts for libraries -->
-<!-- None! -->
-
-<!-- Our scripts -->
+<!-- Scripts -->
+<script type="text/javascript" src="./js/modules/browser.js"></script>
 <script type="text/javascript" src="./js/modules/game.js"></script>
 <script type="text/javascript" src="./js/modules/ui.js"></script>
 <script type="text/javascript" src="./js/modules/audio.js"></script>

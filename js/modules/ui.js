@@ -60,7 +60,7 @@ UI.menuIsOpen = false
 UI.fillOverlayUI = (newTemplateNode) => {
 	dom.body.append(dom.overlay.firstElementChild)
 	dom.overlay.appendChild(newTemplateNode)
-	dom.overlay.className = '' // Removes potential .hidden class
+	dom.overlay.classList.toggle("hidden", false)
 }
 UI.updateLoadingProgress = (value) => {
 	dom.loadingProgress.innerHTML = value
@@ -68,21 +68,34 @@ UI.updateLoadingProgress = (value) => {
 UI.scrollToCenter = () => {
 	document.body.scrollTo(1/2 * (dom.playArea.clientWidth - document.body.clientWidth), 1/2 * (dom.playArea.clientHeight - document.body.clientHeight))
 }
+UI.initTheme = () => {
+	let themeID = Browser.getTheme() || 0
+	UI.updateTheme(themeID)
+}
+UI.updateTheme = (themeID) => {
+	let themes = ["dark-theme", "bw-theme"]
+	let themeNames = ["dark night 🌒", "b & w 🖤"]
+	let theme = themes[themeID]
+	
+	dom.html.classList = theme
+	dom.submenus.settings.themeToggle.classList = "switch " + (themeID == 0 ? "on" : "off")
+	dom.submenus.settings.themeToggleInfo.innerHTML = "Theme: " + theme
+}
 UI.openMenu = () => {
 	UI.fillOverlayUI(dom.templates.menu)
-	dom.overlay.className = ''
-	dom.body.className = 'frozen' // for scroll
-	dom.menu.classList = 'open'
+	dom.overlay.classList.toggle("hidden", false)
+	dom.body.className = "frozen" // for scroll
+	dom.menu.classList = "open"
 	UI.menuIsOpen = true
 }
 UI.closeMenu = () => {
-	dom.overlay.className = 'hidden'
-	dom.body.className = ''
-	dom.menu.classList = 'closed'
+	dom.overlay.classList.toggle("hidden", true)
+	dom.body.className = ""
+	dom.menu.classList = "closed"
 	UI.menuIsOpen = false
 	UI.scrollToCenter()
 }
-UI.submenuGameMode = "exploration" // This is toggled independenly from actual gameMode
+UI.submenuGameMode = "exploration" // This is just the MENU mode, independent from the actual gameMode
 UI.updateSubmenuGameMode = (gameModeName) => {
 	// Hide all
 	dom.submenus.exploration.submenu.className = "submenu hidden"
@@ -119,12 +132,12 @@ UI.initExplorationSubmenu = () => {
 UI.updateSoundtrackVolume = () => {
 	let vol = Aud.soundtrackVolume
 	dom.submenus.settings.soundtrackEmojis.innerHTML = vol <= 0 ? "🤫" : (vol <= 0.3 ? "🎵" : (vol <= 0.6 ? "🎵🎵" : "🎵🎵🎵"))
-	localStorage.setItem("soundtrackVolume", vol)
+	Browser.setSoundtrackVolume(vol)
 }
 UI.updateSfxVolume = () => {
 	let vol = Aud.sfxVolume
 	dom.submenus.settings.sfxEmojis.innerHTML = vol <= 0 ? "🤫" : (vol <= 0.3 ? "🎶" : (vol <= 0.6 ? "🎶🎶" : "🎶🎶🎶"))
-	localStorage.setItem("sfxVolume", vol)
+	Browser.setSfxVolume(vol)
 }
 UI.initListeners = () => {
 	// Tap to start
@@ -137,11 +150,12 @@ UI.initListeners = () => {
 		// Start loading audio
 		Aud.start()
 			.then(() => {
-				dom.overlay.className = 'hidden'
+				dom.overlay.classList.toggle("hidden", true)
 				dom.menu.classList.toggle("hidden", false)
 
-				// Boot game at level 1
-				startExploration(1)
+				// Boot game at level 1 or more
+				let level = 1 //Browser.getLevel() || 1
+				startExploration(level)
 
 				UI.scrollToCenter()
 			})
@@ -301,14 +315,14 @@ UI.initSettingsSubmenuListeners = () => {
 	})
 
 	// Themes
-	let themes = ["dark-theme", "bw-theme"]
-	let themeNames = ["dark night 🌒", "b & w 🖤"]
 	let themeID = 0
 	dom.submenus.settings.themeToggle.addEventListener('click', () => {
+		// Toggle theme
 		themeID = (themeID + 1) % 2
-		dom.html.classList = themes[themeID]
-		dom.submenus.settings.themeToggle.classList = "switch " + (themeID == 0 ? "on" : "off")
-		dom.submenus.settings.themeToggleInfo.innerHTML = "Theme: " + themeNames[themeID]
+		UI.updateTheme(themeID)
+
+		// Save preference
+		Browser.setTheme(themeID)
 	})
 
 	// Share
@@ -467,16 +481,24 @@ UI.fakeShuffleAnimation = async () => {
 }
 UI.updateFeedbackText = () => {
 	let feedbackMarkup = numberToGuess + ' = '
+	let tokenLength = feedbackMarkup.length
 	ntgFound.forEach((n, i) => {
 		feedbackMarkup += n
+		tokenLength += n.toString().length
 		if (i < ntgDecomposition.length - 1) {
 			feedbackMarkup += '<span> x </span>'
+			tokenLength += 3
 		}
 	})
 	if (ntgFound.length < ntgDecomposition.length) {
 		feedbackMarkup += '?'
+		tokenLength += 1
 	}
+
 	dom.feedback.innerHTML = feedbackMarkup
+
+	// Reduce font size if long line
+	dom.feedback.classList.toggle("smaller", tokenLength > 20)
 }
 UI.updateXpBar = (isLevelUp = false) => {
 	let interval = levelXPinterval(level)

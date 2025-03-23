@@ -7,50 +7,6 @@ let primes = [
 let level, xp, orbit = 1
 let log = console.log
 
-// Game - Math
-let decompose = (n) => {
-	let i = 0,
-		stop = false,
-		iMax = 1000,
-		testedPrimeIndex = 0,
-		testedPrime = primes[0],
-		quotient = n,
-		factors = []
-	
-	while (!stop) {
-		// Final step
-		if (quotient == testedPrime) {
-			factors.push(quotient)
-			stop = true
-		}
-		// Square root of n reached
-		else if (factors.length == 0 && testedPrime > Math.sqrt(n)) {
-			factors.push(n)
-			stop = true
-		}
-		// Match with current prime
-		else if (quotient % testedPrime == 0) {
-			factors.push(testedPrime)
-			quotient /= testedPrime
-		}
-		// No match, check next prime
-		else {
-			testedPrimeIndex++
-			if (testedPrimeIndex < primes.length) {
-				testedPrime = primes[testedPrimeIndex]
-			}
-		}
-		
-		i++
-		if (i > 1000) {
-			stop = true
-			log('No prime found for number ' + n + ' within ' + iMax + ' attempts.')
-		}
-	}
-	
-	return factors
-}
-
 // Game - Mechanics
 let orbitLevels = [1, 16, 40, 72, 112, 160, 216]
 let pickedMenuLevel = 50
@@ -209,8 +165,9 @@ let changeLevelTo = (newLevel) => {
 	orbit = getLevelOrbit(level)
 }
 let levelUp = () => {
+	let newLevel = level + 1
 	Aud.playRandomLevelUp()
-	changeLevelTo(level + 1)
+	changeLevelTo(newLevel)
 }
 let startExploration = (lvl) => {
 	resetWorkout()
@@ -230,6 +187,13 @@ let endExploration = () => {
 
 // Game - Workout mode
 let workouts = [{
+	name: "😊 Test",
+	id: 0,
+	sequence: [2],
+	completion: [],
+	maxPrimeLevel: 6,
+	difficulty: undefined
+}, {
 	name: "😊 Toddler",
 	id: 1,
 	sequence: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
