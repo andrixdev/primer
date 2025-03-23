@@ -1,4 +1,46 @@
 // General
+let decompose = (n) => {
+	let i = 0,
+		stop = false,
+		iMax = 1000,
+		testedPrimeIndex = 0,
+		testedPrime = primes[0],
+		quotient = n,
+		factors = []
+	
+	while (!stop) {
+		// Final step
+		if (quotient == testedPrime) {
+			factors.push(quotient)
+			stop = true
+		}
+		// Square root of n reached
+		else if (factors.length == 0 && testedPrime > Math.sqrt(n)) {
+			factors.push(n)
+			stop = true
+		}
+		// Match with current prime
+		else if (quotient % testedPrime == 0) {
+			factors.push(testedPrime)
+			quotient /= testedPrime
+		}
+		// No match, check next prime
+		else {
+			testedPrimeIndex++
+			if (testedPrimeIndex < primes.length) {
+				testedPrime = primes[testedPrimeIndex]
+			}
+		}
+		
+		i++
+		if (i > 1000) {
+			stop = true
+			log('No prime found for number ' + n + ' within ' + iMax + ' attempts.')
+		}
+	}
+	
+	return factors
+}
 let generate = (number) => {
 	// If no number is passed generate a new number in dom.ntg and reset primes selection
 	let previous = numberToGuess

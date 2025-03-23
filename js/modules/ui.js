@@ -60,7 +60,7 @@ UI.menuIsOpen = false
 UI.fillOverlayUI = (newTemplateNode) => {
 	dom.body.append(dom.overlay.firstElementChild)
 	dom.overlay.appendChild(newTemplateNode)
-	dom.overlay.className = '' // Removes potential .hidden class
+	dom.overlay.classList.toggle("hidden", false)
 }
 UI.updateLoadingProgress = (value) => {
 	dom.loadingProgress.innerHTML = value
@@ -70,19 +70,19 @@ UI.scrollToCenter = () => {
 }
 UI.openMenu = () => {
 	UI.fillOverlayUI(dom.templates.menu)
-	dom.overlay.className = ''
-	dom.body.className = 'frozen' // for scroll
-	dom.menu.classList = 'open'
+	dom.overlay.classList.toggle("hidden", false)
+	dom.body.className = "frozen" // for scroll
+	dom.menu.classList = "open"
 	UI.menuIsOpen = true
 }
 UI.closeMenu = () => {
-	dom.overlay.className = 'hidden'
-	dom.body.className = ''
-	dom.menu.classList = 'closed'
+	dom.overlay.classList.toggle("hidden", true)
+	dom.body.className = ""
+	dom.menu.classList = "closed"
 	UI.menuIsOpen = false
 	UI.scrollToCenter()
 }
-UI.submenuGameMode = "exploration" // This is toggled independenly from actual gameMode
+UI.submenuGameMode = "exploration" // This is just the MENU mode, independent from the actual gameMode
 UI.updateSubmenuGameMode = (gameModeName) => {
 	// Hide all
 	dom.submenus.exploration.submenu.className = "submenu hidden"
@@ -137,7 +137,7 @@ UI.initListeners = () => {
 		// Start loading audio
 		Aud.start()
 			.then(() => {
-				dom.overlay.className = 'hidden'
+				dom.overlay.classList.toggle("hidden", true)
 				dom.menu.classList.toggle("hidden", false)
 
 				// Boot game at level 1
