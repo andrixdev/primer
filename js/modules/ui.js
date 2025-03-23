@@ -68,6 +68,19 @@ UI.updateLoadingProgress = (value) => {
 UI.scrollToCenter = () => {
 	document.body.scrollTo(1/2 * (dom.playArea.clientWidth - document.body.clientWidth), 1/2 * (dom.playArea.clientHeight - document.body.clientHeight))
 }
+UI.initTheme = () => {
+	let themeID = Browser.getTheme() || 0
+	UI.updateTheme(themeID)
+}
+UI.updateTheme = (themeID) => {
+	let themes = ["dark-theme", "bw-theme"]
+	let themeNames = ["dark night 🌒", "b & w 🖤"]
+	let theme = themes[themeID]
+	
+	dom.html.classList = theme
+	dom.submenus.settings.themeToggle.classList = "switch " + (themeID == 0 ? "on" : "off")
+	dom.submenus.settings.themeToggleInfo.innerHTML = "Theme: " + theme
+}
 UI.openMenu = () => {
 	UI.fillOverlayUI(dom.templates.menu)
 	dom.overlay.classList.toggle("hidden", false)
@@ -119,12 +132,12 @@ UI.initExplorationSubmenu = () => {
 UI.updateSoundtrackVolume = () => {
 	let vol = Aud.soundtrackVolume
 	dom.submenus.settings.soundtrackEmojis.innerHTML = vol <= 0 ? "🤫" : (vol <= 0.3 ? "🎵" : (vol <= 0.6 ? "🎵🎵" : "🎵🎵🎵"))
-	localStorage.setItem("soundtrackVolume", vol)
+	Browser.setSoundtrackVolume(vol)
 }
 UI.updateSfxVolume = () => {
 	let vol = Aud.sfxVolume
 	dom.submenus.settings.sfxEmojis.innerHTML = vol <= 0 ? "🤫" : (vol <= 0.3 ? "🎶" : (vol <= 0.6 ? "🎶🎶" : "🎶🎶🎶"))
-	localStorage.setItem("sfxVolume", vol)
+	Browser.setSfxVolume(vol)
 }
 UI.initListeners = () => {
 	// Tap to start
@@ -301,14 +314,14 @@ UI.initSettingsSubmenuListeners = () => {
 	})
 
 	// Themes
-	let themes = ["dark-theme", "bw-theme"]
-	let themeNames = ["dark night 🌒", "b & w 🖤"]
 	let themeID = 0
 	dom.submenus.settings.themeToggle.addEventListener('click', () => {
+		// Toggle theme
 		themeID = (themeID + 1) % 2
-		dom.html.classList = themes[themeID]
-		dom.submenus.settings.themeToggle.classList = "switch " + (themeID == 0 ? "on" : "off")
-		dom.submenus.settings.themeToggleInfo.innerHTML = "Theme: " + themeNames[themeID]
+		UI.updateTheme(themeID)
+
+		// Save preference
+		Browser.setTheme(themeID)
 	})
 
 	// Share

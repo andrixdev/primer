@@ -213,8 +213,8 @@ Aud.loadSamples = async () => {
 }
 Aud.initVolumes = () => {
 	// Later grab prefered setting from localStorage
-	let soundtrackVolume = localStorage.getItem("soundtrackVolume") || 1
-	let sfxVolume = localStorage.getItem("sfxVolume") || 1
+	let soundtrackVolume = Browser.getSoundtrackVolume() || 1
+	let sfxVolume = Browser.getSfxVolume() || 1
 	Aud.updateSoundtrackVolume(soundtrackVolume)
 	Aud.updateSfxVolume(sfxVolume)
 	UI.initSettingSubmenuVolumes()

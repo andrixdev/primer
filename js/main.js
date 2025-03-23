@@ -106,6 +106,9 @@ let share = () => {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+	// Load preferred theme
+	UI.initTheme()
+
 	// Starting on landing screen (Tap to start)
 	UI.fillOverlayUI(dom.templates.landing)
 	
