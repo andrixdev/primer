@@ -4,21 +4,27 @@ let Browser = {}
 Browser.reset = () => {
 	localStorage.clear()
 }
-Browser.getSoundtrackVolume = () => {
-	return localStorage.getItem("soundtrackVolume")
-}
 Browser.setSoundtrackVolume = (volume) => {
 	return localStorage.setItem("soundtrackVolume", volume)
 }
-Browser.getSfxVolume = () => {
-	return localStorage.getItem("sfxVolume")
+Browser.getSoundtrackVolume = () => {
+	return localStorage.getItem("soundtrackVolume")
 }
 Browser.setSfxVolume = (volume) => {
 	return localStorage.setItem("sfxVolume", volume)
 }
-Browser.getTheme = () => {
-	return localStorage.getItem("theme")
+Browser.getSfxVolume = () => {
+	return localStorage.getItem("sfxVolume")
 }
 Browser.setTheme = (themeID) => {
 	return localStorage.setItem("theme", themeID)
+}
+Browser.getTheme = () => {
+	return localStorage.getItem("theme")
+}
+Browser.setLevel = (level) => {
+	return localStorage.setItem("level", level)
+}
+Browser.getLevel = () => {
+	return localStorage.getItem("level")
 }

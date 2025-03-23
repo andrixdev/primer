@@ -165,8 +165,9 @@ let changeLevelTo = (newLevel) => {
 	orbit = getLevelOrbit(level)
 }
 let levelUp = () => {
+	let newLevel = level + 1
 	Aud.playRandomLevelUp()
-	changeLevelTo(level + 1)
+	changeLevelTo(newLevel)
 }
 let startExploration = (lvl) => {
 	resetWorkout()

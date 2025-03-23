@@ -88,7 +88,7 @@ section.template {
 			opacity: 0;
 		}
 		p.tap-to-play {
-			font-size: 2.5rem;
+			font-size: 2rem;
 			animation: shine 1s alternate infinite;
 		}
 	}
@@ -306,7 +306,7 @@ section.template {
 
 #feedback-container {
 	width: 100%;
-	height: 60px;
+	height: 80px;
 	position: fixed;
 	z-index: 10;
 	left: 0;
@@ -321,15 +321,25 @@ section.template {
 	}
 	
 	p {
-		font-size: 1.8rem;
-		line-height: 1.8rem;
-		padding: .9rem 2rem;
+		font-size: 3rem;
+		padding: 4px 2rem;
 		color: var(--text-color);
 		
 		span {
 			font-size: 1.2rem;
-			line-height: 1.2rem;
 		}
+
+		@media (max-width: 500px) {
+			&.smaller {
+				font-size: 2rem;
+				padding: 16px 2rem;
+	
+				span {
+					font-size: 1rem;
+				}
+			}
+		}
+		
 	}
 }
 
@@ -385,8 +395,8 @@ section.template {
 	z-index: 20;
 	top: 0;
 	right: 0;
-	width: 60px;
-	height: 60px;
+	width: 80px;
+	height: 80px;
 	background: var(--container-color);
 	cursor: pointer;
 	outline: var(--outline-faintest);
@@ -401,25 +411,25 @@ section.template {
 		width: 30px;
 		height: 4px;
 		position: absolute;
-		left: 15px;
+		left: 25px;
 		transition: transform 200ms, height 200ms, left 150ms;
 	}
 	.bar-1 {
-		top: 18px;
+		top: 28px;
 		transform-origin: 0 0;
 	}
 	.bar-2 {
-		top: 28px;
+		top: 38px;
 		transition: height 200ms;
 	}
 	.bar-3 {
-		top: 38px;
+		top: 48px;
 		transform-origin: 0 4px;
 	}
 	
 	&.open {
 		.bar {
-			left: 21px;
+			left: 31px;
 		}
 		.bar-1 {
 			transform: rotate(45deg);
@@ -439,16 +449,21 @@ section.template {
 	z-index: 10;
 	top: 0;
 	left: 0;
-	width: calc(100% - 60px);
-	height: 60px;
+	width: calc(100% - 80px);
+	height: 80px;
 	background: var(--container-color);
 	border-bottom: var(--outline-faintest);
 	
 	p#info-content {
 		font-family: var(--text-font);
-		font-size: 1.4rem;
-		padding: 8px 1em;
+		font-size: 2.2rem;
+		padding: 15px 1em;
 		text-align: left;
+
+		@media (max-width: 500px) {
+			font-size: 1.5rem;
+			padding: 17px 1em;
+		}
 		
 		span {
 			font-size: 1.9rem;

@@ -153,8 +153,9 @@ UI.initListeners = () => {
 				dom.overlay.classList.toggle("hidden", true)
 				dom.menu.classList.toggle("hidden", false)
 
-				// Boot game at level 1
-				startExploration(1)
+				// Boot game at level 1 or more
+				let level = 1 //Browser.getLevel() || 1
+				startExploration(level)
 
 				UI.scrollToCenter()
 			})
@@ -480,16 +481,24 @@ UI.fakeShuffleAnimation = async () => {
 }
 UI.updateFeedbackText = () => {
 	let feedbackMarkup = numberToGuess + ' = '
+	let tokenLength = feedbackMarkup.length
 	ntgFound.forEach((n, i) => {
 		feedbackMarkup += n
+		tokenLength += n.toString().length
 		if (i < ntgDecomposition.length - 1) {
 			feedbackMarkup += '<span> x </span>'
+			tokenLength += 3
 		}
 	})
 	if (ntgFound.length < ntgDecomposition.length) {
 		feedbackMarkup += '?'
+		tokenLength += 1
 	}
+
 	dom.feedback.innerHTML = feedbackMarkup
+
+	// Reduce font size if long line
+	dom.feedback.classList.toggle("smaller", tokenLength > 20)
 }
 UI.updateXpBar = (isLevelUp = false) => {
 	let interval = levelXPinterval(level)
